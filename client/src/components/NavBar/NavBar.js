@@ -19,29 +19,7 @@ import { userActions } from '../../store/userSlice';
 import { getRandomInt } from '../../util/helperFunc';
 import SwipeableMenuDrawer from './SwipeableMenuDrawer';
 
-const pages = [
-  
-  {
-    name: 'Items',
-    path: '/all',
-    active: false,
-  },
-  {
-    name: 'Google Cloud Vision',
-    path: '/google-cloud-vision',
-    active: false,
-  },
-  {
-    name: 'Apple Wellness',
-    path: '/apple-wellness',
-    active: false,
-  },
-  {
-    name: 'Strava',
-    path: '/strava',
-    active: false,
-  }
-];
+
 const settings = ['Profile', 'Account', 'Dashboard'];
 
 const NavBar = () => {
@@ -52,9 +30,7 @@ const NavBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
+ 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -81,7 +57,7 @@ const NavBar = () => {
       <AppBar position='static'>
         <Container maxWidth='xl'>
           <Toolbar disableGutters>
-            <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+            <AdbIcon sx={{ mr: 1 }} />
             <Typography
               variant='h6'
               noWrap
@@ -89,29 +65,6 @@ const NavBar = () => {
               href='/'
               sx={{
                 mr: 2,
-                display: { xs: 'none', md: 'flex' },
-                fontFamily: 'monospace',
-                fontWeight: 700,
-                letterSpacing: '.3rem',
-                color: 'inherit',
-                textDecoration: 'none',
-              }}
-            >
-              LOGO
-            </Typography>
-
-            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-              <SwipeableMenuDrawer items={pages} />
-            </Box>
-            <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-            <Typography
-              variant='h5'
-              noWrap
-              component='a'
-              href='/'
-              sx={{
-                mr: 2,
-                display: { xs: 'flex', md: 'none' },
                 flexGrow: 1,
                 fontFamily: 'monospace',
                 fontWeight: 700,
@@ -120,24 +73,8 @@ const NavBar = () => {
                 textDecoration: 'none',
               }}
             >
-              LOGO
+              HemsWay
             </Typography>
-
-
-            {/* Large Screen */}
-            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-              {user && pages.map((page) => (
-                <Box
-                  key={getRandomInt()}
-                  sx={{ m: 2, display: 'block', fontSize: 20 }}
-
-                >
-                  <Link to={page.path} style={{ color: 'inherit', textDecoration: 'none' }}>
-                    {page.name}
-                  </Link>
-                </Box>
-              ))}
-            </Box>
 
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title='Open settings'>

@@ -25,7 +25,7 @@ const postEmployee = async (req, res, next) => {
         lastName: req.body.lastName,
         email: req.body.email,
         password: hashedPassword,
-        roleId: role._id
+        role: role._id
       });
       savedUser = await newUser.save();
     }

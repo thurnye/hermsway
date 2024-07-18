@@ -5,6 +5,8 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const SALT_ROUNDS = 6;
 const {mailService} = require('../Services/email.services')
+const Portal = require('../Model/portals.model');
+
 
 //Creating A User
 const postAdmin = async (req, res, next) => {
@@ -15,9 +17,11 @@ const postAdmin = async (req, res, next) => {
       res.status(400).json('Missing Field Needed!');
       return;
     }
+    const role = await Role.findOne({roleName: 'Admin'})
+    console.log(role)
+
     if (!id) {
       // Create New User
-      const role = await Role.find({roleName: 'Admin'})
       const hashedPassword = await bcrypt.hash(req.body.password, SALT_ROUNDS);
 
       const newUser = new Admin({
@@ -25,7 +29,7 @@ const postAdmin = async (req, res, next) => {
         lastName: req.body.lastName,
         email: req.body.email,
         password: hashedPassword,
-        roleId: role._id
+        role: role._id
       });
       savedUser = await newUser.save();
     }
@@ -46,10 +50,18 @@ const postAdmin = async (req, res, next) => {
     }
 
     const user = await Admin.findById(savedUser._id)
-      .select('firstName lastName _id')
+      .select('firstName lastName _id, role')
+      .populate({
+        path: 'role',
+        select: '_id roleName refCode',
+      })
       .lean();
 
-    const token = jwt.sign({ user }, process.env.SECRET, { expiresIn: '24h' });
+      //get the portals
+    const userPortals = await Portal.find({roleRefCode : role.refCode})
+
+
+    const token = jwt.sign({ user, userPortals }, process.env.SECRET, { expiresIn: '24h' });
     // send a response to the front end
     res.status(200).json(token);
   } catch (err) {

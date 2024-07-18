@@ -9,7 +9,6 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import { Link } from '@mui/material';
 
-
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   ...theme.typography.body2,
@@ -36,44 +35,64 @@ function Copyright(props) {
   );
 }
 
-
 const Home = () => {
-
   const tech = [
-    "React",
-    "MUI Library",
-    "Redux",
-    "React-Router",
-    "JWT",
-    "NodeJs/Express",
-    "Mongo DB",
-    "Google Auth"
+    'Active Cases',
+    'Upcoming Deadlines',
+    'Recent Activities',
+    'Outstanding Tasks',
+    'Case Summary',
+    'Case Progress',
+    'Document Management',
+    'Client List',
+    'Recent Communications',
+    'Client Requests',
+    'Outstanding Invoices',
+    'Payment History',
+    'Financial Overview',
+    'To-Do List',
+    'Reminders',
+    'Case Win/Loss Ratio',
+    'Client Satisfaction',
+    'Time Tracking',
   ];
-  return(
-  <div className={styles.Home}>
-    <Card sx={{ width: {xs: 275, md: 600, lg: 900}, m: 'auto', mt: 5, boxShadow:'none' }}>
-      <CardContent>
-        <Typography variant="h3"  gutterBottom sx={{textAlign: 'center'}}>
+  return (
+    <div className={styles.Home}>
+      <Card
+        sx={{
+          width: { xs: 275, md: 600, lg: 900 },
+          m: 'auto',
+          mt: 5,
+          boxShadow: 'none',
+        }}
+      >
+        <CardContent>
+          {/* <Typography variant="h3"  gutterBottom sx={{textAlign: 'center'}}>
          MERN STACK Template
         </Typography>
         <Typography variant="h5" component="div">
          Techs Includes:
-        </Typography>
+        </Typography> */}
 
-        <Box sx={{ flexGrow: 1, mt: 5 }}>
-      <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-        { 
-          tech.map((el, index) =>  <Grid item xs={2} sm={4} md={4} key={index}>
-          <Item>{el}</Item>
-        </Grid>)
-        }
-      </Grid>
-    </Box>
-      </CardContent>
+          <Box sx={{ flexGrow: 1, mt: 5 }}>
+            <Grid
+              container
+              spacing={{ xs: 2, md: 3 }}
+              columns={{ xs: 4, sm: 8, md: 12 }}
+            >
+              {tech.map((el, index) => (
+                <Grid item xs={2} sm={4} md={4} key={index}>
+                  <Item>{el}</Item>
+                </Grid>
+              ))}
+            </Grid>
+          </Box>
+        </CardContent>
 
-      <Copyright sx={{ mt: 8, mb: 4 }} />
-    </Card>
-  </div>
-);}
+        <Copyright sx={{ mt: 8, mb: 4 }} />
+      </Card>
+    </div>
+  );
+};
 
 export default Home;

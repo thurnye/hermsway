@@ -2,7 +2,8 @@ import  {createSlice} from '@reduxjs/toolkit'
 
 
 const loggedInUser = {
-    user: null
+    user: null,
+    portals: [],
 }
 
 const userSlice = createSlice({
@@ -11,6 +12,9 @@ const userSlice = createSlice({
     reducers: {
        login(state, action){
            state.user = action.payload.user;
+       },
+       getRoles(state, action){
+           state.portals = action.payload;
        },
        logout(state){
            state.user = null

@@ -8,7 +8,7 @@ const employeeSchema = new Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String},
   googleId: String,
-  roleId: {
+  role: {
     type: Schema.Types.ObjectId,
     required: true,
     ref: 'Role',

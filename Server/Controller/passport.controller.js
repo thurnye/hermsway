@@ -2,6 +2,7 @@
 const Client = require('../Model/client.model');
 const jwt = require('jsonwebtoken');
 const Role = require('../Model/roles.model');
+const Portal = require('../Model/portals.model');
 
 // Login a User
 const getGoogleLogIn = async (req, res) => {
@@ -13,7 +14,7 @@ const getGoogleLogIn = async (req, res) => {
 
     // Find the user and select necessary fields
     user = await Client.findOne({ email })
-      .select('firstName lastName email password')
+      .select('firstName lastName email password role')
       .lean();
     const role = await Role.findOne({ roleName: 'Client' });
     
@@ -26,19 +27,29 @@ const getGoogleLogIn = async (req, res) => {
         email: req.body.email,
         password: '',
         googleId: req.body.googleId,
-        roleId: role._id
+        role: role._id
       });
       user = await newUser.save();
     }
+
+    //get the portals
+    const userPortals = await Portal.find({roleRefCode : role.refCode})
+
+    console.log(userPortals)
+    await Client.populate(user, {
+      path: 'role',
+      select: '_id roleName refCode',
+    });
 
     const loggedUser = {
       _id: user._id,
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
+      role: user.role
     };
 
-    const token = jwt.sign({ user: loggedUser }, process.env.SECRET, {
+    const token = jwt.sign({ user: loggedUser, userPortals }, process.env.SECRET, {
       expiresIn: '24h',
     });
     // send a response to the front end

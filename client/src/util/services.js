@@ -3,7 +3,7 @@ import http from './http-commons';
 class StuffDataService {
 
   postUser(data) {
-    return http.post("/user", data);
+    return http.post("/admin", data);
   }
 
   postLogin(data) {
