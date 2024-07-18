@@ -9,7 +9,7 @@ import Typography from '@mui/material/Typography';
 import { Divider, Link } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import CustomizedButton from '../../components/CustomizedButton/CustomizedButton';
-import services from '../../util/services';
+import services from '../../util/admin.services';
 import RequestFeedback from '../../components/RequestFeedback/RequestFeedback';
 
 const ForgotPassword = () => {

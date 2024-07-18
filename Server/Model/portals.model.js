@@ -7,7 +7,9 @@ const portalSchema = new Schema({
   roleRefCode: { type: String, required: true },
   portalRoleName: { type: String, required: true },
   route: { type: String, required: true },
+  ordinal: { type: Number, required: true },
 },
+
 {
   timestamps: true
 });

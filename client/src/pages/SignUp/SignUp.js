@@ -15,7 +15,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import services from '../../util/services';
+// import services from '../../util/admin.services';
+import services from '../../util/employee.services';
 import { decodeJWToken } from '../../util/helperFunc';
 import { userActions } from '../../store/userSlice';
 import Spinner from '../../components/Spinner/Spinner';
@@ -64,7 +65,7 @@ const SignUp = () => {
       setSaved(false);
       setMessage('');
       setShowCancel(false);
-      const result = await services.findUserById(id);
+      const result = await services.findAdminById(id);
       setData(result.data);
     } catch (error) {
       console.log('ERROR:::', error);
@@ -107,7 +108,10 @@ const SignUp = () => {
       };
 
       console.log(loginInfo);
-      const result = await services.postUser(loginInfo);
+      // admin 
+      // const result = await services.postAdmin(loginInfo);
+      // client 
+      const result = await services.postEmployee(loginInfo);
 
       let token = result.data;
       localStorage.setItem('token', token);

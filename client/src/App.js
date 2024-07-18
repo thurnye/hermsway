@@ -48,6 +48,7 @@ function App() {
         })
       );
       dispatch(userActions.getRoles(userDoc.userPortals));
+      dispatch(userActions.getDashboardWidget(userDoc.dashboardWidgets));
     } else {
       localStorage.removeItem('token');
     }
@@ -75,7 +76,7 @@ function App() {
         return <UserManagement />;
       case 'Settings':
         return <Settings />;
-      case 'CaseStatus':
+      case 'Case Status':
         return <CaseStatus />;
       case 'Documents':
         return <Documents />;

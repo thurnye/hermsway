@@ -18,7 +18,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MainListItems from './listItems';
 // import SearchEvent from './SearchEvent/SearchEvent';
-import { Avatar, useMediaQuery } from '@mui/material';
+import { Avatar, Container, useMediaQuery } from '@mui/material';
 import { useSelector } from 'react-redux';
 
 const drawerWidth = 270;
@@ -219,7 +219,9 @@ const Dashboard = () => {
         >
           <Toolbar />
           <CssBaseline />
-          <Outlet />
+          <Container sx={{my: 3}}>
+            <Outlet />
+          </Container>
         </Box>
       </Box>
     </ThemeProvider>
