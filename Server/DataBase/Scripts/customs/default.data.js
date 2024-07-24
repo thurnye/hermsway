@@ -103,153 +103,173 @@ exports.defaultDashboardSections = [
 ]
 
 exports.defaultDashboardSectionWidgets = [
-    // Admin
     {
         widgetName: 'Spending Summary',
         sectionWidgetName: 'AdminSpendingSummary',
         sectionCode: 'HMSW-ADM-SC1',
         widgetDimension: '{xs={12} sm={12} md={6}}',
-        ordinal: 1
+        ordinal: 1,
+        widgetComponentName: 'spendingSummary'
     },
     {
         widgetName: 'New Case',
         sectionWidgetName: 'AdminNewCase',
         sectionCode: 'HMSW-ADM-SC1',
         widgetDimension: '{xs={6} sm={6} md={3}}',
-        ordinal: 2
+        ordinal: 2,
+        widgetComponentName: 'newCase'
     },
     {
         widgetName: 'Active Cases',
         sectionWidgetName: 'AdminActiveCases',
         sectionCode: 'HMSW-ADM-SC1',
         widgetDimension: '{xs={6} sm={6} md={3}}',
-        ordinal: 3
+        ordinal: 3,
+        widgetComponentName: 'activeCases'
     },
     {
         widgetName: 'Outstanding Tasks and Assignments',
         sectionWidgetName: 'AdminOutstandingTasksAndAssignments',
         sectionCode: 'HMSW-ADM-SC2',
         widgetDimension: '{xs={12} sm={12} md={4}}',
-        ordinal: 1
+        ordinal: 1,
+        widgetComponentName: 'outstandingTasksAndAssignments'
     },
     {
         widgetName: 'Recent Activities',
         sectionWidgetName: 'AdminRecentActivities',
         sectionCode: 'HMSW-ADM-SC2',
         widgetDimension: '{xs={6} sm={6} md={4}}',
-        ordinal: 2
+        ordinal: 2,
+        widgetComponentName: 'recentActivities'
     },
     {
         widgetName: 'Appointments',
         sectionWidgetName: 'AdminAppointments',
         sectionCode: 'HMSW-ADM-SC2',
         widgetDimension: '{xs={6} sm={6} md={4}}',
-        ordinal: 3
+        ordinal: 3,
+        widgetComponentName: 'appointments'
     },
     {
         widgetName: 'Employees Reports',
         sectionWidgetName: 'AdminEmployeesReports',
         sectionCode: 'HMSW-ADM-SC3',
         widgetDimension: '{xs={6} sm={6} md={6}}',
-        ordinal: 1
+        ordinal: 1,
+        widgetComponentName: 'employeesReports'
     },
     {
         widgetName: 'Something Here',
         sectionWidgetName: 'AdminSomethingHere',
         sectionCode: 'HMSW-ADM-SC3',
         widgetDimension: '{xs={6} sm={6} md={6}}',
-        ordinal: 2
+        ordinal: 2,
+        widgetComponentName: 'somethingHere'
     },
     {
         widgetName: 'Client Reports',
         sectionWidgetName: 'AdminClientReports',
         sectionCode: 'HMSW-ADM-SC4',
         widgetDimension: '{xs={6} sm={6} md={6}}',
-        ordinal: 1
+        ordinal: 1,
+        widgetComponentName: 'clientReports'
     },
     {
         widgetName: 'Pending Client Payment',
         sectionWidgetName: 'AdminPendingClientPayment',
         sectionCode: 'HMSW-ADM-SC4',
         widgetDimension: '{xs={6} sm={6} md={6}}',
-        ordinal: 2
+        ordinal: 2,
+        widgetComponentName: 'pendingClientPayment'
     },
-    // Associate
     {
         widgetName: 'something',
         sectionWidgetName: 'AssociateSomething',
         sectionCode: 'HMSW-ASS-SC1',
         widgetDimension: '{xs={6} sm={6} md={3}}',
-        ordinal: 1
+        ordinal: 1,
+        widgetComponentName: 'something'
     },
     {
         widgetName: 'New Case',
         sectionWidgetName: 'AssociateNewCase',
         sectionCode: 'HMSW-ASS-SC1',
         widgetDimension: '{xs={6} sm={6} md={3}}',
-        ordinal: 2
+        ordinal: 2,
+        widgetComponentName: 'newCase'
     },
     {
         widgetName: 'Active Cases',
         sectionWidgetName: 'AssociateActiveCases',
         sectionCode: 'HMSW-ASS-SC1',
         widgetDimension: '{xs={6} sm={6} md={3}}',
-        ordinal: 3
+        ordinal: 3,
+        widgetComponentName: 'activeCases'
     },
     {
         widgetName: 'Something Cases',
         sectionWidgetName: 'AssociateSomething',
         sectionCode: 'HMSW-ASS-SC1',
         widgetDimension: '{xs={6} sm={6} md={3}}',
-        ordinal: 4
+        ordinal: 4,
+        widgetComponentName: 'somethingCases'
     },
     {
         widgetName: 'Outstanding Tasks and Assignments',
         sectionWidgetName: 'AssociateOutstandingTasksAndAssignments',
         sectionCode: 'HMSW-ASS-SC2',
         widgetDimension: '{xs={12} sm={12} md={4}}',
-        ordinal: 1
+        ordinal: 1,
+        widgetComponentName: 'outstandingTasksAndAssignments'
     },
     {
         widgetName: 'Recent Activities',
         sectionWidgetName: 'AssociateRecentActivities',
         sectionCode: 'HMSW-ASS-SC2',
         widgetDimension: '{xs={6} sm={6} md={4}}',
-        ordinal: 2
+        ordinal: 2,
+        widgetComponentName: 'recentActivities'
     },
     {
         widgetName: 'Appointments',
         sectionWidgetName: 'AssociateAppointments',
         sectionCode: 'HMSW-ASS-SC2',
         widgetDimension: '{xs={6} sm={6} md={4}}',
-        ordinal: 3
+        ordinal: 3,
+        widgetComponentName: 'appointments'
     },
     {
         widgetName: 'Something Here',
         sectionWidgetName: 'AssociateEmployeesReports',
         sectionCode: 'HMSW-ASS-SC3',
         widgetDimension: '{xs={6} sm={6} md={6}}',
-        ordinal: 1
+        ordinal: 1,
+        widgetComponentName: 'somethingHere'
     },
     {
         widgetName: 'Recent Communication',
         sectionWidgetName: 'AssociateSomethingHere',
         sectionCode: 'HMSW-ASS-SC3',
         widgetDimension: '{xs={6} sm={6} md={6}}',
-        ordinal: 2
+        ordinal: 2,
+        widgetComponentName: 'recentCommunication'
     },
     {
         widgetName: 'Client Reports',
         sectionWidgetName: 'AssociateClientReports',
         sectionCode: 'HMSW-ASS-SC4',
         widgetDimension: '{xs={6} sm={6} md={6}}',
-        ordinal: 1
+        ordinal: 1,
+        widgetComponentName: 'clientReports'
     },
     {
         widgetName: 'Pending Client Payment',
         sectionWidgetName: 'AssociatePendingClientPayment',
         sectionCode: 'HMSW-ASS-SC4',
         widgetDimension: '{xs={6} sm={6} md={6}}',
-        ordinal: 2
-    },
+        ordinal: 2,
+        widgetComponentName: 'pendingClientPayment'
+    }
 ]
+

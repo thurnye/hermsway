@@ -78,7 +78,7 @@ const postEmployee = async (req, res, next) => {
     const dashboardWidgets = await Promise.all(sections.map(async (section) => {
       const { sectionCode } = section;
       const widgets = await WidgetModel.find({ sectionCode })
-      .select('widgetName sectionWidgetName sectionCode widgetDimension ordinal')
+      .select('widgetName sectionWidgetName sectionCode widgetDimension ordinal widgetComponentName')
       .sort({ ordinal: 1 });
       return {
         section,
@@ -155,7 +155,7 @@ const getLogIn = async (req, res) => {
     const dashboardWidgets = await Promise.all(sections.map(async (section) => {
       const { sectionCode } = section;
       const widgets = await WidgetModel.find({ sectionCode })
-      .select('widgetName sectionWidgetName sectionCode widgetDimension ordinal')
+      .select('widgetName sectionWidgetName sectionCode widgetDimension ordinal widgetComponentName')
       .sort({ ordinal: 1 });
       return {
         section,
