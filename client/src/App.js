@@ -6,11 +6,11 @@ import { decodeJWToken } from './util/helperFunc';
 import { userActions } from './store/userSlice';
 import NavBar from './components/NavBar/NavBar';
 import Home from './pages/Home/Home';
-import Login from './pages/Login/Login';
-import SignUp from './pages/SignUp/SignUp';
+import Login from './pages/Auth/Login/Login';
+import SignUp from './pages/Auth/SignUp/SignUp';
 import Single from './pages/Single/Single';
 import NoMatch from './pages/NoMatch/NoMatch';
-import ForgotPassword from './pages/ForgotPassword/ForgotPassword';
+import ForgotPassword from './pages/Auth/ForgotPassword/ForgotPassword';
 import Dashboard from './components/Dashboard/Dashboard';
 // import PortalRoutes from './routes/PortalRoutes';
 

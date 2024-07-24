@@ -15,13 +15,13 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-// import services from '../../util/admin.services';
-import services from '../../util/employee.services';
-import { decodeJWToken } from '../../util/helperFunc';
-import { userActions } from '../../store/userSlice';
-import Spinner from '../../components/Spinner/Spinner';
-import RequestFeedback from '../../components/RequestFeedback/RequestFeedback';
-import Google from '../../components/Google/Google';
+// import services from '../../../util/admin.services';
+import services from '../../../util/employee.services';
+import { decodeJWToken } from '../../../util/helperFunc';
+import { userActions } from '../../../store/userSlice';
+import Spinner from '../../../components/Spinner/Spinner';
+import RequestFeedback from '../../../components/RequestFeedback/RequestFeedback';
+import Google from '../../../components/Google/Google';
 
 function Copyright(props) {
   return (

@@ -15,13 +15,13 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Container from '@mui/material/Container';
-import { decodeJWToken } from '../../util/helperFunc';
-// import services from '../../util/admin.services';
-import services from '../../util/employee.services';
-import { userActions } from '../../store/userSlice';
-import RequestFeedback from '../../components/RequestFeedback/RequestFeedback';
+import { decodeJWToken } from '../../../util/helperFunc';
+import services from '../../../util/admin.services';
+// import services from '../../../util/employee.services';
+import { userActions } from '../../../store/userSlice';
+import RequestFeedback from '../../../components/RequestFeedback/RequestFeedback';
 import { Divider } from '@mui/material';
-import Google from '../../components/Google/Google';
+import Google from '../../../components/Google/Google';
 
 function Copyright(props) {
   return (
@@ -71,8 +71,8 @@ const Login = () => {
         email: data.get('email'),
         password: data.get('password'),
       };
-      // const result = await services.postLoginAdmin(loginData);
-      const result = await services.postLoginEmployee(loginData);
+      const result = await services.postLoginAdmin(loginData);
+      // const result = await services.postLoginEmployee(loginData);
       let token = result.data;
       localStorage.setItem('token', token);
       const userDoc = decodeJWToken(token);
