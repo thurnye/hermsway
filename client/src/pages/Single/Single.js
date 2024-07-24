@@ -6,7 +6,7 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useLocation, useNavigate } from 'react-router';
-import services from '../../util/services';
+import services from '../../util/admin.services';
 import Spinner from '../../components/Spinner/Spinner';
 import { Link } from 'react-router-dom';
 import RequestFeedback from '../../components/RequestFeedback/RequestFeedback';
@@ -31,7 +31,7 @@ const Single = () => {
       setSaved(false);
       setMessage('');
       setShowCancel(false);
-      const result = await services.findUserById(id);
+      const result = await services.findAdminById(id);
       setData(result.data);
     } catch (error) {
       console.log('ERROR:::', error);
@@ -57,7 +57,7 @@ const Single = () => {
       setReqLoading(true)
       setShowCancel(false);
       setOpen(true)
-      const result = await services.removeUser(id);
+      const result = await services.removeAdmin(id);
       if (result.status === 200) {
         setReqLoading(false)
         navigate('/all');
