@@ -17,82 +17,94 @@ const postEmployee = async (req, res, next) => {
   try {
     const id = req.body.id;
     let savedUser = null;
-    if (!req.body.email || !req.body.password) {
+
+    let password = '';
+    const str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890@#$%&';
+
+    for (let i = 0; i < 6; i++) {
+      var char = Math.floor(Math.random() * str.length + 1);
+      password += str.charAt(char);
+    }
+
+    if (!req.body.email) {
       res.status(400).json('Missing Field Needed!');
       return;
     }
-    const role = await Role.findOne({ roleName: 'Associate' });
 
-    if (!id) {
-      // Create New User
-      const hashedPassword = await bcrypt.hash(req.body.password, SALT_ROUNDS);
+    console.log(req.body, password)
+    // const role = await Role.findOne({ roleName: 'Associate' });
 
-      const newUser = new Employee({
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        email: req.body.email,
-        password: hashedPassword,
-        role: role._id,
-      });
-      savedUser = await newUser.save();
-    }
-    if (id) {
-      // Update User
-      const updateUser = await Employee.findById(id);
+    // if (!id) {
+    //   // Create New User
+    //   const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
 
-      if (!updateUser) {
-        res.status(400).json('No User Found!!');
-        return;
-      }
+    //   const newUser = new Employee({
+    //     firstName: req.body.firstName,
+    //     lastName: req.body.lastName,
+    //     email: req.body.email,
+    //     password: hashedPassword,
+    //     role: role._id,
+    //   });
+    //   savedUser = await newUser.save();
+    // }
 
-      updateUser.firstName = req.body.firstName;
-      updateUser.lastName = req.body.lastName;
-      updateUser.email = req.body.email;
+    // if (id) {
+    //   // Update User
+    //   const updateUser = await Employee.findById(id);
 
-      savedUser = await updateUser.save();
-    }
+    //   if (!updateUser) {
+    //     res.status(400).json('No User Found!!');
+    //     return;
+    //   }
 
-    const user = await Employee.findById(savedUser._id)
-      .select('firstName lastName _id, role')
-      .populate({
-        path: 'role',
-        select: '_id roleName refCode',
-      })
-      .lean();
+    //   updateUser.firstName = req.body.firstName;
+    //   updateUser.lastName = req.body.lastName;
+    //   updateUser.email = req.body.email;
 
-    //get the portals
-    const userPortals = await Portal.find({ roleRefCode: role.refCode }).sort({
-      ordinal: 1,
-    });
+    //   savedUser = await updateUser.save();
+    // }
+
+    // const user = await Employee.findById(savedUser._id)
+    //   .select('firstName lastName _id, role')
+    //   .populate({
+    //     path: 'role',
+    //     select: '_id roleName refCode',
+    //   })
+    //   .lean();
+
+    // //get the portals
+    // const userPortals = await Portal.find({ roleRefCode: role.refCode }).sort({
+    //   ordinal: 1,
+    // });
 
 
-    // get the dashboard widgets and sections
-    const sections = await SectionModel.find({
-      roleRefCode: user.role.refCode,
-    })
-    .select('sectionName sectionCode roleRefCode ordinal')
-    .sort({ ordinal: 1 });
+    // // get the dashboard widgets and sections
+    // const sections = await SectionModel.find({
+    //   roleRefCode: user.role.refCode,
+    // })
+    // .select('sectionName sectionCode roleRefCode ordinal')
+    // .sort({ ordinal: 1 });
 
     
-    // find the widgets with each sections using their sectionCode
-    const dashboardWidgets = await Promise.all(sections.map(async (section) => {
-      const { sectionCode } = section;
-      const widgets = await WidgetModel.find({ sectionCode })
-      .select('widgetName sectionWidgetName sectionCode widgetDimension ordinal widgetComponentName')
-      .sort({ ordinal: 1 });
-      return {
-        section,
-        widgets,
-      };
-    }));
+    // // find the widgets with each sections using their sectionCode
+    // const dashboardWidgets = await Promise.all(sections.map(async (section) => {
+    //   const { sectionCode } = section;
+    //   const widgets = await WidgetModel.find({ sectionCode })
+    //   .select('widgetName sectionWidgetName sectionCode widgetDimension ordinal widgetComponentName')
+    //   .sort({ ordinal: 1 });
+    //   return {
+    //     section,
+    //     widgets,
+    //   };
+    // }));
 
-    console.log(dashboardWidgets)
+    // console.log(dashboardWidgets)
 
-    const token = jwt.sign({ user, userPortals, dashboardWidgets }, process.env.SECRET, {
-      expiresIn: '24h',
-    });
-    // send a response to the front end
-    res.status(200).json(token);
+    // const token = jwt.sign({ user, userPortals, dashboardWidgets }, process.env.SECRET, {
+    //   expiresIn: '24h',
+    // });
+
+    // res.status(200).json(token);
   } catch (err) {
     console.log(err);
     res.status(400).json('Something went Wrong!');

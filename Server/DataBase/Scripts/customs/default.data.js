@@ -1,52 +1,30 @@
 
 exports.defaultRoles = [
-    {
-        roleName: 'Admin',
-        refCode: "HMSW-ADM-001"
-    },
-    {
-        roleName: 'Associate',
-        refCode: 'HMSW-ASS-002'
-    },
-    {
-        roleName: 'Client',
-        refCode: 'HMSW-CLI-003'
-    }
-];
+    { roleName: 'admin', refCode: 'HMSW-ADM-001' },
+    { roleName: 'managingPartner', refCode: 'HMSW-MGN_PTN-002' },
+    { roleName: 'associate', refCode: 'HMSW-ASS-003' },
+    { roleName: 'paralegal', refCode: 'HMSW-PAL-004' },
+    { roleName: 'client', refCode: 'HMSW-CLI-0115' }
+  ];
 
 
 exports.defaultPortals = [
-
-    { portalName: 'Dashboard', roleRefCode: 'HMSW-ADM-001', portalRoleName: 'AdminDashboard', route: 'Dashboard', ordinal: 1},
-    { portalName: 'Case Management', roleRefCode: 'HMSW-ADM-001', portalRoleName: 'AdminCaseManagement', route: 'case-management', ordinal: 2},
-    { portalName: 'Client Management', roleRefCode: 'HMSW-ADM-001', portalRoleName: 'AdminClientManagement', route: 'client-management', ordinal: 3},
-    { portalName: 'Document Management', roleRefCode: 'HMSW-ADM-001', portalRoleName: 'AdminDocumentManagement', route: 'document-management', ordinal: 4},
-    { portalName: 'Billing and Finance', roleRefCode: 'HMSW-ADM-001', portalRoleName: 'AdminBillingAndFinances', route: 'billing-and-finances', ordinal: 5},
-    { portalName: 'Communication', roleRefCode: 'HMSW-ADM-001', portalRoleName: 'AdminCommunication', route: 'Communication', ordinal: 6},
-    { portalName: 'Tasks and Reminders', roleRefCode: 'HMSW-ADM-001', portalRoleName: 'AdminTasksAndReminders', route: 'tasks-and-reminders', ordinal: 7},
-    { portalName: 'Reports and Analytics', roleRefCode: 'HMSW-ADM-001', portalRoleName: 'AdminReportsAndAnalytics', route: 'reports-and-analytics', ordinal: 8},
-    { portalName: 'User Management', roleRefCode: 'HMSW-ADM-001', portalRoleName: 'AdminUserManagement', route: 'user-management', ordinal:9 },
-    { portalName: 'Settings', roleRefCode: 'HMSW-ADM-001', portalRoleName: 'AdminUserSettings', route: 'settings', ordinal: 10},
-
-
-    { portalName: 'Dashboard', roleRefCode: 'HMSW-ASS-002', portalRoleName: 'AssociateDashboard', route: 'dashboard', ordinal: 1},
-    { portalName: 'Case Management', roleRefCode: 'HMSW-ASS-002', portalRoleName: 'AssociateCaseManagement', route: 'case-management', ordinal: 2},
-    { portalName: 'Client Management', roleRefCode: 'HMSW-ASS-002', portalRoleName: 'AssociateClientManagement', route: 'client-management', ordinal: 3},
-    { portalName: 'Document Management', roleRefCode: 'HMSW-ASS-002', portalRoleName: 'AssociateDocumentManagement', route: 'document-management', ordinal: 4},
-    { portalName: 'Billing and Finance', roleRefCode: 'HMSW-ASS-002', portalRoleName: 'AssociateBillingAndFinances', route: 'billing-and-finances', ordinal: 5},
-    { portalName: 'Tasks and Reminders', roleRefCode: 'HMSW-ASS-002', portalRoleName: 'AssociateTasksAndReminders', route: 'tasks-and-reminders', ordinal: 6},
-    { portalName: 'Reports and Analytics', roleRefCode: 'HMSW-ASS-002', portalRoleName: 'AssociateReportsAndAnalytics', route: 'reports-and-analytics', ordinal: 7},
-    { portalName: 'Communication', roleRefCode: 'Admin', portalRoleName: 'AdminCommunication', route: 'communication', ordinal: 8},
-    { portalName: 'Settings', roleRefCode: 'Admin', portalRoleName: 'AdminUserSettings', route: 'settings', ordinal: 9},
-
-
-    { portalName: 'Dashboard', roleRefCode: 'HMSW-CLI-003', portalRoleName: 'ClientDashboard', route: 'dashboard', ordinal: 1},
-    { portalName: 'Case Status', roleRefCode: 'HMSW-CLI-003', portalRoleName: 'ClientCaseStatus', route: 'case-status', ordinal: 2},
-    { portalName: 'Documents', roleRefCode: 'HMSW-CLI-003', portalRoleName: 'ClientDocuments', route: 'documents', ordinal: 3},
-    { portalName: 'Billing and Finance', roleRefCode: 'HMSW-CLI-003', portalRoleName: 'ClientBillingAndFinances', route: 'billing-and-finances', ordinal: 4},
-    { portalName: 'Communication', roleRefCode: 'HMSW-CLI-003', portalRoleName: 'ClientCommunication', route: 'communication', ordinal: 5},
-    { portalName: 'Settings', roleRefCode: 'HMSW-CLI-003', portalRoleName: 'ClientSettings', route: 'settings', ordinal: 6},
+    { portalName: 'Dashboard', route: 'dashboard', ordinal: 1, portalCode: 'hmsw-portal-010' },
+    { portalName: 'Case Management', route: 'case-management', ordinal: 2, portalCode: 'hmsw-portal-001' },
+    { portalName: 'Case Status', route: 'case-status', ordinal: 2, portalCode: 'hmsw-portal-012' },
+    { portalName: 'Client Management', route: 'client-management', ordinal: 3, portalCode: 'hmsw-portal-002' },
+    { portalName: 'Documents', route: 'documents', ordinal: 3, portalCode: 'hmsw-portal-013' },
+    { portalName: 'Document Management', route: 'document-management', ordinal: 4, portalCode: 'hmsw-portal-003' },
+    { portalName: 'Billing and Finance', route: 'billing-and-finances', ordinal: 5, portalCode: 'hmsw-portal-004' },
+    { portalName: 'Communication', route: 'Communication', ordinal: 6, portalCode: 'hmsw-portal-005' },
+    { portalName: 'Tasks and Reminders', route: 'tasks-and-reminders', ordinal: 7, portalCode: 'hmsw-portal-006' },
+    { portalName: 'Reports and Analytics', route: 'reports-and-analytics', ordinal: 8, portalCode: 'hmsw-portal-007' },
+    { portalName: 'Communication', route: 'communication', ordinal: 8, portalCode: 'hmsw-portal-011' },
+    { portalName: 'User Management', route: 'user-management', ordinal: 9, portalCode: 'hmsw-portal-008' },
+    { portalName: 'Settings', route: 'settings', ordinal: 10, portalCode: 'hmsw-portal-009' }
 ];
+
+  
 
 exports.defaultDashboardSections = [
     // Admin
@@ -272,4 +250,35 @@ exports.defaultDashboardSectionWidgets = [
         widgetComponentName: 'pendingClientPayment'
     }
 ]
+
+exports.defaultPermissionTypes = [
+    { "permissionType": "Dashboard", "permissionTypeName": "Dashboard", "permissionTypeCode": "HMSW_PERM_TYPE_DASH" },
+    { "permissionType": "CaseManagement", "permissionTypeName": "Case Management", "permissionTypeCode": "HMSW_PERM_TYPE_CASE_MGNT" },
+    { "permissionType": "ClientManagement", "permissionTypeName": "Client Management", "permissionTypeCode": "HMSW_PERM_TYPE_CLT_MGNT" },
+    { "permissionType": "DocumentManagement", "permissionTypeName": "Document Management", "permissionTypeCode": "HMSW_PERM_TYPE_DOC_MGNT" },
+    { "permissionType": "BillingAndFinance", "permissionTypeName": "Billing And Finance", "permissionTypeCode": "HMSW_PERM_TYPE_BILL_FIN" },
+    { "permissionType": "Communication", "permissionTypeName": "Communication", "permissionTypeCode": "HMSW_PERM_TYPE_COMM" },
+    { "permissionType": "TasksAndReminders", "permissionTypeName": "Tasks And Reminders", "permissionTypeCode": "HMSW_PERM_TYPE_TASK_REM" },
+    { "permissionType": "ReportsAndAnalytics", "permissionTypeName": "Reports And Analytics", "permissionTypeCode": "HMSW_PERM_TYPE_RPT_ANL" },
+    { "permissionType": "UserManagement", "permissionTypeName": "User Management", "permissionTypeCode": "HMSW_PERM_TYPE_USER_MGNT" },
+    { "permissionType": "Settings", "permissionTypeName": "Settings", "permissionTypeCode": "HMSW_PERM_TYPE_SETT" },
+    { "permissionType": "CaseStatus", "permissionTypeName": "CaseStatus", "permissionTypeCode": "HMSW_PERM_TYPE_CASE_STAT" },
+    { "permissionType": "Documents", "permissionTypeName": "Documents", "permissionTypeCode": "HMSW_PERM_TYPE_DOC" }
+]
+
+
+// Give the different types of permissions their permissions
+[
+    { "permission": "full_access", "permissionCode": "HMSW_PERM_1", "permissionTypeCode": "" },
+    { "permission": "user_management", "permissionCode": "HMSW_PERM_2", "permissionTypeCode": "" },
+    { "permission": "access_all_case_files", "permissionCode": "HMSW_PERM_3", "permissionTypeCode": "" },
+    { "permission": "generate_view_all_reports", "permissionCode": "HMSW_PERM_4", "permissionTypeCode": "" },
+    { "permission": "system_configuration", "permissionCode": "HMSW_PERM_5", "permissionTypeCode": "" },
+    { "permission": "create_record", "permissionCode": "HMSW_PERM_6", "permissionTypeCode": "" },
+    { "permission": "read_record", "permissionCode": "HMSW_PERM_7", "permissionTypeCode": "" },
+    { "permission": "update_record", "permissionCode": "HMSW_PERM_8", "permissionTypeCode": "" },
+    { "permission": "delete_record", "permissionCode": "HMSW_PERM_9", "permissionTypeCode": "" }
+  ]
+  
+
 

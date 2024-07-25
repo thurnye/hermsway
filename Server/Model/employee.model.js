@@ -13,6 +13,20 @@ const employeeSchema = new Schema({
     required: true,
     ref: 'Role',
   },
+  // roles: { label: 'Managing Partner', value: 'managingPartner' },
+  permissions: {
+    type: Object
+  },
+  dashboards: {
+    type: Object
+  },
+  portals: {
+    type: Object
+  },
+  active: {
+    type: Boolean,
+    default: true
+  }
 },
    
 {

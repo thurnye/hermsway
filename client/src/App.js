@@ -26,6 +26,7 @@ import Settings from './pages/Portals/Settings/Settings';
 import CaseStatus from './pages/Portals/CaseStatus/CaseStatus';
 import Documents from './pages/Portals/Documents/Documents';
 import BillingAndFinance from './pages/Portals/BillingAndFinance/BillingAndFinance';
+import CreateUser from './components/UserManagementComponent/CreateUser/CreateUser';
 
 // Utility function to check if token is expired
 const isTokenExpired = (token) => {
@@ -111,6 +112,9 @@ function App() {
 
                 <Route path='single/:id' element={<Single />} />
                 <Route path='edit/:id' element={<SignUp />} />
+
+                {/* USER MANAGEMENT ROUTES */}
+                <Route path='user-management/create-user' element={<CreateUser/>}/>
 
                 <Route index element={<Navigate to='dashboard' />}></Route>
               </Route>
