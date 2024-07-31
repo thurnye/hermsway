@@ -8,6 +8,7 @@ const {mailService} = require('../Services/email.services')
 const Portal = require('../Model/portals.model');
 const SectionModel = require('../Model/sections.model');
 const WidgetModel = require('../Model/widget.model');
+const CompanyModel = require('../Model/company.model');
 
 
 
@@ -20,91 +21,95 @@ const postEmployee = async (req, res, next) => {
 
     let password = '';
     const str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890@#$%&';
+    const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
 
     for (let i = 0; i < 6; i++) {
       var char = Math.floor(Math.random() * str.length + 1);
       password += str.charAt(char);
     }
 
+    const randomLetters = Array.from({ length: 2 }, () => letters.charAt(Math.floor(Math.random() * letters.length))).join('');
+    const randomNumber = String(Math.floor(Math.random() * 1000)).padStart(3, '0');
+
     if (!req.body.email) {
       res.status(400).json('Missing Field Needed!');
       return;
     }
 
-    console.log(req.body, password)
-    // const role = await Role.findOne({ roleName: 'Associate' });
-
-    // if (!id) {
-    //   // Create New User
-    //   const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
-
-    //   const newUser = new Employee({
-    //     firstName: req.body.firstName,
-    //     lastName: req.body.lastName,
-    //     email: req.body.email,
-    //     password: hashedPassword,
-    //     role: role._id,
-    //   });
-    //   savedUser = await newUser.save();
-    // }
-
-    // if (id) {
-    //   // Update User
-    //   const updateUser = await Employee.findById(id);
-
-    //   if (!updateUser) {
-    //     res.status(400).json('No User Found!!');
-    //     return;
-    //   }
-
-    //   updateUser.firstName = req.body.firstName;
-    //   updateUser.lastName = req.body.lastName;
-    //   updateUser.email = req.body.email;
-
-    //   savedUser = await updateUser.save();
-    // }
-
-    // const user = await Employee.findById(savedUser._id)
-    //   .select('firstName lastName _id, role')
-    //   .populate({
-    //     path: 'role',
-    //     select: '_id roleName refCode',
-    //   })
-    //   .lean();
-
-    // //get the portals
-    // const userPortals = await Portal.find({ roleRefCode: role.refCode }).sort({
-    //   ordinal: 1,
-    // });
+    // console.log(req.body, password)
 
 
-    // // get the dashboard widgets and sections
-    // const sections = await SectionModel.find({
-    //   roleRefCode: user.role.refCode,
-    // })
-    // .select('sectionName sectionCode roleRefCode ordinal')
-    // .sort({ ordinal: 1 });
+    const role = await Role.findOne({ roleName: req.body.roleName });
+
+    if (!id) {
+      // Create New User
+      const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
+
+      const newUser = new Employee({
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        email: req.body.email,
+        password: hashedPassword,
+        roleRefCode: role.refCode,
+        companyId: req.body.companyId,
+        employeeId: `${randomLetters}-${randomNumber}`
+      });
+      savedUser = await newUser.save();
+    }
+
+    if (id) {
+      // Update User
+      const updateUser = await Employee.findById(id);
+
+      if (!updateUser) {
+        res.status(400).json('No User Found!!');
+        return;
+      }
+
+      updateUser.firstName = req.body.firstName;
+      updateUser.lastName = req.body.lastName;
+      updateUser.email = req.body.email;
+
+      savedUser = await updateUser.save();
+    }
+
+    const user = await Employee.findById(savedUser._id)
+      .select('firstName lastName _id, role roleRefCode')
+      .lean();
+
+    //get the portals
+    const userPortals = await Portal.find({ roleRefCode: role.refCode }).sort({
+      ordinal: 1,
+    });
+
+
+    // get the dashboard widgets and sections
+    const sections = await SectionModel.find({
+      roleRefCode: user.roleRefCode,
+    })
+    .select('sectionName sectionCode roleRefCode ordinal')
+    .sort({ ordinal: 1 });
 
     
-    // // find the widgets with each sections using their sectionCode
-    // const dashboardWidgets = await Promise.all(sections.map(async (section) => {
-    //   const { sectionCode } = section;
-    //   const widgets = await WidgetModel.find({ sectionCode })
-    //   .select('widgetName sectionWidgetName sectionCode widgetDimension ordinal widgetComponentName')
-    //   .sort({ ordinal: 1 });
-    //   return {
-    //     section,
-    //     widgets,
-    //   };
-    // }));
+    // find the widgets with each sections using their sectionCode
+    const dashboardWidgets = await Promise.all(sections.map(async (section) => {
+      const { sectionCode } = section;
+      const widgets = await WidgetModel.find({ sectionCode })
+      .select('widgetName sectionWidgetName sectionCode widgetDimension ordinal widgetComponentName')
+      .sort({ ordinal: 1 });
+      return {
+        section,
+        widgets,
+      };
+    }));
 
-    // console.log(dashboardWidgets)
+    console.log(dashboardWidgets)
 
-    // const token = jwt.sign({ user, userPortals, dashboardWidgets }, process.env.SECRET, {
-    //   expiresIn: '24h',
-    // });
+    const token = jwt.sign({ user, userPortals, dashboardWidgets }, process.env.SECRET, {
+      expiresIn: '24h',
+    });
 
-    // res.status(200).json(token);
+    res.status(200).json(token);
   } catch (err) {
     console.log(err);
     res.status(400).json('Something went Wrong!');
@@ -116,30 +121,40 @@ const getLogIn = async (req, res) => {
   try {
     const email = req.body.email;
     const password = req.body.password;
+    const companyId = req.body.companyId
+    const employeeId = req.body.employeeId
 
-    if (!email || !password) {
-      res.status(400).json('Email or Password is Invalid!!');
+    console.log(req.body)
+
+    if (!email || !password || !employeeId || !companyId) {
+      res.status(400).json('Employee Not Found!');
       return;
     }
 
     // Find the user and select necessary fields
-    const user = await Employee.findOne({ email })
-      .select('firstName lastName email password role')
-      .populate({
-        path: 'role',
-        select: '_id roleName refCode',
-      })
+    const user = await Employee.findOne({ email, companyId, employeeId })
+      .select('firstName lastName email password roleRefCode')
       .lean();
 
     if (!user) {
-      res.status(400).json('Email or Password is Invalid!!');
+      res.status(400).json('Employee Not Found!');
+      return;
+    }
+
+    //get the company Info
+    const company = await CompanyModel.findOne({companyId})
+    .select('companyName companyLogo companyId companyConfig')
+    .lean()
+
+    if (!company) {
+      res.status(400).json('Employee Not Found!');
       return;
     }
 
     // Check the password
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      res.status(400).json('Email or Password is Invalid!!');
+      res.status(400).json('Employee Not Found!');
       return;
     }
 
@@ -148,16 +163,17 @@ const getLogIn = async (req, res) => {
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
-      role: user.role,
+      role: user.roleRefCode,
+      company
     };
 
     const userPortals = await Portal.find({
-      roleRefCode: user.role.refCode,
+      roleRefCode: user.roleRefCode,
     }).sort({ ordinal: 1 });
 
     // get the dashboard widgets and sections
     const sections = await SectionModel.find({
-      roleRefCode: user.role.refCode,
+      roleRefCode: user.roleRefCode,
     })
     .select('sectionName sectionCode roleRefCode ordinal')
     .sort({ ordinal: 1 });

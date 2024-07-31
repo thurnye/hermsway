@@ -5,23 +5,70 @@ exports.defaultRoles = [
     { roleName: 'associate', refCode: 'HMSW-ASS-003' },
     { roleName: 'paralegal', refCode: 'HMSW-PAL-004' },
     { roleName: 'client', refCode: 'HMSW-CLI-0115' }
-  ];
+];
 
 
+// exports.defaultPortals = [
+//     { portalName: 'Dashboard', route: 'dashboard', ordinal: 1, portalCode: 'hmsw-portal-010' },
+//     { portalName: 'Case Management', route: 'case-management', ordinal: 2, portalCode: 'hmsw-portal-001' },
+//     { portalName: 'Case Status', route: 'case-status', ordinal: 2, portalCode: 'hmsw-portal-012' },
+//     { portalName: 'Client Management', route: 'client-management', ordinal: 3, portalCode: 'hmsw-portal-002' },
+//     { portalName: 'Documents', route: 'documents', ordinal: 3, portalCode: 'hmsw-portal-013' },
+//     { portalName: 'Document Management', route: 'document-management', ordinal: 4, portalCode: 'hmsw-portal-003' },
+//     { portalName: 'Billing and Finance', route: 'billing-and-finances', ordinal: 5, portalCode: 'hmsw-portal-004' },
+//     { portalName: 'Communication', route: 'Communication', ordinal: 6, portalCode: 'hmsw-portal-005' },
+//     { portalName: 'Tasks and Reminders', route: 'tasks-and-reminders', ordinal: 7, portalCode: 'hmsw-portal-006' },
+//     { portalName: 'Reports and Analytics', route: 'reports-and-analytics', ordinal: 8, portalCode: 'hmsw-portal-007' },
+//     { portalName: 'Communication', route: 'communication', ordinal: 8, portalCode: 'hmsw-portal-011' },
+//     { portalName: 'User Management', route: 'user-management', ordinal: 9, portalCode: 'hmsw-portal-008' },
+//     { portalName: 'Settings', route: 'settings', ordinal: 10, portalCode: 'hmsw-portal-009' }
+// ];
+
+
+// portals are associated with roles
 exports.defaultPortals = [
-    { portalName: 'Dashboard', route: 'dashboard', ordinal: 1, portalCode: 'hmsw-portal-010' },
-    { portalName: 'Case Management', route: 'case-management', ordinal: 2, portalCode: 'hmsw-portal-001' },
-    { portalName: 'Case Status', route: 'case-status', ordinal: 2, portalCode: 'hmsw-portal-012' },
-    { portalName: 'Client Management', route: 'client-management', ordinal: 3, portalCode: 'hmsw-portal-002' },
-    { portalName: 'Documents', route: 'documents', ordinal: 3, portalCode: 'hmsw-portal-013' },
-    { portalName: 'Document Management', route: 'document-management', ordinal: 4, portalCode: 'hmsw-portal-003' },
-    { portalName: 'Billing and Finance', route: 'billing-and-finances', ordinal: 5, portalCode: 'hmsw-portal-004' },
-    { portalName: 'Communication', route: 'Communication', ordinal: 6, portalCode: 'hmsw-portal-005' },
-    { portalName: 'Tasks and Reminders', route: 'tasks-and-reminders', ordinal: 7, portalCode: 'hmsw-portal-006' },
-    { portalName: 'Reports and Analytics', route: 'reports-and-analytics', ordinal: 8, portalCode: 'hmsw-portal-007' },
-    { portalName: 'Communication', route: 'communication', ordinal: 8, portalCode: 'hmsw-portal-011' },
-    { portalName: 'User Management', route: 'user-management', ordinal: 9, portalCode: 'hmsw-portal-008' },
-    { portalName: 'Settings', route: 'settings', ordinal: 10, portalCode: 'hmsw-portal-009' }
+    // Admin
+    { portalName: 'Dashboard', roleRefCode: 'HMSW-ADM-001', portalRoleName: 'Dashboard', route: 'Dashboard', ordinal: 1},
+    { portalName: 'Case Management', roleRefCode: 'HMSW-ADM-001', portalRoleName: 'CaseManagement', route: 'case-management', ordinal: 2},
+    { portalName: 'Client Management', roleRefCode: 'HMSW-ADM-001', portalRoleName: 'ClientManagement', route: 'client-management', ordinal: 3},
+    { portalName: 'Document Management', roleRefCode: 'HMSW-ADM-001', portalRoleName: 'DocumentManagement', route: 'document-management', ordinal: 4},
+    { portalName: 'Billing and Finance', roleRefCode: 'HMSW-ADM-001', portalRoleName: 'BillingAndFinances', route: 'billing-and-finances', ordinal: 5},
+    { portalName: 'Communication', roleRefCode: 'HMSW-ADM-001', portalRoleName: 'Communication', route: 'Communication', ordinal: 6},
+    { portalName: 'Tasks and Reminders', roleRefCode: 'HMSW-ADM-001', portalRoleName: 'TasksAndReminders', route: 'tasks-and-reminders', ordinal: 7},
+    { portalName: 'Reports and Analytics', roleRefCode: 'HMSW-ADM-001', portalRoleName: 'ReportsAndAnalytics', route: 'reports-and-analytics', ordinal: 8},
+    { portalName: 'User Management', roleRefCode: 'HMSW-ADM-001', portalRoleName: 'UserManagement', route: 'user-management', ordinal:9 },
+    { portalName: 'Settings', roleRefCode: 'HMSW-ADM-001', portalRoleName: 'UserSettings', route: 'settings', ordinal: 10},
+
+    // Managing Partner
+    { portalName: 'Dashboard', roleRefCode: 'HMSW-MGN_PTN-002', portalRoleName: 'Dashboard', route: 'dashboard', ordinal: 1},
+    { portalName: 'Case Management', roleRefCode: 'HMSW-MGN_PTN-002', portalRoleName: 'CaseManagement', route: 'case-management', ordinal: 2},
+    { portalName: 'Client Management', roleRefCode: 'HMSW-MGN_PTN-002', portalRoleName: 'ClientManagement', route: 'client-management', ordinal: 3},
+    { portalName: 'Document Management', roleRefCode: 'HMSW-MGN_PTN-002', portalRoleName: 'DocumentManagement', route: 'document-management', ordinal: 4},
+    { portalName: 'Billing and Finance', roleRefCode: 'HMSW-MGN_PTN-002', portalRoleName: 'BillingAndFinances', route: 'billing-and-finances', ordinal: 5},
+    { portalName: 'Tasks and Reminders', roleRefCode: 'HMSW-MGN_PTN-002', portalRoleName: 'TasksAndReminders', route: 'tasks-and-reminders', ordinal: 6},
+    { portalName: 'Reports and Analytics', roleRefCode: 'HMSW-MGN_PTN-002', portalRoleName: 'ReportsAndAnalytics', route: 'reports-and-analytics', ordinal: 7},
+    { portalName: 'Communication', roleRefCode: 'HMSW-MGN_PTN-002', portalRoleName: 'Communication', route: 'communication', ordinal: 8},
+    { portalName: 'Settings', roleRefCode: 'HMSW-MGN_PTN-002', portalRoleName: 'UserSettings', route: 'settings', ordinal: 9},
+
+    // Associate
+    { portalName: 'Dashboard', roleRefCode: 'HMSW-ASS-003', portalRoleName: 'Dashboard', route: 'dashboard', ordinal: 1},
+    { portalName: 'Case Management', roleRefCode: 'HMSW-ASS-003', portalRoleName: 'CaseManagement', route: 'case-management', ordinal: 2},
+    { portalName: 'Client Management', roleRefCode: 'HMSW-ASS-003', portalRoleName: 'ClientManagement', route: 'client-management', ordinal: 3},
+    { portalName: 'Document Management', roleRefCode: 'HMSW-ASS-003', portalRoleName: 'DocumentManagement', route: 'document-management', ordinal: 4},
+    { portalName: 'Billing and Finance', roleRefCode: 'HMSW-ASS-003', portalRoleName: 'BillingAndFinances', route: 'billing-and-finances', ordinal: 5},
+    { portalName: 'Tasks and Reminders', roleRefCode: 'HMSW-ASS-003', portalRoleName: 'TasksAndReminders', route: 'tasks-and-reminders', ordinal: 6},
+    { portalName: 'Reports and Analytics', roleRefCode: 'HMSW-ASS-003', portalRoleName: 'ReportsAndAnalytics', route: 'reports-and-analytics', ordinal: 7},
+    { portalName: 'Communication', roleRefCode: 'HMSW-ASS-003', portalRoleName: 'Communication', route: 'communication', ordinal: 8},
+    { portalName: 'Settings', roleRefCode: 'HMSW-ASS-003', portalRoleName: 'UserSettings', route: 'settings', ordinal: 9},
+
+
+    // client
+    { portalName: 'Dashboard', roleRefCode: 'HMSW-CLI-0115', portalRoleName: 'Dashboard', route: 'dashboard', ordinal: 1},
+    { portalName: 'Case Status', roleRefCode: 'HMSW-CLI-0115', portalRoleName: 'CaseStatus', route: 'case-status', ordinal: 2},
+    { portalName: 'Documents', roleRefCode: 'HMSW-CLI-0115', portalRoleName: 'Documents', route: 'documents', ordinal: 3},
+    { portalName: 'Billing and Finance', roleRefCode: 'HMSW-CLI-0115', portalRoleName: 'BillingAndFinances', route: 'billing-and-finances', ordinal: 4},
+    { portalName: 'Communication', roleRefCode: 'HMSW-CLI-0115', portalRoleName: 'Communication', route: 'communication', ordinal: 5},
+    { portalName: 'Settings', roleRefCode: 'HMSW-CLI-0115', portalRoleName: 'Settings', route: 'settings', ordinal: 6},
 ];
 
   
@@ -57,25 +104,25 @@ exports.defaultDashboardSections = [
     {
         sectionName: 'AssociateKeyMetrics',
         sectionCode: 'HMSW-ASS-SC1',
-        roleRefCode:'HMSW-ASS-002',
+        roleRefCode:'HMSW-ASS-003',
         ordinal: 1
     },
     {
         sectionName: 'AssociateActivitiesMetrics',
         sectionCode: 'HMSW-ASS-SC2',
-        roleRefCode:'HMSW-ASS-002',
+        roleRefCode:'HMSW-ASS-003',
         ordinal: 2
     },
     {
         sectionName: 'AssociateClientKeyMetrics',
         sectionCode: 'HMSW-ASS-SC3',
-        roleRefCode:'HMSW-ASS-002',
+        roleRefCode:'HMSW-ASS-003',
         ordinal: 3
     },
     {
         sectionName: 'AssociateClientKeyMetrics',
         sectionCode: 'HMSW-ASS-SC4',
-        roleRefCode:'HMSW-ASS-002',
+        roleRefCode:'HMSW-ASS-003',
         ordinal: 4
     },
 ]
@@ -280,5 +327,19 @@ exports.defaultPermissionTypes = [
     { "permission": "delete_record", "permissionCode": "HMSW_PERM_9", "permissionTypeCode": "" }
   ]
   
+
+  exports.companyProfile  = [
+    {
+        companyName: 'HemsWay',
+        companyLogo: '',
+        companyAddress: '1 main Street ',
+        companyPhoneNumber: '1234567890',
+        companyEmail: 'company@company.com',
+        companyId: 'A0947',
+        companyConfig: {
+            colors: {}
+        }
+    }
+  ]
 
 

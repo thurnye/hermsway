@@ -9,26 +9,7 @@ import ClientDashboard from '../../components/DashBoardManager/ClientDashboard/C
 const Home = () => {
   const user = useSelector((state) => state.userLog.user);
   const [role, setRole] = useState()
-  const tech = [
-    'Active Cases',
-    'Upcoming Deadlines',
-    'Recent Activities',
-    'Outstanding Tasks',
-    'Case Summary',
-    'Case Progress',
-    'Document Management',
-    'Client List',
-    'Recent Communications',
-    'Client Requests',
-    'Outstanding Invoices',
-    'Payment History',
-    'Financial Overview',
-    'To-Do List',
-    'Reminders',
-    'Case Win/Loss Ratio',
-    'Client Satisfaction',
-    'Time Tracking',
-  ];
+
 
   useEffect(() => {
     if(user.role){

@@ -49,7 +49,7 @@ const NavBar = () => {
     if (token) {
       localStorage.removeItem('token');
       handleCloseNavMenu();
-      navigate('/login');
+      navigate('/');
     }
   };
   return (
@@ -86,11 +86,11 @@ const NavBar = () => {
                     />
                   </IconButton>
                 )}
-                {!user && (
+                {/* {!user && (
                   <Button color='inherit' onClick={() => navigate('/login')}>
                     Login / SignUp
                   </Button>
-                )}
+                )} */}
               </Tooltip>
               {user && (
                 <Menu

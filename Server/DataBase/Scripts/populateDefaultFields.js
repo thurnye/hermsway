@@ -2,7 +2,8 @@ const RoleModel = require('../../Model/roles.model');
 const PortalModel = require('../../Model/portals.model');
 const SectionModel = require('../../Model/sections.model');
 const WidgetModel = require('../../Model/widget.model');
-const { defaultRoles, defaultPortals, defaultDashboardSections, defaultDashboardSectionWidgets} = require('./customs/default.data');
+const CompanyModel = require('../../Model/company.model');
+const {companyProfile, defaultRoles, defaultPortals, defaultDashboardSections, defaultDashboardSectionWidgets} = require('./customs/default.data');
 
 
 const populateDefaultFields = async () => {
@@ -31,6 +32,13 @@ const populateDefaultFields = async () => {
     const widgets = await WidgetModel.countDocuments();
     if(widgets === 0){
       const result = await WidgetModel.insertMany(defaultDashboardSectionWidgets);
+        console.log(`${result.length} records inserted successfully.`);
+    }
+    // Default company - delete from production
+    //populate the Widgets
+    const companies = await CompanyModel.countDocuments();
+    if(companies === 0){
+      const result = await CompanyModel.insertMany(companyProfile);
         console.log(`${result.length} records inserted successfully.`);
     }
 }

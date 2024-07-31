@@ -7,16 +7,11 @@ export const roleCodes = {
 };
 
 export const roles = [
-  // { label: 'Admin', value: 'admin' },
+  { label: 'Admin', value: 'admin' },
   { label: 'Managing Partner', value: 'managingPartner' },
   { label: 'Senior Lawyer', value: 'seniorLawyer' },
   { label: 'Associate Lawyer', value: 'associate' },
   { label: 'Paralegal', value: 'paralegal' },
-  // { "label": "Legal Secretary", "value": "legalSecretary" },
-  // { "label": "Billing Clerk", "value": "billingClerk" },
-  // { "label": "Client Relationship Manager", "value": "clientRelationshipManager" },
-  // { "label": "IT Support", "value": "itSupport" },
-  // { "label": "Client (External)", "value": "clientExternal" }
 ];
 
 export const portalsLinks = {
@@ -563,7 +558,7 @@ export const rolesAndPermissions = {
       'documents',
     ],
   },
-  associateLawyer: {
+  associate: {
     permissions: {
       Dashboard: [
         'full_access',
@@ -913,118 +908,4 @@ export const rolesAndPermissions = {
       'documents',
     ],
   },
-  
-  // "legalSecretary": {
-  //   "permissions": [
-  //     "access_assigned_case_files",
-  //     "schedule_manage_appointments",
-  //     "prepare_draft_legal_correspondence",
-  //     "manage_administrative_tasks",
-  //     "communicate_with_clients_scheduling"
-  //   ],
-  //   "dashboard": [
-  //     "Scheduled Appointments",
-  //     "Upcoming Deadlines",
-  //     "Drafting and Correspondence Tasks",
-  //     "Administrative Task Overview",
-  //     "Client Communication Summary"
-  //   ],
-  //   "portal": [
-  //     "Access to Case Files",
-  //     "Appointment Scheduling Tools",
-  //     "Draft Legal Correspondence",
-  //     "Manage Administrative Tasks",
-  //     "Client Communication Tools"
-  //   ]
-  // },
-  // "billingClerk": {
-  //   "permissions": [
-  //     "access_billing_information",
-  //     "generate_invoices",
-  //     "manage_payments",
-  //     "access_financial_reports",
-  //     "communicate_with_clients_billing"
-  //   ],
-  //   "dashboard": [
-  //     "Pending Invoices",
-  //     "Payment Status Overview",
-  //     "Financial Report Summary",
-  //     "Client Billing Issues",
-  //     "Upcoming Payment Deadlines"
-  //   ],
-  //   "portal": [
-  //     "Access to Billing Information",
-  //     "Invoice Generation Tools",
-  //     "Payment Management System",
-  //     "Generate Financial Reports",
-  //     "Communicate with Clients About Billing"
-  //   ]
-  // },
-  // "clientRelationshipManager": {
-  //   "permissions": [
-  //     "access_client_contact_information",
-  //     "communicate_with_clients_progress",
-  //     "generate_view_client_reports",
-  //     "manage_client_engagement"
-  //   ],
-  //   "dashboard": [
-  //     "Client List and Status",
-  //     "Client Feedback and Communication",
-  //     "Client Engagement Metrics",
-  //     "Case Progress Updates",
-  //     "Upcoming Meetings and Follow-ups"
-  //   ],
-  //   "portal": [
-  //     "Access to Client Contact Information",
-  //     "Track Case Progress",
-  //     "Manage Client Communication",
-  //     "Generate Client Reports",
-  //     "Client Engagement Tools"
-  //   ]
-  // },
-  // "iTSupport": {
-  //   "permissions": [
-  //     "access_system_configuration",
-  //     "user_management",
-  //     "monitor_system_performance",
-  //     "access_user_activity_logs"
-  //   ],
-  //   "dashboard": [
-  //     "System Performance Metrics",
-  //     "User Access Logs",
-  //     "Pending Support Tickets",
-  //     "System Configuration Overview",
-  //     "Security Alerts and Notifications"
-  //   ],
-  //   "portal": [
-  //     "Access to System Configuration",
-  //     "Manage User Accounts",
-  //     "Monitor System Performance",
-  //     "Review User Activity Logs",
-  //     "Manage Support Tickets"
-  //   ]
-  // },
-  // "clientExternal": {
-  //   "permissions": [
-  //     "access_own_case_information",
-  //     "upload_documents",
-  //     "communicate_with_legal_team",
-  //     "view_invoices",
-  //     "schedule_appointments"
-  //   ],
-  //   "dashboard": [
-  //     "Case Status Overview",
-  //     "Uploaded Documents",
-  //     "Invoice Summary",
-  //     "Scheduled Appointments",
-  //     "Upcoming Deadlines"
-  //   ],
-  //   "portal": [
-  //     "Access to Own Case Information",
-  //     "Upload Documents",
-  //     "Communicate with Legal Team",
-  //     "View Invoices and Payment History",
-  //     "Schedule and Manage Appointments"
-  //   ]
-  // }
 };

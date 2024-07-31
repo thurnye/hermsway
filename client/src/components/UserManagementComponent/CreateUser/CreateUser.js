@@ -160,7 +160,7 @@ const CreateUser = () => {
         firstName: data.get('firstName'),
         lastName: data.get('lastName'),
         email: data.get('email'),
-        roles: selectedRoles.value,
+        roleName: selectedRoles.value,
         permissions: selectedPermissions,
         dashboards: selectedComponents.dashboards,
         portals: selectedComponents.portals,

@@ -6,6 +6,7 @@ import { decodeJWToken } from './util/helperFunc';
 import { userActions } from './store/userSlice';
 import NavBar from './components/NavBar/NavBar';
 import Home from './pages/Home/Home';
+import LandingPage from './pages/LandingPage/LandingPage';
 import Login from './pages/Auth/Login/Login';
 import SignUp from './pages/Auth/SignUp/SignUp';
 import Single from './pages/Single/Single';
@@ -27,6 +28,9 @@ import CaseStatus from './pages/Portals/CaseStatus/CaseStatus';
 import Documents from './pages/Portals/Documents/Documents';
 import BillingAndFinance from './pages/Portals/BillingAndFinance/BillingAndFinance';
 import CreateUser from './components/UserManagementComponent/CreateUser/CreateUser';
+import AccessPortal from './pages/AccessPortal/AccessPortal';
+import ClientLogin from './pages/Auth/ClientLogin/ClientLogin';
+import EmployeeLogin from './pages/Auth/EmployeeLogin/EmployeeLogin';
 
 // Utility function to check if token is expired
 const isTokenExpired = (token) => {
@@ -43,6 +47,9 @@ function App() {
   useEffect(() => {
     if (token && !isTokenExpired(token)) {
       const userDoc = decodeJWToken(token);
+
+      console.log(userDoc);
+
       dispatch(
         userActions.login({
           user: userDoc.user,
@@ -92,15 +99,10 @@ function App() {
         <NavBar />
         {/* <Container sx={{ mt: 5 }}> */}
         <Routes>
-          <Route path='/welcome' exact element={<Home />} />
-
+          {/* Dashboard */}
           {user ? (
-            <>
-              {/* <Route path='/all' element={<ViewAll />} />
-                
-
-              {/* Dashboard */}
-              <Route path='/' element={<Dashboard />}>
+            <Route path='/' element={<Dashboard />}>
+              <>
                 <Route path='dashboard' element={<Home />} />
                 {portals.map((page, index) => (
                   <Route
@@ -114,16 +116,24 @@ function App() {
                 <Route path='edit/:id' element={<SignUp />} />
 
                 {/* USER MANAGEMENT ROUTES */}
-                <Route path='user-management/create-user' element={<CreateUser/>}/>
+                <Route
+                  path='user-management/create-user'
+                  element={<CreateUser />}
+                />
 
                 <Route index element={<Navigate to='dashboard' />}></Route>
-              </Route>
-            </>
+              </>
+            </Route>
           ) : (
-            <>
-              <Route path='/login' element={<Login />} />
-              <Route path='/signup' element={<SignUp />} />
-            </>
+            <Route path='/' element={<LandingPage />}>
+              <>
+                <Route path='access-portal' element={<AccessPortal />} />
+                <Route path='employee-login' element={<EmployeeLogin />} />
+                <Route path='client-login' element={<ClientLogin />} />
+                <Route path='signup' element={<SignUp />} />
+                <Route index element={<Navigate to='access-portal' />}></Route>
+              </>
+            </Route>
           )}
           <Route path='/forgotPassword' element={<ForgotPassword />} />
           <Route path='*' element={<NoMatch />} />
