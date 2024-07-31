@@ -39,9 +39,7 @@ const Home = () => {
   
   return (
     <div className={styles.Home}>
-      {role === roleCodes.admin && <FirmDashboard/>}
-      {role === roleCodes.associate && <FirmDashboard/>}
-      {role === roleCodes.client && <ClientDashboard/>}
+      {role === roleCodes.client ? <ClientDashboard/> : <FirmDashboard/>}
     </div>
   );
 };

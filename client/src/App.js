@@ -38,9 +38,9 @@ function App() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.userLog.user);
   const portals = useSelector((state) => state.userLog.portals);
+  const token = localStorage.getItem('token');
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
     if (token && !isTokenExpired(token)) {
       const userDoc = decodeJWToken(token);
       dispatch(
@@ -53,7 +53,7 @@ function App() {
     } else {
       localStorage.removeItem('token');
     }
-  }, [dispatch]);
+  }, [dispatch, token]);
 
   const getPages = (pageName) => {
     switch (pageName) {
