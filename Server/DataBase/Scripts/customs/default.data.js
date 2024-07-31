@@ -161,6 +161,7 @@ exports.defaultDashboardSectionWidgets = [
         ordinal: 2,
         widgetComponentName: 'pendingClientPayment'
     },
+    
     {
         widgetName: 'something',
         sectionWidgetName: 'AssociateSomething',
@@ -268,7 +269,7 @@ exports.defaultPermissionTypes = [
 
 
 // Give the different types of permissions their permissions
-[
+exports.defaultPermissions = [
     { "permission": "full_access", "permissionCode": "HMSW_PERM_1", "permissionTypeCode": "" },
     { "permission": "user_management", "permissionCode": "HMSW_PERM_2", "permissionTypeCode": "" },
     { "permission": "access_all_case_files", "permissionCode": "HMSW_PERM_3", "permissionTypeCode": "" },

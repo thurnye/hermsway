@@ -7,6 +7,7 @@ import {
   portalsLinks,
   roles,
   rolesAndPermissions,
+  portalAndDashboards
 } from '../../../util/globalVar';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -77,8 +78,8 @@ const CreateUser = () => {
   const [openCollapse, setOpenCollapse] = React.useState();
   const [selectedRoles, setSelectedRoles] = useState('');
   const [permissionOptions, setPermissionOptions] = useState([]);
-  const [dashboardOptions, setDashboardOptions] = useState([]);
-  const [portalOptions, setPortalOptions] = useState([]);
+  // const [dashboardOptions, setDashboardOptions] = useState([]);
+  // const [portalOptions, setPortalOptions] = useState([]);
   const [selectedPermissions, setSelectedPermissions] = useState({});
   const [selectedComponents, setSelectedComponents] = useState({
     dashboards: [],
@@ -86,14 +87,14 @@ const CreateUser = () => {
   });
 
   useEffect(() => {
-    if (selectedRoles) {
+    if (selectedRoles) { 
       setPermissionOptions(
-        rolesAndPermissions[selectedRoles.value]?.permissions || []
+        rolesAndPermissions[selectedRoles.value].permissions || []
       );
-      setDashboardOptions(
-        rolesAndPermissions[selectedRoles.value]?.dashboard || []
-      );
-      setPortalOptions(rolesAndPermissions[selectedRoles.value]?.portal || []);
+      // setDashboardOptions(
+      //   rolesAndPermissions[selectedRoles.value]?.dashboard || []
+      // );
+      // setPortalOptions(rolesAndPermissions[selectedRoles.value]?.portal || []);
     }
   }, [selectedRoles]);
 
@@ -145,13 +146,28 @@ const CreateUser = () => {
     }
   }, [id]);
 
+  const getFullSelectedPermissions = (selectedPermission, permissions) => {
+    let result = {};
+    
+    for (let category in selectedPermission) {
+      if (permissions[category]) {
+        result[category] = permissions[category].filter(perm => 
+          selectedPermission[category].includes(perm.permissionName)
+        );
+      }
+    }
+    
+    return result;
+  };
+
+
   const handleSubmit = async (event) => {
     try {
       event.preventDefault();
       setIsError(false);
       setSaved(false);
       setReqLoading(true);
-      setOpen(true);
+      // setOpen(true);
       setMessage('');
       setShowCancel(false);
       const data = new FormData(event.currentTarget);
@@ -161,9 +177,9 @@ const CreateUser = () => {
         lastName: data.get('lastName'),
         email: data.get('email'),
         roles: selectedRoles.value,
-        permissions: selectedPermissions,
-        dashboards: selectedComponents.dashboards,
-        portals: selectedComponents.portals,
+        permissions: getFullSelectedPermissions(selectedPermissions, rolesAndPermissions[selectedRoles.value].permissions),
+        dashboards: portalAndDashboards.dashboard.filter(widget => selectedComponents.dashboards.includes(widget.widgetName)),
+        portals: portalAndDashboards.portal.filter(portal => selectedComponents.portals.includes(portal.portalName)),
       };
 
       console.log(loginInfo);
@@ -387,19 +403,19 @@ const CreateUser = () => {
                               >
                                 {permissions.map((permission) => (
                                   <MenuItem
-                                    key={permission}
-                                    value={permission}
+                                    key={permission.permissionName}
+                                    value={permission.permissionName}
                                     sx={{ ml: 4 }}
                                   >
                                     <Checkbox
                                       checked={selectedPermissions[
                                         category
-                                      ]?.includes(permission)}
+                                      ]?.includes(permission.permissionName)}
                                       onChange={() =>
-                                        handlePermissionChange(category, permission)
+                                        handlePermissionChange(category, permission.permissionName)
                                       }
                                     />
-                                    <ListItemText primary={permission} />
+                                    <ListItemText primary={permission.permissionName} />
                                   </MenuItem>
                                 ))}
                               </Collapse>
@@ -433,15 +449,15 @@ const CreateUser = () => {
                         )}
                         MenuProps={MenuProps}
                       >
-                        {dashboardOptions.map((option) => (
-                          <MenuItem key={option} value={option}>
+                        {portalAndDashboards.dashboard.map((option) => (
+                          <MenuItem key={option.widgetName} value={option.widgetName}>
                             <Checkbox
                               checked={
-                                selectedComponents.dashboards.indexOf(option) >
+                                selectedComponents.dashboards.indexOf(option.widgetName) >
                                 -1
                               }
                             />
-                            {option}
+                            {option.widgetName}
                           </MenuItem>
                         ))}
                       </Select>
@@ -471,14 +487,14 @@ const CreateUser = () => {
                         )}
                         MenuProps={MenuProps}
                       >
-                        {portalOptions.map((option) => (
-                          <MenuItem key={option} value={option}>
+                        {portalAndDashboards.portal.map((option) => (
+                          <MenuItem key={option.portalName} value={option.portalName}>
                             <Checkbox
                               checked={
-                                selectedComponents.portals.indexOf(option) > -1
+                                selectedComponents.portals.indexOf(option.portalName) > -1
                               }
                             />
-                            {option}
+                            {option.portalName}
                           </MenuItem>
                         ))}
                       </Select>
