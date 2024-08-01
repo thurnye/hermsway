@@ -7,19 +7,15 @@ import {
   portalsLinks,
   roles,
   rolesAndPermissions,
+  portalAndDashboards
 } from '../../../util/globalVar';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
@@ -27,23 +23,18 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import services from '../../../util/employee.services';
+import actionServices from '../../../util/actions.services';
 import { decodeJWToken } from '../../../util/helperFunc';
 import { userActions } from '../../../store/userSlice';
 import Spinner from '../../Spinner/Spinner';
 import RequestFeedback from '../../RequestFeedback/RequestFeedback';
 import Chip from '@mui/material/Chip';
-import ListSubheader from '@mui/material/ListSubheader';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Collapse from '@mui/material/Collapse';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import DraftsIcon from '@mui/icons-material/Drafts';
-import SendIcon from '@mui/icons-material/Send';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
-import StarBorder from '@mui/icons-material/StarBorder';
 
 const defaultTheme = createTheme();
 
@@ -77,25 +68,25 @@ const CreateUser = () => {
   const [openCollapse, setOpenCollapse] = React.useState();
   const [selectedRoles, setSelectedRoles] = useState('');
   const [permissionOptions, setPermissionOptions] = useState([]);
-  const [dashboardOptions, setDashboardOptions] = useState([]);
-  const [portalOptions, setPortalOptions] = useState([]);
+  // const [dashboardOptions, setDashboardOptions] = useState([]);
+  // const [portalOptions, setPortalOptions] = useState([]);
   const [selectedPermissions, setSelectedPermissions] = useState({});
   const [selectedComponents, setSelectedComponents] = useState({
     dashboards: [],
     portals: [],
   });
 
-  useEffect(() => {
-    if (selectedRoles) {
-      setPermissionOptions(
-        rolesAndPermissions[selectedRoles.value]?.permissions || []
-      );
-      setDashboardOptions(
-        rolesAndPermissions[selectedRoles.value]?.dashboard || []
-      );
-      setPortalOptions(rolesAndPermissions[selectedRoles.value]?.portal || []);
-    }
-  }, [selectedRoles]);
+  // useEffect(() => {
+  //   if (selectedRoles) { 
+  //     setPermissionOptions(
+  //       rolesAndPermissions[selectedRoles.value].permissions || []
+  //     );
+  //     // setDashboardOptions(
+  //     //   rolesAndPermissions[selectedRoles.value]?.dashboard || []
+  //     // );
+  //     // setPortalOptions(rolesAndPermissions[selectedRoles.value]?.portal || []);
+  //   }
+  // }, [selectedRoles]);
 
   const handleRoleChange = (event) => {
     const {
@@ -137,6 +128,37 @@ const CreateUser = () => {
     }
   };
 
+  const fetchPortalPermissions = async (id) => {
+    try {
+      const portals = portalAndDashboards.portal.filter(portal => selectedComponents.portals.includes(portal.permissionTypeName));
+      console.log("portals::", portals)
+      setIsError(false);
+      setSaved(false);
+      setMessage('');
+      setShowCancel(false);
+      const allPermissions = await actionServices.getPortalPermissions(portals);
+      setPermissionOptions(allPermissions.data)
+    } catch (error) {
+      console.log('ERROR:::', error);
+      const errMsg = error.response.data;
+      console.log(error.response.data);
+      setMessage(errMsg);
+      setShowCancel(false);
+      setSaved(false);
+      setIsError(true);
+      setOpen(!open);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (selectedComponents.portals.length > 0) {
+      fetchPortalPermissions(id);
+    } 
+  }, [selectedComponents.portals]);
+
+
   useEffect(() => {
     if (id) {
       fetchUserData(id);
@@ -144,6 +166,21 @@ const CreateUser = () => {
       setLoading(false);
     }
   }, [id]);
+
+  const getFullSelectedPermissions = (selectedPermission, permissions) => {
+    let result = {};
+    
+    for (let category in selectedPermission) {
+      if (permissions[category]) {
+        result[category] = permissions[category].filter(perm => 
+          selectedPermission[category].includes(perm.permissionName)
+        );
+      }
+    }
+    
+    return result;
+  };
+
 
   const handleSubmit = async (event) => {
     try {
@@ -160,15 +197,16 @@ const CreateUser = () => {
         firstName: data.get('firstName'),
         lastName: data.get('lastName'),
         email: data.get('email'),
-        roleName: selectedRoles.value,
-        permissions: selectedPermissions,
-        dashboards: selectedComponents.dashboards,
-        portals: selectedComponents.portals,
+        roles: selectedRoles.value,
+        permissions: getFullSelectedPermissions(selectedPermissions, rolesAndPermissions[selectedRoles.value].permissions),
+        dashboards: portalAndDashboards.dashboard.filter(widget => selectedComponents.dashboards.includes(widget.widgetName)),
+        portals: portalAndDashboards.portal.filter(portal => selectedComponents.portals.includes(portal.permissionTypeName)),
       };
 
+      console.log(selectedComponents);
       console.log(loginInfo);
       // client
-      const result = await services.postEmployee(loginInfo);
+      // const result = await services.postEmployee(loginInfo);
 
       // let token = result.data;
       // localStorage.setItem('token', token);
@@ -207,9 +245,6 @@ const CreateUser = () => {
   };
 
   const handlePermissionChange = (category, value) => {
-    
-
-    console.log(value, category, value)
     setSelectedPermissions((prevPermissions) => {
       const categoryPermissions = prevPermissions[category] || [];
       const newPermissions = categoryPermissions.includes(value)
@@ -339,6 +374,81 @@ const CreateUser = () => {
 
                   <Grid item xs={12}>
                     <FormControl fullWidth>
+                      <InputLabel id='portal-management-label'>
+                        Portal Management
+                      </InputLabel>
+                      <Select
+                        labelId='portal-management-label'
+                        id='portal-management'
+                        multiple
+                        value={selectedComponents.portals}
+                        onChange={(e) => handleSelectChange(e, 'portals')}
+                        input={<OutlinedInput label='Portal Management' />}
+                        renderValue={(selected) => (
+                          <Box
+                            sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}
+                          >
+                            {selected.map((value) => (
+                              <Chip key={value} label={value} />
+                            ))}
+                          </Box>
+                        )}
+                        MenuProps={MenuProps}
+                      >
+                        {portalAndDashboards.portal.map((option) => (
+                          <MenuItem key={option.permissionTypeName} value={option.permissionTypeName}>
+                            <Checkbox
+                              checked={
+                                selectedComponents.portals.indexOf(option.permissionTypeName) > -1
+                              }
+                            />
+                            {option.permissionTypeName}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
+                  </Grid>
+
+                  <Grid item xs={12}>
+                    <FormControl fullWidth>
+                      <InputLabel id='dashboard-management-label'>
+                        Dashboard Management
+                      </InputLabel>
+                      <Select
+                        labelId='dashboard-management-label'
+                        id='dashboard-management'
+                        multiple
+                        value={selectedComponents.dashboards}
+                        onChange={(e) => handleSelectChange(e, 'dashboards')}
+                        input={<OutlinedInput label='Dashboard Management' />}
+                        renderValue={(selected) => (
+                          <Box
+                            sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}
+                          >
+                            {selected.map((value) => (
+                              <Chip key={value} label={value} />
+                            ))}
+                          </Box>
+                        )}
+                        MenuProps={MenuProps}
+                      >
+                        {portalAndDashboards.dashboard.map((option) => (
+                          <MenuItem key={option.widgetName} value={option.widgetName}>
+                            <Checkbox
+                              checked={
+                                selectedComponents.dashboards.indexOf(option.widgetName) >
+                                -1
+                              }
+                            />
+                            {option.widgetName}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
+                  </Grid>
+
+                  <Grid item xs={12}>
+                    <FormControl fullWidth>
                       <InputLabel id='permissions-label'>
                         Permissions
                       </InputLabel>
@@ -387,100 +497,25 @@ const CreateUser = () => {
                               >
                                 {permissions.map((permission) => (
                                   <MenuItem
-                                    key={permission}
-                                    value={permission}
+                                    key={permission.permissionName}
+                                    value={permission.permissionName}
                                     sx={{ ml: 4 }}
                                   >
                                     <Checkbox
                                       checked={selectedPermissions[
                                         category
-                                      ]?.includes(permission)}
+                                      ]?.includes(permission.permissionName)}
                                       onChange={() =>
-                                        handlePermissionChange(category, permission)
+                                        handlePermissionChange(category, permission.permissionName)
                                       }
                                     />
-                                    <ListItemText primary={permission} />
+                                    <ListItemText primary={permission.permissionName} />
                                   </MenuItem>
                                 ))}
                               </Collapse>
                             </List>
                           )
                         )}
-                      </Select>
-                    </FormControl>
-                  </Grid>
-
-                  <Grid item xs={12}>
-                    <FormControl fullWidth>
-                      <InputLabel id='dashboard-management-label'>
-                        Dashboard Management
-                      </InputLabel>
-                      <Select
-                        labelId='dashboard-management-label'
-                        id='dashboard-management'
-                        multiple
-                        value={selectedComponents.dashboards}
-                        onChange={(e) => handleSelectChange(e, 'dashboards')}
-                        input={<OutlinedInput label='Dashboard Management' />}
-                        renderValue={(selected) => (
-                          <Box
-                            sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}
-                          >
-                            {selected.map((value) => (
-                              <Chip key={value} label={value} />
-                            ))}
-                          </Box>
-                        )}
-                        MenuProps={MenuProps}
-                      >
-                        {dashboardOptions.map((option) => (
-                          <MenuItem key={option} value={option}>
-                            <Checkbox
-                              checked={
-                                selectedComponents.dashboards.indexOf(option) >
-                                -1
-                              }
-                            />
-                            {option}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                  </Grid>
-
-                  <Grid item xs={12}>
-                    <FormControl fullWidth>
-                      <InputLabel id='portal-management-label'>
-                        Portal Management
-                      </InputLabel>
-                      <Select
-                        labelId='portal-management-label'
-                        id='portal-management'
-                        multiple
-                        value={selectedComponents.portals}
-                        onChange={(e) => handleSelectChange(e, 'portals')}
-                        input={<OutlinedInput label='Portal Management' />}
-                        renderValue={(selected) => (
-                          <Box
-                            sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}
-                          >
-                            {selected.map((value) => (
-                              <Chip key={value} label={value} />
-                            ))}
-                          </Box>
-                        )}
-                        MenuProps={MenuProps}
-                      >
-                        {portalOptions.map((option) => (
-                          <MenuItem key={option} value={option}>
-                            <Checkbox
-                              checked={
-                                selectedComponents.portals.indexOf(option) > -1
-                              }
-                            />
-                            {option}
-                          </MenuItem>
-                        ))}
                       </Select>
                     </FormControl>
                   </Grid>

@@ -1,4 +1,19 @@
 
+exports.companyProfile  = [
+    {
+        companyName: 'HemsWay',
+        companyLogo: '',
+        companyAddress: '1 main Street ',
+        companyPhoneNumber: '1234567890',
+        companyEmail: 'company@company.com',
+        companyId: 'A0947',
+        companyConfig: {
+            colors: {}
+        }
+    }
+  ]
+
+
 exports.defaultRoles = [
     { roleName: 'admin', refCode: 'HMSW-ADM-001' },
     { roleName: 'managingPartner', refCode: 'HMSW-MGN_PTN-002' },
@@ -70,8 +85,6 @@ exports.defaultPortals = [
     { portalName: 'Communication', roleRefCode: 'HMSW-CLI-0115', portalRoleName: 'Communication', route: 'communication', ordinal: 5},
     { portalName: 'Settings', roleRefCode: 'HMSW-CLI-0115', portalRoleName: 'Settings', route: 'settings', ordinal: 6},
 ];
-
-  
 
 exports.defaultDashboardSections = [
     // Admin
@@ -298,48 +311,6 @@ exports.defaultDashboardSectionWidgets = [
     }
 ]
 
-exports.defaultPermissionTypes = [
-    { "permissionType": "Dashboard", "permissionTypeName": "Dashboard", "permissionTypeCode": "HMSW_PERM_TYPE_DASH" },
-    { "permissionType": "CaseManagement", "permissionTypeName": "Case Management", "permissionTypeCode": "HMSW_PERM_TYPE_CASE_MGNT" },
-    { "permissionType": "ClientManagement", "permissionTypeName": "Client Management", "permissionTypeCode": "HMSW_PERM_TYPE_CLT_MGNT" },
-    { "permissionType": "DocumentManagement", "permissionTypeName": "Document Management", "permissionTypeCode": "HMSW_PERM_TYPE_DOC_MGNT" },
-    { "permissionType": "BillingAndFinance", "permissionTypeName": "Billing And Finance", "permissionTypeCode": "HMSW_PERM_TYPE_BILL_FIN" },
-    { "permissionType": "Communication", "permissionTypeName": "Communication", "permissionTypeCode": "HMSW_PERM_TYPE_COMM" },
-    { "permissionType": "TasksAndReminders", "permissionTypeName": "Tasks And Reminders", "permissionTypeCode": "HMSW_PERM_TYPE_TASK_REM" },
-    { "permissionType": "ReportsAndAnalytics", "permissionTypeName": "Reports And Analytics", "permissionTypeCode": "HMSW_PERM_TYPE_RPT_ANL" },
-    { "permissionType": "UserManagement", "permissionTypeName": "User Management", "permissionTypeCode": "HMSW_PERM_TYPE_USER_MGNT" },
-    { "permissionType": "Settings", "permissionTypeName": "Settings", "permissionTypeCode": "HMSW_PERM_TYPE_SETT" },
-    { "permissionType": "CaseStatus", "permissionTypeName": "CaseStatus", "permissionTypeCode": "HMSW_PERM_TYPE_CASE_STAT" },
-    { "permissionType": "Documents", "permissionTypeName": "Documents", "permissionTypeCode": "HMSW_PERM_TYPE_DOC" }
-]
 
-
-// Give the different types of permissions their permissions
-[
-    { "permission": "full_access", "permissionCode": "HMSW_PERM_1", "permissionTypeCode": "" },
-    { "permission": "user_management", "permissionCode": "HMSW_PERM_2", "permissionTypeCode": "" },
-    { "permission": "access_all_case_files", "permissionCode": "HMSW_PERM_3", "permissionTypeCode": "" },
-    { "permission": "generate_view_all_reports", "permissionCode": "HMSW_PERM_4", "permissionTypeCode": "" },
-    { "permission": "system_configuration", "permissionCode": "HMSW_PERM_5", "permissionTypeCode": "" },
-    { "permission": "create_record", "permissionCode": "HMSW_PERM_6", "permissionTypeCode": "" },
-    { "permission": "read_record", "permissionCode": "HMSW_PERM_7", "permissionTypeCode": "" },
-    { "permission": "update_record", "permissionCode": "HMSW_PERM_8", "permissionTypeCode": "" },
-    { "permission": "delete_record", "permissionCode": "HMSW_PERM_9", "permissionTypeCode": "" }
-  ]
-  
-
-  exports.companyProfile  = [
-    {
-        companyName: 'HemsWay',
-        companyLogo: '',
-        companyAddress: '1 main Street ',
-        companyPhoneNumber: '1234567890',
-        companyEmail: 'company@company.com',
-        companyId: 'A0947',
-        companyConfig: {
-            colors: {}
-        }
-    }
-  ]
 
 
