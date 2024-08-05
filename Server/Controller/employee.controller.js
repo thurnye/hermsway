@@ -14,7 +14,8 @@ const EmployeeConfig = require('../Model/employee.config.model');
 //Creating A User
 const postEmployee = async (req, res, next) => {
   try {
-    const id = req.body.id;
+    const {newUserInfo, profiles:{companyId}} = req.body;
+    const id = newUserInfo.id;
     let savedUser = null;
 
     let password = '';
@@ -35,34 +36,34 @@ const postEmployee = async (req, res, next) => {
       '0'
     );
 
-    if (!req.body.email) {
+    if (!newUserInfo.email) {
       res.status(400).json('Missing Field Needed!');
       return;
     }
 
-    console.log('BODY:::', req.body);
+    console.log('BODY:::', newUserInfo);
     console.log('PASSWORD:::', password);
 
     if (!id) {
-      const {
+      const { 
         permissions,
         dashboards,
         portals,
         roles: { rolesCode },
-      } = req.body;
+      } = newUserInfo;
 
-      const role = await Role.findOne({ refCode: rolesCode });
+      // const role = await Role.findOne({ refCode: rolesCode });
       // Create New User
       const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
-
+      const employeeId = `${randomLetters}-${randomNumber}`
       const newUser = new Employee({
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        email: req.body.email,
+        firstName: newUserInfo.firstName,
+        lastName: newUserInfo.lastName,
+        email: newUserInfo.email,
         password: hashedPassword,
         roleRefCode: rolesCode,
-        companyId: req.body.companyId || 'A0947',
-        employeeId: `${randomLetters}-${randomNumber}`,
+        companyId: companyId,
+        employeeId,
       });
       savedUser = await newUser.save();
 
@@ -72,7 +73,7 @@ const postEmployee = async (req, res, next) => {
         permissions,
         dashboards,
         portals,
-        employee: newUserId,
+        employeeId: employeeId,
       });
 
       await newConfig.save();
@@ -151,8 +152,8 @@ const getLogIn = async (req, res) => {
     }
 
     // Find the user and select necessary fields
-    const user = await Employee.findOne({ email, companyId, employeeId })
-      .select('firstName lastName email password roleRefCode')
+    const user = await Employee.findOne({ email, companyId, employeeId, active: true })
+      .select('firstName lastName email password roleRefCode, employeeId')
       .lean();
 
     if (!user) {
@@ -183,6 +184,7 @@ const getLogIn = async (req, res) => {
       lastName: user.lastName,
       email: user.email,
       role: user.roleRefCode,
+      employeeId: user.employeeId
     };
 
     // const userPortals = await Portal.find({
@@ -212,12 +214,10 @@ const getLogIn = async (req, res) => {
     //   })
     // );
 
-    const employeeConfigs = await EmployeeConfig.findOne({ employee: user._id })
+    const employeeConfigs = await EmployeeConfig.findOne({employeeId})
       .select('permissions dashboards portals employee')
-      .populate({
-        path: 'employee',
-        select: '_id firstName lastName',
-      });
+      .lean();
+
     console.log('EMPLOYEE_CONFIG:::', employeeConfigs);
 
     const { permissions, dashboards, portals } = employeeConfigs;
@@ -261,6 +261,45 @@ const getLogIn = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(400).json('Something went Wrong!!');
+  }
+};
+
+//RETRIEVE ALL USER
+const getAllEmployees = async (req, res, next) => {
+  try {
+    const { query, profiles } = req.body;
+    const perPage = query.perPage || 9;
+    const page = query.currentPage || 1;
+    const companyId = profiles.companyId;
+
+    let counts = await Employee.find({ companyId }).countDocuments();
+
+    let employees = await Employee.find({ companyId })
+      .skip(perPage * page - perPage)
+      .limit(perPage)
+      .select(
+        'firstName lastName email roleRefCode active employeeId createdAt'
+      )
+      .lean();
+
+      employees = await Promise.all(
+        employees.map(async (employee) => {
+        const { roleRefCode } = employee;
+        const employeesRole = await Role.findOne({
+          refCode: roleRefCode.toUpperCase(),
+        });
+        if (employeesRole) {
+          employee.role = employeesRole.role;
+        } else {
+          employee.role = roleRefCode;
+        }
+        return employee;
+      })
+    );
+    res.status(200).json({employees, counts});
+  } catch (error) {
+    console.log(error);
+    res.status(400).json('Something Went Wrong!.');
   }
 };
 
@@ -320,18 +359,7 @@ const PostForgottenPassword = async (req, res) => {
   }
 };
 
-//RETRIEVE ALL USER
-const getAllEmployees = async (req, res, next) => {
-  try {
-    const users = await Employee.find()
-      .select('firstName lastName email _id')
-      .lean();
-    res.status(200).json(users);
-  } catch (error) {
-    console.log(error);
-    res.status(400).json('Something Went Wrong!.');
-  }
-};
+
 
 //RETRIEVE A USER BY ID
 const getAnEmployeeByID = async (req, res, next) => {

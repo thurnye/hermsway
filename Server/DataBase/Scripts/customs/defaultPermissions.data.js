@@ -473,17 +473,34 @@ exports.permissions = [
   },
 
   // UserManagement
-
-  {
-    permissionName: 'full_access',
-    permissionComponent: 'UserManagement',
-    permissionCode: 'HMSW_PERM_1',
-    permissionTypeCode: 'HMSW_PERM_TYPE_USER_MGNT',
-  },
   {
     permissionName: 'create_employee',
     permissionComponent: 'UserManagement',
     permissionCode: 'HMSW_PERM_2',
+    permissionTypeCode: 'HMSW_PERM_TYPE_USER_MGNT',
+  },
+  {
+    permissionName: 'view_all_employees',
+    permissionComponent: 'UserManagement',
+    permissionCode: 'HMSW_PERM_3',
+    permissionTypeCode: 'HMSW_PERM_TYPE_USER_MGNT',
+  },
+  {
+    permissionName: 'view_employee_details',
+    permissionComponent: 'UserManagement',
+    permissionCode: 'HMSW_PERM_4',
+    permissionTypeCode: 'HMSW_PERM_TYPE_USER_MGNT',
+  },
+  {
+    permissionName: 'edit_employee_details',
+    permissionComponent: 'UserManagement',
+    permissionCode: 'HMSW_PERM_5',
+    permissionTypeCode: 'HMSW_PERM_TYPE_USER_MGNT',
+  },
+  {
+    permissionName: 'deactivate_employee',
+    permissionComponent: 'UserManagement',
+    permissionCode: 'HMSW_PERM_6',
     permissionTypeCode: 'HMSW_PERM_TYPE_USER_MGNT',
   },
   

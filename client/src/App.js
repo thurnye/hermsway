@@ -7,7 +7,6 @@ import { userActions } from './store/userSlice';
 import NavBar from './components/NavBar/NavBar';
 import Home from './pages/Home/Home';
 import LandingPage from './pages/LandingPage/LandingPage';
-import Login from './pages/Auth/Login/Login';
 import SignUp from './pages/Auth/SignUp/SignUp';
 import Single from './pages/Single/Single';
 import NoMatch from './pages/NoMatch/NoMatch';
@@ -31,6 +30,7 @@ import CreateUser from './components/UserManagementComponent/CreateUser/CreateUs
 import AccessPortal from './pages/AccessPortal/AccessPortal';
 import ClientLogin from './pages/Auth/ClientLogin/ClientLogin';
 import EmployeeLogin from './pages/Auth/EmployeeLogin/EmployeeLogin';
+import { companyActions } from './store/companySlice';
 
 // Utility function to check if token is expired
 const isTokenExpired = (token) => {
@@ -47,22 +47,21 @@ function App() {
   useEffect(() => {
     if (token && !isTokenExpired(token)) {
       const userDoc = decodeJWToken(token);
-
-      // console.log(userDoc);
-
-      dispatch(
-        userActions.login({
-          user: userDoc.user,
-        })
-      );
+      console.log("userDoc:::",userDoc)
+      dispatch( userActions.login({user: userDoc.user}));
       dispatch(userActions.getRoles(userDoc.userPortals));
       dispatch(userActions.getDashboardWidget(userDoc.dashboardWidgets));
+      dispatch(userActions.getPermissions(userDoc.permissions));
+      dispatch(
+        companyActions.getCompany(userDoc.company)
+      );
+      
     } else {
       localStorage.removeItem('token');
     }
   }, [dispatch, token]);
 
-  const getPages = (pageName) => {
+  const getPages = (pageName, permissionTypeCode) => {
     switch (pageName) {
       case 'Dashboard':
         return <DashboardContents />;
@@ -81,7 +80,7 @@ function App() {
       case 'Reports and Analytics':
         return <ReportsAndAnalytics />;
       case 'User Management':
-        return <UserManagement />;
+        return <UserManagement permissionTypeCode={permissionTypeCode}/>;
       case 'Settings':
         return <Settings />;
       case 'Case Status':
@@ -110,7 +109,7 @@ function App() {
                   <Route
                     key={index}
                     path={page.route}
-                    element={getPages(page.portalName)}
+                    element={getPages(page.portalName, page.permissionTypeCode)}
                   />
                 ))}
 
@@ -132,7 +131,7 @@ function App() {
                 <Route path='access-portal' element={<AccessPortal />} />
                 <Route path='employee-login' element={<EmployeeLogin />} />
                 <Route path='client-login' element={<ClientLogin />} />
-                <Route path='signup' element={<SignUp />} />
+                {/* <Route path='signup' element={<SignUp />} /> */}
                 <Route index element={<Navigate to='access-portal' />}></Route>
               </>
             </Route>

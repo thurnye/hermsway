@@ -7,10 +7,10 @@ import {
   portalsLinks,
   roles,
   allPortals,
-  dashboardSections
+  dashboardSections,
 } from '../../../util/globalVar';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -35,6 +35,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Collapse from '@mui/material/Collapse';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
+import { permissionNames } from '../../../util/permissions.services';
 
 const defaultTheme = createTheme();
 
@@ -52,6 +53,8 @@ const MenuProps = {
 const CreateUser = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.userLog.user);
+  const company = useSelector((state) => state.company.companyProfile);
   const location = useLocation();
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(true);
@@ -75,8 +78,6 @@ const CreateUser = () => {
     portals: [],
   });
 
-
-
   const handleRoleChange = (event) => {
     const {
       target: { value },
@@ -89,15 +90,15 @@ const CreateUser = () => {
     const {
       target: { value },
     } = event;
-    
+
     setSelectedPortals(value);
-    console.log(value)
+    console.log(value);
     // setSelectedComponents((prevState) => ({
-      //   ...prevState,
-      //   [type]: typeof value === 'string' ? value.split(',') : value,
-      // }));
-    };
-    console.log(selectedPortals)
+    //   ...prevState,
+    //   [type]: typeof value === 'string' ? value.split(',') : value,
+    // }));
+  };
+  console.log(selectedPortals);
 
   const fetchUserData = async (id) => {
     try {
@@ -123,14 +124,16 @@ const CreateUser = () => {
 
   const fetchPortalPermissions = async (id) => {
     try {
-      const portals = allPortals.filter(portal => selectedPortals.includes(portal.permissionTypeName));
-      console.log("portals::", portals)
+      const portals = allPortals.filter((portal) =>
+        selectedPortals.includes(portal.permissionTypeName)
+      );
+      console.log('portals::', portals);
       setIsError(false);
       setSaved(false);
       setMessage('');
       setShowCancel(false);
       const allPermissions = await actionServices.getPortalPermissions(portals);
-      setPermissionOptions(allPermissions.data)
+      setPermissionOptions(allPermissions.data);
     } catch (error) {
       console.log('ERROR:::', error);
       const errMsg = error.response.data;
@@ -148,11 +151,10 @@ const CreateUser = () => {
   useEffect(() => {
     if (selectedPortals.length > 0) {
       fetchPortalPermissions(id);
-    }else{
-      setPermissionOptions([])
-    } 
+    } else {
+      setPermissionOptions([]);
+    }
   }, [selectedPortals]);
-
 
   useEffect(() => {
     if (id) {
@@ -164,32 +166,31 @@ const CreateUser = () => {
 
   const getFullSelectedPermissions = (selectedPermission, permissions) => {
     let result = {};
-    
+
     for (let category in selectedPermission) {
       if (permissions[category]) {
-        result[category] = permissions[category].filter(perm => 
+        result[category] = permissions[category].filter((perm) =>
           selectedPermission[category].includes(perm.permissionName)
         );
       }
     }
-    
+
     return result;
   };
 
   const getFullSelectedDashboards = (selectedDashboards) => {
     let result = {};
-    
+
     for (let category in selectedDashboards) {
       if (dashboardSections[category]) {
-        result[category] = dashboardSections[category].filter(widget => 
+        result[category] = dashboardSections[category].filter((widget) =>
           selectedDashboards[category].includes(widget.widgetName)
         );
       }
     }
-    
+
     return result;
   };
-
 
   const handleSubmit = async (event) => {
     try {
@@ -207,15 +208,25 @@ const CreateUser = () => {
         lastName: data.get('lastName'),
         email: data.get('email'),
         roles: roles.find((role) => role.value === selectedRoles.value),
-        permissions: getFullSelectedPermissions(selectedPermissions, permissionOptions),
+        permissions: getFullSelectedPermissions(
+          selectedPermissions,
+          permissionOptions
+        ),
         dashboards: getFullSelectedDashboards(selectedDashboards),
-        portals: allPortals.filter(portal => selectedPortals.includes(portal.permissionTypeName)),
+        portals: allPortals.filter((portal) =>
+          selectedPortals.includes(portal.permissionTypeName)
+        ),
       };
+      const profiles = {
+        employeeId: user.employeeId,
+        companyId: company.companyId,
+        permission: permissionNames.create_employee,
+      };          
 
       console.log(selectedComponents);
       console.log(newUserInfo);
-      const result = await services.postEmployee(newUserInfo);
-      console.log(result)
+      const result = await services.postEmployee({ newUserInfo, profiles });
+      console.log(result);
       setReqLoading(false);
       setSaved(true);
       setMessage(id ? 'Updated Successfully' : 'User Created Successfully');
@@ -281,10 +292,9 @@ const CreateUser = () => {
     return grouped;
   };
 
-
   const renderSelected = (selected) => {
     return (
-      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5}}>
+      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
         {Object.entries(selected).map(([category, permissions]) => (
           <Box key={category} sx={{ mr: 2, textWrap: 'wrap' }}>
             <strong>{category}:</strong>
@@ -407,10 +417,15 @@ const CreateUser = () => {
                         MenuProps={MenuProps}
                       >
                         {allPortals.map((option) => (
-                          <MenuItem key={option.permissionTypeName} value={option.permissionTypeName}>
+                          <MenuItem
+                            key={option.permissionTypeName}
+                            value={option.permissionTypeName}
+                          >
                             <Checkbox
                               checked={
-                                selectedPortals.indexOf(option.permissionTypeName) > -1
+                                selectedPortals.indexOf(
+                                  option.permissionTypeName
+                                ) > -1
                               }
                             />
                             {option.permissionTypeName}
@@ -431,7 +446,9 @@ const CreateUser = () => {
                         multiple
                         input={<OutlinedInput label='Dashboard Management' />}
                         value={Object.values(selectedDashboards).flat()}
-                        renderValue={() => renderSelected(groupSelected(selectedDashboards))}
+                        renderValue={() =>
+                          renderSelected(groupSelected(selectedDashboards))
+                        }
                         MenuProps={MenuProps}
                       >
                         {Object.entries(dashboardSections).map(
@@ -453,7 +470,7 @@ const CreateUser = () => {
                                   indeterminate={
                                     selectedDashboards[category]?.length > 0 &&
                                     selectedDashboards[category]?.length <
-                                    widgets.length
+                                      widgets.length
                                   }
                                 />
                                 <ListItemText primary={category} />
@@ -479,7 +496,10 @@ const CreateUser = () => {
                                         category
                                       ]?.includes(widget.widgetName)}
                                       onChange={() =>
-                                        handleDashboardManagementChange(category, widget.widgetName)
+                                        handleDashboardManagementChange(
+                                          category,
+                                          widget.widgetName
+                                        )
                                       }
                                     />
                                     <ListItemText primary={widget.widgetName} />
@@ -504,7 +524,9 @@ const CreateUser = () => {
                         multiple
                         input={<OutlinedInput label='Permissions' />}
                         value={Object.values(selectedPermissions).flat()}
-                        renderValue={() => renderSelected(groupSelected(selectedPermissions))}
+                        renderValue={() =>
+                          renderSelected(groupSelected(selectedPermissions))
+                        }
                         MenuProps={MenuProps}
                       >
                         {Object.entries(permissionOptions).map(
@@ -552,10 +574,15 @@ const CreateUser = () => {
                                         category
                                       ]?.includes(permission.permissionName)}
                                       onChange={() =>
-                                        handlePermissionChange(category, permission.permissionName)
+                                        handlePermissionChange(
+                                          category,
+                                          permission.permissionName
+                                        )
                                       }
                                     />
-                                    <ListItemText primary={permission.permissionName} />
+                                    <ListItemText
+                                      primary={permission.permissionName}
+                                    />
                                   </MenuItem>
                                 ))}
                               </Collapse>

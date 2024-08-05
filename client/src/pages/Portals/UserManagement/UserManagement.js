@@ -3,13 +3,20 @@ import styles from './UserManagement.module.css';
 import Box from '@mui/material/Box';
 import { Container, Grid, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { getPermissionsByType } from '../../../util/helperFunc';
+import { useSelector } from 'react-redux';
+import PermissionWrapper from '../../../components/HOC/PermissionWrapper/PermissionWrapper';
+import { permissionNames } from '../../../util/permissions.services';
+import EmployeeLists from '../../../components/UserManagementComponent/EmployeeLists/EmployeeLists';
 
-const UserManagement = () => {
-  
-  return(
-  <div className={styles.UserManagement}>
-     <Box sx={{ textAlign:'end' }}>
-     <Container maxWidth='lg' >
+const UserManagement = ({ permissionTypeCode }) => {
+  const userPermissions = useSelector((state) => state.userLog.permissions);
+  console.log(userPermissions)
+  const permissions = getPermissionsByType(userPermissions, permissionTypeCode);
+  return (
+    <div className={styles.UserManagement}>
+      <Box sx={{ textAlign: 'end' }}>
+        <Container maxWidth='lg'>
           <Grid container spacing={3}>
             <Grid item xs={12}>
               <Box
@@ -18,20 +25,28 @@ const UserManagement = () => {
                   justifyContent: 'flex-end',
                 }}
               >
-                <Typography gutterBottom sx={{ mx: 3 }}>
-                  <Link to='create-user'>Create User</Link>
-                </Typography>
+                <PermissionWrapper
+                  userPermissions={permissions}
+                  requiredPermissions={permissionNames.create_employee}
+                >
+                  <Typography gutterBottom sx={{ mx: 3 }}>
+                    <Link to='create-user'>Add New Employee</Link>
+                  </Typography>
+                </PermissionWrapper>
                 <Typography gutterBottom sx={{ mx: 3 }}>
                   <Link to='roles'>Roles and Permissions</Link>
                 </Typography>
               </Box>
             </Grid>
           </Grid>
-    </Container>
-    </Box>
-  </div>
-)};
 
-
+          <Box>
+            <EmployeeLists/>
+          </Box>
+        </Container>
+      </Box>
+    </div>
+  );
+};
 
 export default UserManagement;

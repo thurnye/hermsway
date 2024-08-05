@@ -1,0 +1,542 @@
+[{
+  "_id": {
+    "$oid": "66b0746d61b093530c32b4e1"
+  },
+  "permissions": {
+    "Dashboard": [
+      {
+        "_id": "66a9dcaae26be2b4f14fa060",
+        "permissionName": "full_access",
+        "permissionComponent": "Dashboard",
+        "permissionCode": "HMSW_PERM_1",
+        "permissionTypeCode": "HMSW_PERM_TYPE_DASH",
+        "__v": 0,
+        "createdAt": "2024-07-31T06:41:46.214Z",
+        "updatedAt": "2024-07-31T06:41:46.214Z"
+      }
+    ],
+    "Case Management": [
+      {
+        "_id": "66a9dcaae26be2b4f14fa069",
+        "permissionName": "full_access",
+        "permissionComponent": "CaseManagement",
+        "permissionCode": "HMSW_PERM_1",
+        "permissionTypeCode": "HMSW_PERM_TYPE_CASE_MGNT",
+        "__v": 0,
+        "createdAt": "2024-07-31T06:41:46.216Z",
+        "updatedAt": "2024-07-31T06:41:46.216Z"
+      }
+    ],
+    "Client Management": [
+      {
+        "_id": "66a9dcaae26be2b4f14fa072",
+        "permissionName": "full_access",
+        "permissionComponent": "ClientManagement",
+        "permissionCode": "HMSW_PERM_1",
+        "permissionTypeCode": "HMSW_PERM_TYPE_CLT_MGNT",
+        "__v": 0,
+        "createdAt": "2024-07-31T06:41:46.217Z",
+        "updatedAt": "2024-07-31T06:41:46.217Z"
+      }
+    ],
+    "Document Management": [
+      {
+        "_id": "66a9dcaae26be2b4f14fa07b",
+        "permissionName": "full_access",
+        "permissionComponent": "DocumentManagement",
+        "permissionCode": "HMSW_PERM_1",
+        "permissionTypeCode": "HMSW_PERM_TYPE_DOC_MGNT",
+        "__v": 0,
+        "createdAt": "2024-07-31T06:41:46.217Z",
+        "updatedAt": "2024-07-31T06:41:46.217Z"
+      }
+    ],
+    "Billing And Finance": [
+      {
+        "_id": "66a9dcaae26be2b4f14fa084",
+        "permissionName": "full_access",
+        "permissionComponent": "BillingAndFinance",
+        "permissionCode": "HMSW_PERM_1",
+        "permissionTypeCode": "HMSW_PERM_TYPE_BILL_FIN",
+        "__v": 0,
+        "createdAt": "2024-07-31T06:41:46.217Z",
+        "updatedAt": "2024-07-31T06:41:46.217Z"
+      }
+    ],
+    "Communication": [
+      {
+        "_id": "66a9dcaae26be2b4f14fa08d",
+        "permissionName": "full_access",
+        "permissionComponent": "Communication",
+        "permissionCode": "HMSW_PERM_1",
+        "permissionTypeCode": "HMSW_PERM_TYPE_COMM",
+        "__v": 0,
+        "createdAt": "2024-07-31T06:41:46.217Z",
+        "updatedAt": "2024-07-31T06:41:46.217Z"
+      }
+    ],
+    "Tasks And Reminders": [
+      {
+        "_id": "66a9dcaae26be2b4f14fa096",
+        "permissionName": "full_access",
+        "permissionComponent": "TasksAndReminders",
+        "permissionCode": "HMSW_PERM_1",
+        "permissionTypeCode": "HMSW_PERM_TYPE_TASK_REM",
+        "__v": 0,
+        "createdAt": "2024-07-31T06:41:46.218Z",
+        "updatedAt": "2024-07-31T06:41:46.218Z"
+      }
+    ],
+    "Reports And Analytics": [
+      {
+        "_id": "66a9dcaae26be2b4f14fa09f",
+        "permissionName": "full_access",
+        "permissionComponent": "ReportsAndAnalytics",
+        "permissionCode": "HMSW_PERM_1",
+        "permissionTypeCode": "HMSW_PERM_TYPE_RPT_ANL",
+        "__v": 0,
+        "createdAt": "2024-07-31T06:41:46.218Z",
+        "updatedAt": "2024-07-31T06:41:46.218Z"
+      }
+    ],
+    "User Management": [
+      {
+        "_id": "66a9dcaae26be2b4f14fa0a8",
+        "permissionName": "full_access",
+        "permissionComponent": "UserManagement",
+        "permissionCode": "HMSW_PERM_1",
+        "permissionTypeCode": "HMSW_PERM_TYPE_USER_MGNT",
+        "__v": 0,
+        "createdAt": "2024-07-31T06:41:46.218Z",
+        "updatedAt": "2024-07-31T06:41:46.218Z"
+      },
+      {
+        "_id": "66a9dcaae26be2b4f14fa0a9",
+        "permissionName": "create_employee",
+        "permissionComponent": "UserManagement",
+        "permissionCode": "HMSW_PERM_2",
+        "permissionTypeCode": "HMSW_PERM_TYPE_USER_MGNT",
+        "__v": 0,
+        "createdAt": "2024-07-31T06:41:46.218Z",
+        "updatedAt": "2024-07-31T06:41:46.218Z"
+      },
+      {
+        "_id": "66a9dcaae26be2b4f14fa0b0",
+        "permissionName": "view_employee_details",
+        "permissionComponent": "UserManagement",
+        "permissionCode": "HMSW_PERM_3",
+        "permissionTypeCode": "HMSW_PERM_TYPE_USER_MGNT",
+        "__v": 0,
+        "createdAt": "2024-07-31T06:41:46.218Z",
+        "updatedAt": "2024-07-31T06:41:46.218Z"
+      },
+      {
+        "_id": "66a9dcaae26be2b4f14fa0b1",
+        "permissionName": "edit_employee_details",
+        "permissionComponent": "UserManagement",
+        "permissionCode": "HMSW_PERM_4",
+        "permissionTypeCode": "HMSW_PERM_TYPE_USER_MGNT",
+        "__v": 0,
+        "createdAt": "2024-07-31T06:41:46.218Z",
+        "updatedAt": "2024-07-31T06:41:46.218Z"
+      },
+      {
+        "_id": "66a9dcaae26be2b4f14fa0b2",
+        "permissionName": "deactivate_employee",
+        "permissionComponent": "UserManagement",
+        "permissionCode": "HMSW_PERM_5",
+        "permissionTypeCode": "HMSW_PERM_TYPE_USER_MGNT",
+        "__v": 0,
+        "createdAt": "2024-07-31T06:41:46.218Z",
+        "updatedAt": "2024-07-31T06:41:46.218Z"
+      }
+    ],
+    "Settings": [
+      {
+        "_id": "66a9dcaae26be2b4f14fa0b1",
+        "permissionName": "full_access",
+        "permissionComponent": "Settings",
+        "permissionCode": "HMSW_PERM_1",
+        "permissionTypeCode": "HMSW_PERM_TYPE_SETT",
+        "__v": 0,
+        "createdAt": "2024-07-31T06:41:46.218Z",
+        "updatedAt": "2024-07-31T06:41:46.218Z"
+      }
+    ],
+    "CaseStatus": [
+      {
+        "_id": "66a9dcaae26be2b4f14fa0ba",
+        "permissionName": "full_access",
+        "permissionComponent": "CaseStatus",
+        "permissionCode": "HMSW_PERM_1",
+        "permissionTypeCode": "HMSW_PERM_TYPE_CASE_STAT",
+        "__v": 0,
+        "createdAt": "2024-07-31T06:41:46.218Z",
+        "updatedAt": "2024-07-31T06:41:46.218Z"
+      }
+    ],
+    "Documents": [
+      {
+        "_id": "66a9dcaae26be2b4f14fa0c3",
+        "permissionName": "full_access",
+        "permissionComponent": "Documents",
+        "permissionCode": "HMSW_PERM_1",
+        "permissionTypeCode": "HMSW_PERM_TYPE_DOC",
+        "__v": 0,
+        "createdAt": "2024-07-31T06:41:46.218Z",
+        "updatedAt": "2024-07-31T06:41:46.218Z"
+      }
+    ]
+  },
+  "dashboards": {
+    "generalMetrics": [
+      {
+        "widgetName": "Spending Summary",
+        "sectionCode": "HMSW-Met-Gen"
+      },
+      {
+        "widgetName": "New Case",
+        "sectionCode": "HMSW-Met-Gen"
+      },
+      {
+        "widgetName": "Active Cases",
+        "sectionCode": "HMSW-Met-Gen"
+      }
+    ],
+    "activitiesMetrics": [
+      {
+        "widgetName": "Outstanding Tasks and Assignments",
+        "sectionCode": "HMSW-Met-Avt"
+      },
+      {
+        "widgetName": "Recent Activities",
+        "sectionCode": "HMSW-Met-Avt"
+      },
+      {
+        "widgetName": "Appointments",
+        "sectionCode": "HMSW-Met-Avt"
+      }
+    ],
+    "employeeMetrics": [
+      {
+        "widgetName": "Employees Reports",
+        "sectionCode": "HMSW-Met-Emp"
+      },
+      {
+        "widgetName": "Something Here",
+        "sectionCode": "HMSW-Met-Emp"
+      }
+    ],
+    "teamMetrics": [
+      {
+        "widgetName": "Team Reports",
+        "sectionCode": "HMSW-Met-Team"
+      },
+      {
+        "widgetName": "Something Here",
+        "sectionCode": "HMSW-Met-Team"
+      }
+    ],
+    "clientMetrics": [
+      {
+        "widgetName": "Client Reports",
+        "sectionCode": "HMSW-Met-Clt"
+      },
+      {
+        "widgetName": "Pending Client Payment",
+        "sectionCode": "HMSW-Met-Clt"
+      }
+    ]
+  },
+  "portals": [
+    {
+      "permissionType": "Dashboard",
+      "permissionTypeName": "Dashboard",
+      "permissionTypeCode": "HMSW_PERM_TYPE_DASH"
+    },
+    {
+      "permissionType": "CaseManagement",
+      "permissionTypeName": "Case Management",
+      "permissionTypeCode": "HMSW_PERM_TYPE_CASE_MGNT"
+    },
+    {
+      "permissionType": "ClientManagement",
+      "permissionTypeName": "Client Management",
+      "permissionTypeCode": "HMSW_PERM_TYPE_CLT_MGNT"
+    },
+    {
+      "permissionType": "DocumentManagement",
+      "permissionTypeName": "Document Management",
+      "permissionTypeCode": "HMSW_PERM_TYPE_DOC_MGNT"
+    },
+    {
+      "permissionType": "BillingAndFinance",
+      "permissionTypeName": "Billing And Finance",
+      "permissionTypeCode": "HMSW_PERM_TYPE_BILL_FIN"
+    },
+    {
+      "permissionType": "Communication",
+      "permissionTypeName": "Communication",
+      "permissionTypeCode": "HMSW_PERM_TYPE_COMM"
+    },
+    {
+      "permissionType": "TasksAndReminders",
+      "permissionTypeName": "Tasks And Reminders",
+      "permissionTypeCode": "HMSW_PERM_TYPE_TASK_REM"
+    },
+    {
+      "permissionType": "ReportsAndAnalytics",
+      "permissionTypeName": "Reports And Analytics",
+      "permissionTypeCode": "HMSW_PERM_TYPE_RPT_ANL"
+    },
+    {
+      "permissionType": "UserManagement",
+      "permissionTypeName": "User Management",
+      "permissionTypeCode": "HMSW_PERM_TYPE_USER_MGNT"
+    },
+    {
+      "permissionType": "Settings",
+      "permissionTypeName": "Settings",
+      "permissionTypeCode": "HMSW_PERM_TYPE_SETT"
+    },
+    {
+      "permissionType": "CaseStatus",
+      "permissionTypeName": "CaseStatus",
+      "permissionTypeCode": "HMSW_PERM_TYPE_CASE_STAT"
+    },
+    {
+      "permissionType": "Documents",
+      "permissionTypeName": "Documents",
+      "permissionTypeCode": "HMSW_PERM_TYPE_DOC"
+    }
+  ],
+  "employeeId": "GT-230",
+  "createdAt": {
+    "$date": "2024-08-05T06:42:53.316Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-05T06:42:53.316Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66b08a73f624a633a975a630"
+  },
+  "permissions": {
+    "Dashboard": [
+      {
+        "_id": "66b06755d81c3474a0b1b841",
+        "permissionName": "full_access",
+        "permissionComponent": "Dashboard",
+        "permissionCode": "HMSW_PERM_1",
+        "permissionTypeCode": "HMSW_PERM_TYPE_DASH",
+        "__v": 0,
+        "createdAt": "2024-08-05T05:47:01.246Z",
+        "updatedAt": "2024-08-05T05:47:01.246Z"
+      }
+    ],
+    "Case Management": [
+      {
+        "_id": "66b06755d81c3474a0b1b84a",
+        "permissionName": "full_access",
+        "permissionComponent": "CaseManagement",
+        "permissionCode": "HMSW_PERM_1",
+        "permissionTypeCode": "HMSW_PERM_TYPE_CASE_MGNT",
+        "__v": 0,
+        "createdAt": "2024-08-05T05:47:01.247Z",
+        "updatedAt": "2024-08-05T05:47:01.247Z"
+      }
+    ],
+    "Client Management": [
+      {
+        "_id": "66b06755d81c3474a0b1b853",
+        "permissionName": "full_access",
+        "permissionComponent": "ClientManagement",
+        "permissionCode": "HMSW_PERM_1",
+        "permissionTypeCode": "HMSW_PERM_TYPE_CLT_MGNT",
+        "__v": 0,
+        "createdAt": "2024-08-05T05:47:01.247Z",
+        "updatedAt": "2024-08-05T05:47:01.247Z"
+      }
+    ],
+    "Document Management": [
+      {
+        "_id": "66b06755d81c3474a0b1b85c",
+        "permissionName": "full_access",
+        "permissionComponent": "DocumentManagement",
+        "permissionCode": "HMSW_PERM_1",
+        "permissionTypeCode": "HMSW_PERM_TYPE_DOC_MGNT",
+        "__v": 0,
+        "createdAt": "2024-08-05T05:47:01.247Z",
+        "updatedAt": "2024-08-05T05:47:01.247Z"
+      }
+    ],
+    "Communication": [
+      {
+        "_id": "66b06755d81c3474a0b1b86e",
+        "permissionName": "full_access",
+        "permissionComponent": "Communication",
+        "permissionCode": "HMSW_PERM_1",
+        "permissionTypeCode": "HMSW_PERM_TYPE_COMM",
+        "__v": 0,
+        "createdAt": "2024-08-05T05:47:01.247Z",
+        "updatedAt": "2024-08-05T05:47:01.247Z"
+      }
+    ],
+    "Tasks And Reminders": [
+      {
+        "_id": "66b06755d81c3474a0b1b877",
+        "permissionName": "full_access",
+        "permissionComponent": "TasksAndReminders",
+        "permissionCode": "HMSW_PERM_1",
+        "permissionTypeCode": "HMSW_PERM_TYPE_TASK_REM",
+        "__v": 0,
+        "createdAt": "2024-08-05T05:47:01.248Z",
+        "updatedAt": "2024-08-05T05:47:01.248Z"
+      }
+    ],
+    "Reports And Analytics": [
+      {
+        "_id": "66b06755d81c3474a0b1b880",
+        "permissionName": "full_access",
+        "permissionComponent": "ReportsAndAnalytics",
+        "permissionCode": "HMSW_PERM_1",
+        "permissionTypeCode": "HMSW_PERM_TYPE_RPT_ANL",
+        "__v": 0,
+        "createdAt": "2024-08-05T05:47:01.270Z",
+        "updatedAt": "2024-08-05T05:47:01.270Z"
+      }
+    ],
+    "Settings": [
+      {
+        "_id": "66b06755d81c3474a0b1b88b",
+        "permissionName": "full_access",
+        "permissionComponent": "Settings",
+        "permissionCode": "HMSW_PERM_1",
+        "permissionTypeCode": "HMSW_PERM_TYPE_SETT",
+        "__v": 0,
+        "createdAt": "2024-08-05T05:47:01.276Z",
+        "updatedAt": "2024-08-05T05:47:01.276Z"
+      }
+    ],
+    "CaseStatus": [
+      {
+        "_id": "66b06755d81c3474a0b1b894",
+        "permissionName": "full_access",
+        "permissionComponent": "CaseStatus",
+        "permissionCode": "HMSW_PERM_1",
+        "permissionTypeCode": "HMSW_PERM_TYPE_CASE_STAT",
+        "__v": 0,
+        "createdAt": "2024-08-05T05:47:01.276Z",
+        "updatedAt": "2024-08-05T05:47:01.276Z"
+      }
+    ]
+  },
+  "dashboards": {
+    "generalMetrics": [
+      {
+        "widgetName": "New Case",
+        "sectionCode": "HMSW-Met-Gen"
+      },
+      {
+        "widgetName": "Active Cases",
+        "sectionCode": "HMSW-Met-Gen"
+      }
+    ],
+    "activitiesMetrics": [
+      {
+        "widgetName": "Outstanding Tasks and Assignments",
+        "sectionCode": "HMSW-Met-Avt"
+      },
+      {
+        "widgetName": "Recent Activities",
+        "sectionCode": "HMSW-Met-Avt"
+      },
+      {
+        "widgetName": "Appointments",
+        "sectionCode": "HMSW-Met-Avt"
+      }
+    ],
+    "employeeMetrics": [],
+    "teamMetrics": [
+      {
+        "widgetName": "Team Reports",
+        "sectionCode": "HMSW-Met-Team"
+      },
+      {
+        "widgetName": "Something Here",
+        "sectionCode": "HMSW-Met-Team"
+      }
+    ],
+    "clientMetrics": [
+      {
+        "widgetName": "Client Reports",
+        "sectionCode": "HMSW-Met-Clt"
+      },
+      {
+        "widgetName": "Pending Client Payment",
+        "sectionCode": "HMSW-Met-Clt"
+      },
+      {
+        "widgetName": "something",
+        "sectionCode": "HMSW-Met-Clt"
+      }
+    ]
+  },
+  "portals": [
+    {
+      "permissionType": "Dashboard",
+      "permissionTypeName": "Dashboard",
+      "permissionTypeCode": "HMSW_PERM_TYPE_DASH"
+    },
+    {
+      "permissionType": "CaseManagement",
+      "permissionTypeName": "Case Management",
+      "permissionTypeCode": "HMSW_PERM_TYPE_CASE_MGNT"
+    },
+    {
+      "permissionType": "ClientManagement",
+      "permissionTypeName": "Client Management",
+      "permissionTypeCode": "HMSW_PERM_TYPE_CLT_MGNT"
+    },
+    {
+      "permissionType": "DocumentManagement",
+      "permissionTypeName": "Document Management",
+      "permissionTypeCode": "HMSW_PERM_TYPE_DOC_MGNT"
+    },
+    {
+      "permissionType": "Communication",
+      "permissionTypeName": "Communication",
+      "permissionTypeCode": "HMSW_PERM_TYPE_COMM"
+    },
+    {
+      "permissionType": "TasksAndReminders",
+      "permissionTypeName": "Tasks And Reminders",
+      "permissionTypeCode": "HMSW_PERM_TYPE_TASK_REM"
+    },
+    {
+      "permissionType": "ReportsAndAnalytics",
+      "permissionTypeName": "Reports And Analytics",
+      "permissionTypeCode": "HMSW_PERM_TYPE_RPT_ANL"
+    },
+    {
+      "permissionType": "Settings",
+      "permissionTypeName": "Settings",
+      "permissionTypeCode": "HMSW_PERM_TYPE_SETT"
+    },
+    {
+      "permissionType": "CaseStatus",
+      "permissionTypeName": "CaseStatus",
+      "permissionTypeCode": "HMSW_PERM_TYPE_CASE_STAT"
+    }
+  ],
+  "employeeId": "wZ-654",
+  "createdAt": {
+    "$date": "2024-08-05T08:16:51.106Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-05T08:16:51.106Z"
+  },
+  "__v": 0
+}]

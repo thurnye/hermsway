@@ -1,10 +1,11 @@
 const userController = require('../Controller/employee.controller');
+const Authorization = require('../MiddleWare/Authorization')
 
 
 const router = require('express').Router()
 
 //SignUp
-router.post('/', userController.postEmployee);
+router.post('/', Authorization.IsAuthorizedPostRequest, userController.postEmployee);
 
 // Login
 router.post('/login', userController.getLogIn);
@@ -13,7 +14,7 @@ router.post('/login', userController.getLogIn);
 router.post('/forgottenPassword/login', userController.PostForgottenPassword);
 
 //get all users
-router.get('/', userController.getAllEmployees)
+router.post('/all', Authorization.IsAuthorizedPostRequest, userController.getAllEmployees);
 
 //getting a user item by id
 router.get('/:id', userController.getAnEmployeeByID);
