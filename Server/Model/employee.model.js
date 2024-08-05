@@ -21,7 +21,7 @@ const employeeSchema = new Schema(
       type: Boolean,
       default: true,
     },
-    companyId: { type: String, required: true, unique: true },
+    companyId: { type: String, required: true },
     employeeId: { type: String, required: true },
   },
 

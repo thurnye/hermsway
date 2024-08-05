@@ -1,0 +1,38 @@
+[{
+  "_id": {
+    "$oid": "66997f4c607ce9da50ab6811"
+  },
+  "firstName": "Dan",
+  "lastName": "T",
+  "email": "danthurnye@gmail.com",
+  "password": "$2b$06$q2o0t5gJqR35PEGuzv5eJOWbFZt6A7c3V2Yh.e6gvEKGPqdBCb56e",
+  "createdAt": {
+    "$date": "2024-07-18T20:47:08.783Z"
+  },
+  "updatedAt": {
+    "$date": "2024-07-18T20:47:08.783Z"
+  },
+  "__v": 0,
+  "companyId": "A0947",
+  "employeeId": "A-021",
+  "roleRefCode": "HMSW-ASS-003"
+},
+{
+  "_id": {
+    "$oid": "669942893c70dc20a69599a0"
+  },
+  "firstName": "Test",
+  "lastName": "Tester",
+  "email": "testprogram404@gmail.com",
+  "password": "$2b$06$CAymwonOD2oBFy7xSE2g7.cxmKfPSKMn8jgW/iAP0xj0gbuzVkjlK",
+  "createdAt": {
+    "$date": "2024-07-18T16:27:53.751Z"
+  },
+  "updatedAt": {
+    "$date": "2024-07-18T16:27:53.751Z"
+  },
+  "__v": 0,
+  "companyId": "A0947",
+  "employeeId": "GT-230",
+  "roleRefCode": "HMSW-ADM-001"
+}]

@@ -6,8 +6,8 @@ import BackNavigation from '../../BackNavigation/BackNavigation';
 import {
   portalsLinks,
   roles,
-  rolesAndPermissions,
-  portalAndDashboards
+  allPortals,
+  dashboardSections
 } from '../../../util/globalVar';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -68,25 +68,14 @@ const CreateUser = () => {
   const [openCollapse, setOpenCollapse] = React.useState();
   const [selectedRoles, setSelectedRoles] = useState('');
   const [permissionOptions, setPermissionOptions] = useState([]);
-  // const [dashboardOptions, setDashboardOptions] = useState([]);
-  // const [portalOptions, setPortalOptions] = useState([]);
   const [selectedPermissions, setSelectedPermissions] = useState({});
+  const [selectedDashboards, setSelectedDashboards] = useState({});
+  const [selectedPortals, setSelectedPortals] = useState([]);
   const [selectedComponents, setSelectedComponents] = useState({
-    dashboards: [],
     portals: [],
   });
 
-  // useEffect(() => {
-  //   if (selectedRoles) { 
-  //     setPermissionOptions(
-  //       rolesAndPermissions[selectedRoles.value].permissions || []
-  //     );
-  //     // setDashboardOptions(
-  //     //   rolesAndPermissions[selectedRoles.value]?.dashboard || []
-  //     // );
-  //     // setPortalOptions(rolesAndPermissions[selectedRoles.value]?.portal || []);
-  //   }
-  // }, [selectedRoles]);
+
 
   const handleRoleChange = (event) => {
     const {
@@ -100,11 +89,15 @@ const CreateUser = () => {
     const {
       target: { value },
     } = event;
-    setSelectedComponents((prevState) => ({
-      ...prevState,
-      [type]: typeof value === 'string' ? value.split(',') : value,
-    }));
-  };
+    
+    setSelectedPortals(value);
+    console.log(value)
+    // setSelectedComponents((prevState) => ({
+      //   ...prevState,
+      //   [type]: typeof value === 'string' ? value.split(',') : value,
+      // }));
+    };
+    console.log(selectedPortals)
 
   const fetchUserData = async (id) => {
     try {
@@ -130,7 +123,7 @@ const CreateUser = () => {
 
   const fetchPortalPermissions = async (id) => {
     try {
-      const portals = portalAndDashboards.portal.filter(portal => selectedComponents.portals.includes(portal.permissionTypeName));
+      const portals = allPortals.filter(portal => selectedPortals.includes(portal.permissionTypeName));
       console.log("portals::", portals)
       setIsError(false);
       setSaved(false);
@@ -153,10 +146,12 @@ const CreateUser = () => {
   };
 
   useEffect(() => {
-    if (selectedComponents.portals.length > 0) {
+    if (selectedPortals.length > 0) {
       fetchPortalPermissions(id);
+    }else{
+      setPermissionOptions([])
     } 
-  }, [selectedComponents.portals]);
+  }, [selectedPortals]);
 
 
   useEffect(() => {
@@ -181,6 +176,20 @@ const CreateUser = () => {
     return result;
   };
 
+  const getFullSelectedDashboards = (selectedDashboards) => {
+    let result = {};
+    
+    for (let category in selectedDashboards) {
+      if (dashboardSections[category]) {
+        result[category] = dashboardSections[category].filter(widget => 
+          selectedDashboards[category].includes(widget.widgetName)
+        );
+      }
+    }
+    
+    return result;
+  };
+
 
   const handleSubmit = async (event) => {
     try {
@@ -192,31 +201,21 @@ const CreateUser = () => {
       setMessage('');
       setShowCancel(false);
       const data = new FormData(event.currentTarget);
-      const loginInfo = {
+      const newUserInfo = {
         ...(id && { id }),
         firstName: data.get('firstName'),
         lastName: data.get('lastName'),
         email: data.get('email'),
-        roles: selectedRoles.value,
-        permissions: getFullSelectedPermissions(selectedPermissions, rolesAndPermissions[selectedRoles.value].permissions),
-        dashboards: portalAndDashboards.dashboard.filter(widget => selectedComponents.dashboards.includes(widget.widgetName)),
-        portals: portalAndDashboards.portal.filter(portal => selectedComponents.portals.includes(portal.permissionTypeName)),
+        roles: roles.find((role) => role.value === selectedRoles.value),
+        permissions: getFullSelectedPermissions(selectedPermissions, permissionOptions),
+        dashboards: getFullSelectedDashboards(selectedDashboards),
+        portals: allPortals.filter(portal => selectedPortals.includes(portal.permissionTypeName)),
       };
 
       console.log(selectedComponents);
-      console.log(loginInfo);
-      // client
-      // const result = await services.postEmployee(loginInfo);
-
-      // let token = result.data;
-      // localStorage.setItem('token', token);
-      // const userDoc = decodeJWToken(token);
-      // dispatch(
-      //   userActions.login({
-      //     user: userDoc,
-      //   })
-      // );
-
+      console.log(newUserInfo);
+      const result = await services.postEmployee(newUserInfo);
+      console.log(result)
       setReqLoading(false);
       setSaved(true);
       setMessage(id ? 'Updated Successfully' : 'User Created Successfully');
@@ -258,7 +257,21 @@ const CreateUser = () => {
     });
   };
 
-  const groupSelectedPermissions = (selectedPermissions) => {
+  const handleDashboardManagementChange = (category, value) => {
+    setSelectedDashboards((prevDashboards) => {
+      const categoryDashboards = prevDashboards[category] || [];
+      const newDashboards = categoryDashboards.includes(value)
+        ? categoryDashboards.filter((perm) => perm !== value)
+        : [...categoryDashboards, value];
+
+      return {
+        ...prevDashboards,
+        [category]: newDashboards,
+      };
+    });
+  };
+
+  const groupSelected = (selectedPermissions) => {
     const grouped = {};
     Object.entries(selectedPermissions).forEach(([category, permissions]) => {
       if (permissions.length > 0) {
@@ -269,12 +282,10 @@ const CreateUser = () => {
   };
 
 
-  const renderSelectedPermissions = (selected) => {
-    const groupedPermissions = groupSelectedPermissions(selectedPermissions);
-
+  const renderSelected = (selected) => {
     return (
       <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5}}>
-        {Object.entries(groupedPermissions).map(([category, permissions]) => (
+        {Object.entries(selected).map(([category, permissions]) => (
           <Box key={category} sx={{ mr: 2, textWrap: 'wrap' }}>
             <strong>{category}:</strong>
             {permissions.map((permission) => (
@@ -381,7 +392,7 @@ const CreateUser = () => {
                         labelId='portal-management-label'
                         id='portal-management'
                         multiple
-                        value={selectedComponents.portals}
+                        value={selectedPortals}
                         onChange={(e) => handleSelectChange(e, 'portals')}
                         input={<OutlinedInput label='Portal Management' />}
                         renderValue={(selected) => (
@@ -395,11 +406,11 @@ const CreateUser = () => {
                         )}
                         MenuProps={MenuProps}
                       >
-                        {portalAndDashboards.portal.map((option) => (
+                        {allPortals.map((option) => (
                           <MenuItem key={option.permissionTypeName} value={option.permissionTypeName}>
                             <Checkbox
                               checked={
-                                selectedComponents.portals.indexOf(option.permissionTypeName) > -1
+                                selectedPortals.indexOf(option.permissionTypeName) > -1
                               }
                             />
                             {option.permissionTypeName}
@@ -411,38 +422,73 @@ const CreateUser = () => {
 
                   <Grid item xs={12}>
                     <FormControl fullWidth>
-                      <InputLabel id='dashboard-management-label'>
+                      <InputLabel id='Dashboard-management-label'>
                         Dashboard Management
                       </InputLabel>
                       <Select
-                        labelId='dashboard-management-label'
-                        id='dashboard-management'
+                        labelId='Dashboard-management-label'
+                        id='Dashboard-management'
                         multiple
-                        value={selectedComponents.dashboards}
-                        onChange={(e) => handleSelectChange(e, 'dashboards')}
                         input={<OutlinedInput label='Dashboard Management' />}
-                        renderValue={(selected) => (
-                          <Box
-                            sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}
-                          >
-                            {selected.map((value) => (
-                              <Chip key={value} label={value} />
-                            ))}
-                          </Box>
-                        )}
+                        value={Object.values(selectedDashboards).flat()}
+                        renderValue={() => renderSelected(groupSelected(selectedDashboards))}
                         MenuProps={MenuProps}
                       >
-                        {portalAndDashboards.dashboard.map((option) => (
-                          <MenuItem key={option.widgetName} value={option.widgetName}>
-                            <Checkbox
-                              checked={
-                                selectedComponents.dashboards.indexOf(option.widgetName) >
-                                -1
-                              }
-                            />
-                            {option.widgetName}
-                          </MenuItem>
-                        ))}
+                        {Object.entries(dashboardSections).map(
+                          ([category, widgets]) => (
+                            <List
+                              component='nav'
+                              aria-labelledby='nested-list-subheader'
+                              sx={{ mb: -2 }}
+                              key={category}
+                            >
+                              <ListItemButton
+                                onClick={() => handleClick(category)}
+                              >
+                                <Checkbox
+                                  checked={
+                                    selectedDashboards[category]?.length ===
+                                    widgets.length
+                                  }
+                                  indeterminate={
+                                    selectedDashboards[category]?.length > 0 &&
+                                    selectedDashboards[category]?.length <
+                                    widgets.length
+                                  }
+                                />
+                                <ListItemText primary={category} />
+                                {openCollapse === category ? (
+                                  <ExpandLess />
+                                ) : (
+                                  <ExpandMore />
+                                )}
+                              </ListItemButton>
+                              <Collapse
+                                in={openCollapse === category}
+                                timeout='auto'
+                                unmountOnExit
+                              >
+                                {widgets.map((widget) => (
+                                  <MenuItem
+                                    key={widget.widgetName}
+                                    value={widget.widgetName}
+                                    sx={{ ml: 4 }}
+                                  >
+                                    <Checkbox
+                                      checked={selectedDashboards[
+                                        category
+                                      ]?.includes(widget.widgetName)}
+                                      onChange={() =>
+                                        handleDashboardManagementChange(category, widget.widgetName)
+                                      }
+                                    />
+                                    <ListItemText primary={widget.widgetName} />
+                                  </MenuItem>
+                                ))}
+                              </Collapse>
+                            </List>
+                          )
+                        )}
                       </Select>
                     </FormControl>
                   </Grid>
@@ -458,7 +504,7 @@ const CreateUser = () => {
                         multiple
                         input={<OutlinedInput label='Permissions' />}
                         value={Object.values(selectedPermissions).flat()}
-                        renderValue={renderSelectedPermissions}
+                        renderValue={() => renderSelected(groupSelected(selectedPermissions))}
                         MenuProps={MenuProps}
                       >
                         {Object.entries(permissionOptions).map(
@@ -539,12 +585,12 @@ const CreateUser = () => {
             loading={reqLoading}
             isError={isError}
             saved={saved}
+            savingMessage={`Creating New ${selectedRoles.label}`}
             showCancel={showCancel}
             handleError={() => setOpen(!open)}
             errorBtnLabel={'close'}
             handleSuccess={() => {
               setOpen(!open);
-              navigate('/all');
             }}
             successBtnLabel={'close'}
           />

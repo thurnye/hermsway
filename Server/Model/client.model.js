@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 const {Schema} = mongoose
 
 
-const employeeSchema = new Schema({
+const clientSchema = new Schema({
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
   email: { type: String, required: true, unique: true },
@@ -14,4 +14,4 @@ const employeeSchema = new Schema({
   timestamps: true
 });
 
-module.exports = mongoose.model('Client', employeeSchema);
+module.exports = mongoose.model('Client', clientSchema);

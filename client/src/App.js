@@ -48,7 +48,7 @@ function App() {
     if (token && !isTokenExpired(token)) {
       const userDoc = decodeJWToken(token);
 
-      console.log(userDoc);
+      // console.log(userDoc);
 
       dispatch(
         userActions.login({
@@ -93,6 +93,8 @@ function App() {
     }
   };
 
+
+  // console.log("PORTALS:::", portals)
   return (
     <React.Fragment>
       <BrowserRouter>

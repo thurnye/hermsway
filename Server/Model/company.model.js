@@ -8,7 +8,7 @@ const companySchema = new Schema({
   companyAddress: { type: String, required: true },
   companyPhoneNumber: { type: String, required: true },
   companyEmail: { type: String, required: true },
-  companyId: { type: String, required: true },
+  companyId: { type: String, required: true, unique: true },
   companyConfig: { type: Object},
 },
 

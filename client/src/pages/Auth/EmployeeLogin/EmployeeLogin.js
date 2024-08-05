@@ -19,6 +19,7 @@ import { decodeJWToken } from '../../../util/helperFunc';
 import services from '../../../util/employee.services';
 import { userActions } from '../../../store/userSlice';
 import RequestFeedback from '../../../components/RequestFeedback/RequestFeedback';
+import { companyActions } from '../../../store/companySlice';
 
 
 
@@ -54,16 +55,21 @@ const EmployeeLogin = () => {
         password: data.get('password'),
       };
 
-      console.log(loginData);
+      // console.log(loginData);
 
       const result = await services.postLoginEmployee(loginData);
       let token = result.data;
       localStorage.setItem('token', token);
       const userDoc = decodeJWToken(token);
+
+      // console.log(userDoc)
       dispatch(
         userActions.login({
           user: userDoc,
         })
+      );
+      dispatch(
+        companyActions.getCompany(userDoc.company)
       );
       setReqLoading(false);
       navigate('/');

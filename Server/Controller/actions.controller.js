@@ -2,7 +2,6 @@ const Permission = require('../Model/permissions.model');
 
 const getPortalPermissions = async (req, res, next) => {
   try {
-    console.log(req.body);
     const portalPermissions = req.body;
     const allPermissions = {};
     for (const element of portalPermissions) {
