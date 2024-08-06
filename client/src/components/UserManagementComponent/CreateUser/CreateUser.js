@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from './CreateUser.module.css';
+import DOMPurify from 'dompurify';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import BackNavigation from '../../BackNavigation/BackNavigation';
@@ -99,6 +100,11 @@ const CreateUser = () => {
     // }));
   };
   console.log(selectedPortals);
+
+  const sanitizeInput = (input) => {
+    return DOMPurify.sanitize(input);
+  };
+
 
   const fetchUserData = async (id) => {
     try {
@@ -204,9 +210,9 @@ const CreateUser = () => {
       const data = new FormData(event.currentTarget);
       const newUserInfo = {
         ...(id && { id }),
-        firstName: data.get('firstName'),
-        lastName: data.get('lastName'),
-        email: data.get('email'),
+        firstName: sanitizeInput(data.get('firstName')),
+        lastName: sanitizeInput(data.get('lastName')),
+        email: sanitizeInput(data.get('email')),
         roles: roles.find((role) => role.value === selectedRoles.value),
         permissions: getFullSelectedPermissions(
           selectedPermissions,
@@ -529,6 +535,12 @@ const CreateUser = () => {
                         }
                         MenuProps={MenuProps}
                       >
+                          {permissionOptions.length === 0 && <MenuItem disabled value="" sx={{
+                              display:'flex',
+                              justifyContent: 'center'
+                            }}>
+                            <em >Choose a portal to set permissions</em>
+                          </MenuItem>}
                         {Object.entries(permissionOptions).map(
                           ([category, permissions]) => (
                             <List
