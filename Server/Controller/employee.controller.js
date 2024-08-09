@@ -14,7 +14,10 @@ const EmployeeConfig = require('../Model/employee.config.model');
 //Creating A User
 const postEmployee = async (req, res, next) => {
   try {
-    const {newUserInfo, profiles:{companyId}} = req.body;
+    const {
+      newUserInfo,
+      profiles: { companyId },
+    } = req.body;
     const id = newUserInfo.id;
     let savedUser = null;
 
@@ -45,7 +48,7 @@ const postEmployee = async (req, res, next) => {
     console.log('PASSWORD:::', password);
 
     if (!id) {
-      const { 
+      const {
         permissions,
         dashboards,
         portals,
@@ -55,7 +58,7 @@ const postEmployee = async (req, res, next) => {
       // const role = await Role.findOne({ refCode: rolesCode });
       // Create New User
       const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
-      const employeeId = `${randomLetters}-${randomNumber}`
+      const employeeId = `${randomLetters}-${randomNumber}`;
       const newUser = new Employee({
         firstName: newUserInfo.firstName,
         lastName: newUserInfo.lastName,
@@ -77,6 +80,10 @@ const postEmployee = async (req, res, next) => {
       });
 
       await newConfig.save();
+    }
+
+    if (id) {
+      console.log(id);
     }
 
     // if (id) {
@@ -152,7 +159,12 @@ const getLogIn = async (req, res) => {
     }
 
     // Find the user and select necessary fields
-    const user = await Employee.findOne({ email, companyId, employeeId, active: true })
+    const user = await Employee.findOne({
+      email,
+      companyId,
+      employeeId,
+      active: true,
+    })
       .select('firstName lastName email password roleRefCode, employeeId')
       .lean();
 
@@ -184,41 +196,12 @@ const getLogIn = async (req, res) => {
       lastName: user.lastName,
       email: user.email,
       role: user.roleRefCode,
-      employeeId: user.employeeId
+      employeeId: user.employeeId,
     };
 
-    // const userPortals = await Portal.find({
-    //   roleRefCode: user.roleRefCode,
-    // }).sort({ ordinal: 1 });
-
-    // // get the dashboard widgets and sections
-    // const sections = await SectionModel.find({
-    //   roleRefCode: user.roleRefCode,
-    // })
-    //   .select('sectionName sectionCode roleRefCode ordinal')
-    //   .sort({ ordinal: 1 });
-
-    // // find the widgets with each sections using their sectionCode
-    // const dashboardWidgets = await Promise.all(
-    //   sections.map(async (section) => {
-    //     const { sectionCode } = section;
-    //     const widgets = await WidgetModel.find({ sectionCode })
-    //       .select(
-    //         'widgetName sectionWidgetName sectionCode widgetDimension ordinal widgetComponentName'
-    //       )
-    //       .sort({ ordinal: 1 });
-    //     return {
-    //       section,
-    //       widgets,
-    //     };
-    //   })
-    // );
-
-    const employeeConfigs = await EmployeeConfig.findOne({employeeId})
+    const employeeConfigs = await EmployeeConfig.findOne({ employeeId })
       .select('permissions dashboards portals employee')
       .lean();
-
-    console.log('EMPLOYEE_CONFIG:::', employeeConfigs);
 
     const { permissions, dashboards, portals } = employeeConfigs;
 
@@ -232,14 +215,16 @@ const getLogIn = async (req, res) => {
     const dashboardWidgets = {};
     for (const property in dashboards) {
       // console.log(`${property}: ${dashboards[property]}`);
-      const widgets = dashboards[property].map((widget) => widget.widgetName);
-      dashboardWidgets[property] = await WidgetModel.find({
-        widgetName: { $in: widgets },
-      })
-        .select(
-          'widgetName sectionWidgetName sectionCode widgetDimension ordinal widgetComponentName'
-        )
-        .sort({ ordinal: 1 });
+      if (dashboards[property].length > 0) {
+        const widgets = dashboards[property].map((widget) => widget.widgetName);
+        dashboardWidgets[property] = await WidgetModel.find({
+          widgetName: { $in: widgets },
+        })
+          .select(
+            'widgetName sectionWidgetName sectionCode widgetDimension ordinal widgetComponentName'
+          )
+          .sort({ ordinal: 1 });
+      }
     }
 
     const token = jwt.sign(
@@ -282,8 +267,8 @@ const getAllEmployees = async (req, res, next) => {
       )
       .lean();
 
-      employees = await Promise.all(
-        employees.map(async (employee) => {
+    employees = await Promise.all(
+      employees.map(async (employee) => {
         const { roleRefCode } = employee;
         const employeesRole = await Role.findOne({
           refCode: roleRefCode.toUpperCase(),
@@ -296,7 +281,7 @@ const getAllEmployees = async (req, res, next) => {
         return employee;
       })
     );
-    res.status(200).json({employees, counts});
+    res.status(200).json({ employees, counts });
   } catch (error) {
     console.log(error);
     res.status(400).json('Something Went Wrong!.');
@@ -359,21 +344,25 @@ const PostForgottenPassword = async (req, res) => {
   }
 };
 
-
-
 //RETRIEVE A USER BY ID
 const getAnEmployeeByID = async (req, res, next) => {
   try {
-    const id = req.params.id;
-    console.log(id);
-    const user = await Employee.findById(id)
-      .select('firstName lastName email _id')
+    const employeeId = req.params.employeeId;
+    const companyId = req.body.profiles.companyId
+    console.log('employeeId::', employeeId);
+    const employee = await Employee.findOne({ employeeId, companyId })
+      .select('firstName lastName email roleRefCode employeeId active')
       .lean();
-    if (!user) {
+
+    if (!employee) {
       res.status(400).json('User Not Found!.');
       return;
     }
-    res.status(200).json(user);
+
+    const employeeConfigs = await EmployeeConfig.findOne({ employeeId })
+    .select('permissions dashboards portals employee')
+    .lean();
+    res.status(200).json({employee, employeeConfigs});
   } catch (error) {
     console.log(error);
     res.status(400).json('Something Went Wrong!.');

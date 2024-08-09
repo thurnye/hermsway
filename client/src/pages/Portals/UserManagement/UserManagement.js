@@ -6,13 +6,15 @@ import { Link } from 'react-router-dom';
 import { getPermissionsByType } from '../../../util/helperFunc';
 import { useSelector } from 'react-redux';
 import PermissionWrapper from '../../../components/HOC/PermissionWrapper/PermissionWrapper';
-import { permissionNames } from '../../../util/permissions.services';
+import { permissionActions, permissionNames } from '../../../util/permissions.services';
 import EmployeeLists from '../../../components/UserManagementComponent/EmployeeLists/EmployeeLists';
 
 const UserManagement = ({ permissionTypeCode }) => {
   const userPermissions = useSelector((state) => state.userLog.permissions);
-  console.log(userPermissions)
+
   const permissions = getPermissionsByType(userPermissions, permissionTypeCode);
+  
+
   return (
     <div className={styles.UserManagement}>
       <Box sx={{ textAlign: 'end' }}>
@@ -27,10 +29,11 @@ const UserManagement = ({ permissionTypeCode }) => {
               >
                 <PermissionWrapper
                   userPermissions={permissions}
-                  requiredPermissions={permissionNames.create_employee}
+                  requiredPermissions={permissionNames.user}
+                  action={permissionActions.create}
                 >
                   <Typography gutterBottom sx={{ mx: 3 }}>
-                    <Link to='create-user'>Add New Employee</Link>
+                    <Link to='new-employee'>Add New Employee</Link>
                   </Typography>
                 </PermissionWrapper>
                 <Typography gutterBottom sx={{ mx: 3 }}>
@@ -41,7 +44,7 @@ const UserManagement = ({ permissionTypeCode }) => {
           </Grid>
 
           <Box>
-            <EmployeeLists/>
+            <EmployeeLists permissions={permissions} permissionTypeCode={permissionTypeCode}/>
           </Box>
         </Container>
       </Box>

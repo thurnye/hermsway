@@ -18,8 +18,8 @@ class StuffDataService {
     return http.post("/employee/all", data);
   }
 
-  findEmployeeById(id) {
-    return http.get(`/employee/${id}`);
+  findEmployeeById(employeeId, data) {
+    return http.post(`/employee/${employeeId}`, data);
   }
   
   removeEmployee(id) {

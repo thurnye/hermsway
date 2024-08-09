@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import styles from './CreateUser.module.css';
+import styles from './CreateEmployee.module.css';
 import DOMPurify from 'dompurify';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
@@ -51,14 +51,14 @@ const MenuProps = {
   },
 };
 
-const CreateUser = () => {
+const CreateEmployee = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.userLog.user);
   const company = useSelector((state) => state.company.companyProfile);
   const location = useLocation();
   const [data, setData] = useState({});
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const id = location.state?.id;
 
   // Feedback States
@@ -106,27 +106,7 @@ const CreateUser = () => {
   };
 
 
-  const fetchUserData = async (id) => {
-    try {
-      setIsError(false);
-      setSaved(false);
-      setMessage('');
-      setShowCancel(false);
-      const result = await services.findAdminById(id);
-      setData(result.data);
-    } catch (error) {
-      console.log('ERROR:::', error);
-      const errMsg = error.response.data;
-      console.log(error.response.data);
-      setMessage(errMsg);
-      setShowCancel(false);
-      setSaved(false);
-      setIsError(true);
-      setOpen(!open);
-    } finally {
-      setLoading(false);
-    }
-  };
+
 
   const fetchPortalPermissions = async (id) => {
     try {
@@ -162,13 +142,7 @@ const CreateUser = () => {
     }
   }, [selectedPortals]);
 
-  useEffect(() => {
-    if (id) {
-      fetchUserData(id);
-    } else {
-      setLoading(false);
-    }
-  }, [id]);
+
 
   const getFullSelectedPermissions = (selectedPermission, permissions) => {
     let result = {};
@@ -341,7 +315,6 @@ const CreateUser = () => {
                       size='small'
                       autoComplete='given-name'
                       name='firstName'
-                      defaultValue={data?.firstName || ''}
                       required
                       fullWidth
                       id='firstName'
@@ -355,7 +328,6 @@ const CreateUser = () => {
                       required
                       fullWidth
                       id='lastName'
-                      defaultValue={data?.lastName || ''}
                       label='Last Name'
                       name='lastName'
                       autoComplete='family-name'
@@ -366,7 +338,6 @@ const CreateUser = () => {
                       size='small'
                       required
                       fullWidth
-                      defaultValue={data?.email || ''}
                       id='email'
                       label='Email Address'
                       name='email'
@@ -639,4 +610,4 @@ const CreateUser = () => {
   );
 };
 
-export default CreateUser;
+export default CreateEmployee;

@@ -26,7 +26,8 @@ import Settings from './pages/Portals/Settings/Settings';
 import CaseStatus from './pages/Portals/CaseStatus/CaseStatus';
 import Documents from './pages/Portals/Documents/Documents';
 import BillingAndFinance from './pages/Portals/BillingAndFinance/BillingAndFinance';
-import CreateUser from './components/UserManagementComponent/CreateUser/CreateUser';
+import CreateEmployee from './components/UserManagementComponent/CreateEmployee/CreateEmployee';
+import EditEmployee from './components/UserManagementComponent/EditEmployee/EditEmployee';
 import AccessPortal from './pages/AccessPortal/AccessPortal';
 import ClientLogin from './pages/Auth/ClientLogin/ClientLogin';
 import EmployeeLogin from './pages/Auth/EmployeeLogin/EmployeeLogin';
@@ -47,15 +48,11 @@ function App() {
   useEffect(() => {
     if (token && !isTokenExpired(token)) {
       const userDoc = decodeJWToken(token);
-      console.log("userDoc:::",userDoc)
-      dispatch( userActions.login({user: userDoc.user}));
+      dispatch(userActions.login({ user: userDoc.user }));
       dispatch(userActions.getRoles(userDoc.userPortals));
       dispatch(userActions.getDashboardWidget(userDoc.dashboardWidgets));
       dispatch(userActions.getPermissions(userDoc.permissions));
-      dispatch(
-        companyActions.getCompany(userDoc.company)
-      );
-      
+      dispatch(companyActions.getCompany(userDoc.company));
     } else {
       localStorage.removeItem('token');
     }
@@ -80,7 +77,7 @@ function App() {
       case 'Reports and Analytics':
         return <ReportsAndAnalytics />;
       case 'User Management':
-        return <UserManagement permissionTypeCode={permissionTypeCode}/>;
+        return <UserManagement permissionTypeCode={permissionTypeCode} />;
       case 'Settings':
         return <Settings />;
       case 'Case Status':
@@ -92,8 +89,6 @@ function App() {
     }
   };
 
-
-  // console.log("PORTALS:::", portals)
   return (
     <React.Fragment>
       <BrowserRouter>
@@ -118,8 +113,12 @@ function App() {
 
                 {/* USER MANAGEMENT ROUTES */}
                 <Route
-                  path='user-management/create-user'
-                  element={<CreateUser />}
+                  path='user-management/new-employee'
+                  element={<CreateEmployee />}
+                />
+                <Route
+                  path='user-management/edit-employee/:employeeId'
+                  element={<EditEmployee />}
                 />
 
                 <Route index element={<Navigate to='dashboard' />}></Route>

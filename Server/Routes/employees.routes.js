@@ -16,8 +16,8 @@ router.post('/forgottenPassword/login', userController.PostForgottenPassword);
 //get all users
 router.post('/all', Authorization.IsAuthorizedPostRequest, userController.getAllEmployees);
 
-//getting a user item by id
-router.get('/:id', userController.getAnEmployeeByID);
+//getting a user item by employeeId
+router.post('/:employeeId',Authorization.IsAuthorizedPostRequest, userController.getAnEmployeeByID);
  
 
 //post delete

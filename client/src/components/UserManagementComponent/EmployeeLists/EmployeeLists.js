@@ -15,9 +15,13 @@ import services from '../../../util/employee.services';
 // import AlertDialog from '../../../AlertDialog/AlertDialog';
 // import { getDateShort } from '../../../../util/commons';
 import Avatar from '@mui/material/Avatar';
-import DataGridTable from '../../DataGridTable/DataGridTable'
+import DataGridTable from '../../DataGridTable/DataGridTable';
 import { getDateShort } from '../../../util/helperFunc';
-import { permissionNames } from '../../../util/permissions.services';
+import {
+  permissionActions,
+  permissionNames,
+} from '../../../util/permissions.services';
+import PermissionWrapper from '../../HOC/PermissionWrapper/PermissionWrapper';
 
 const columns = [
   { field: 'id', headerName: '', width: 80 },
@@ -27,8 +31,8 @@ const columns = [
     width: 50,
     renderCell: (params) => (
       <Box sx={{ height: 'inherit' }}>
-        {console.log({params})}
-        <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+        {console.log({ params })}
+        <Avatar alt='Remy Sharp' src='/static/images/avatar/1.jpg' />
       </Box>
     ),
   },
@@ -53,21 +57,29 @@ const columns = [
   { field: 'status', headerName: 'Status', width: 150 },
   { field: 'employeeId', headerName: 'Employee ID', width: 150 },
   { field: 'email', headerName: 'Email', width: 150 },
-
 ];
 
 const getRows = (data) => {
   const rows = [];
 
   data.forEach((employee, i) => {
-    const { _id, firstName, lastName, role, createdAt, active, employeeId, email, avatar } =
-      employee;
+    const {
+      _id,
+      firstName,
+      lastName,
+      role,
+      createdAt,
+      active,
+      employeeId,
+      email,
+      avatar,
+    } = employee;
     rows.push({
-      id: _id,
+      id: employeeId,
       avatar,
       name: `${firstName} ${lastName}`,
       role: role,
-      employmentStartDate : getDateShort(createdAt),
+      employmentStartDate: getDateShort(createdAt),
       status: active,
       employeeId,
       email,
@@ -77,7 +89,7 @@ const getRows = (data) => {
   return rows;
 };
 
-const EmployeeLists = () => {
+const EmployeeLists = ({ permissions, permissionTypeCode }) => {
   let navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.userLog.user);
@@ -93,11 +105,9 @@ const EmployeeLists = () => {
   const [rows, setRows] = useState([]);
   const [message, setMessage] = useState();
 
-
-
   const fetchEmployees = async (query, profiles) => {
     try {
-      const allEmployees = await services.findAllEmployees({profiles, query});
+      const allEmployees = await services.findAllEmployees({ profiles, query });
       console.log('allEmployees:::', allEmployees);
       setEmployees(allEmployees.data.employees);
       setCounts(allEmployees.data.count);
@@ -106,8 +116,8 @@ const EmployeeLists = () => {
     }
   };
 
-  console.log(paginationModel)
-  console.log(`Employees for page ${paginationModel.page}::`, employees)
+  console.log(paginationModel);
+  console.log(`Employees for page ${paginationModel.page}::`, employees);
 
   useEffect(() => {
     setRows(getRows(employees));
@@ -120,11 +130,14 @@ const EmployeeLists = () => {
         currentPage: paginationModel.page + 1,
         perPage: paginationModel.pageSize,
       };
-      user._id && fetchEmployees(filter, {employeeId: user.employeeId, companyId: company.companyId, permission: permissionNames.view_all_employees});
+      user._id &&
+        fetchEmployees(filter, {
+          employeeId: user.employeeId,
+          companyId: company.companyId,
+          permission: permissionNames.view_all_employees,
+        });
     }
   }, [user, paginationModel.page, paginationModel.pageSize, company]);
-
-
 
   // Add the data to redux for preview
   useEffect(() => {
@@ -142,18 +155,26 @@ const EmployeeLists = () => {
     }
   };
 
-
   return (
-      <div className={styles.EmployeeLists}>
-        <Container maxWidth='lg' sx={{ mt: 4, mb: 4 }}>
-          <Grid container spacing={3}>
-            <Grid item xs={12}>
-              <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                <Box sx={{ display: 'flex',  alignItems: 'center' }}>
-                  <Typography variant='body1' gutterBottom sx={{ flexGrow: 1, textAlign: 'start' }}>
-                    Employees
-                  </Typography>
-                  <Stack direction='row' spacing={2}>
+    <div className={styles.EmployeeLists}>
+      <Container maxWidth='lg' sx={{ mt: 4, mb: 4 }}>
+        <Grid container spacing={3}>
+          <Grid item xs={12}>
+            <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Typography
+                  variant='body1'
+                  gutterBottom
+                  sx={{ flexGrow: 1, textAlign: 'start' }}
+                >
+                  Employees
+                </Typography>
+                <Stack direction='row' spacing={2}>
+                  <PermissionWrapper
+                    userPermissions={permissions}
+                    requiredPermissions={permissionNames.user}
+                    action={permissionActions.del}
+                  >
                     <Button
                       variant='text'
                       disabled={selectedEmployeeId !== undefined ? false : true}
@@ -163,38 +184,44 @@ const EmployeeLists = () => {
                     >
                       Delete
                     </Button>
+                  </PermissionWrapper>
+                  <PermissionWrapper
+                    userPermissions={permissions}
+                    requiredPermissions={permissionNames.user}
+                    action={permissionActions.edit}
+                  >
                     <Button
                       variant='text'
                       disabled={selectedEmployeeId !== undefined ? false : true}
                       onClick={() =>
-                        navigate('/account/recipe/create-recipe', {
-                          state: { edit: false, id: selectedEmployeeId },
+                        navigate(`edit-employee/${selectedEmployeeId}`, {
+                          state: {
+                            employeeId: selectedEmployeeId,
+                            permissionTypeCode,
+                          },
                         })
                       }
                       sx={{ textTransform: 'none' }}
                     >
                       Edit
                     </Button>
-                    {/* {previewEvent ? <Preview data={previewEvent} edit={true}/> 
-                  : 
-                  <Button  variant="text" disabled={true} sx={{textTransform: 'none'}}> Preview </Button>
-                } */}
-                  </Stack>
-                </Box>
-                {/* <RecipeList/> */}
-                <DataGridTable
-                  setSelected={setSelectedEmployeeId}
-                  data={employees}
-                  paginationModel={paginationModel}
-                  setPaginationModel={setPaginationModel}
-                  rowCount={counts}
-                  rows={rows}
-                  columns={columns}
-                />
-              </Paper>
-            </Grid>
+                  </PermissionWrapper>
+                </Stack>
+              </Box>
+              {/* <EmployeeList/> */}
+              <DataGridTable
+                setSelected={setSelectedEmployeeId}
+                data={employees}
+                paginationModel={paginationModel}
+                setPaginationModel={setPaginationModel}
+                rowCount={counts}
+                rows={rows}
+                columns={columns}
+              />
+            </Paper>
           </Grid>
-          {/* <AlertDialog
+        </Grid>
+        {/* <AlertDialog
             open={isDelete}
             setOpen={setIsDelete}
             setConfirmDelete={() => handleSectionDelete()}
@@ -232,8 +259,8 @@ const EmployeeLists = () => {
               </Typography>
             </Box>
           </AlertDialog> */}
-        </Container>
-      </div>
+      </Container>
+    </div>
   );
 };
 

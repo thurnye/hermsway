@@ -1,14 +1,14 @@
 import React from 'react';
 
-const PermissionWrapper = ({ children, userPermissions, requiredPermissions }) => {
-  
-  const hasPermission = userPermissions.some(permission =>
-    permission.permissionName === requiredPermissions
+const PermissionWrapper = ({ children, userPermissions, requiredPermissions, action }) => {
+
+  const hasPermission = userPermissions.some(permission => 
+    permission.permissionType === requiredPermissions && permission[action] === "true"
   );
 
 
   if (!hasPermission) {
-    return; 
+    return null; 
   }
 
   return <>{children}</>;

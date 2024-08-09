@@ -22,6 +22,8 @@ const IsAuthorizedPostRequest = async (req, res, next) => {
       profiles: { permission, employeeId, companyId },
     } = req.body;
 
+    console.log(permission, employeeId, companyId)
+
     const employee = await Employee.findOne({
       companyId,
       employeeId,
@@ -35,7 +37,6 @@ const IsAuthorizedPostRequest = async (req, res, next) => {
       return;
     }
 
-    console.log(employeeId);
     const employeePermissions = await EmployeeConfig.findOne({ employeeId })
       .select('permissions')
       .lean();

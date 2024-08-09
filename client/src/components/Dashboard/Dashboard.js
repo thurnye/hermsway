@@ -89,7 +89,7 @@ const Dashboard = () => {
   useEffect(() => {
     if (!isXs) {
       // large screen
-      setOpen(true);
+      setOpen(false);
       setOpenMobile(false)
     } else {
       // small screen

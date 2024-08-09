@@ -474,6 +474,12 @@ exports.permissions = [
 
   // UserManagement
   {
+    permissionName: 'user',
+    permissionComponent: 'UserManagement',
+    permissionCode: 'HMSW_PERM_1',
+    permissionTypeCode: 'HMSW_PERM_TYPE_USER_MGNT',
+  },
+  {
     permissionName: 'create_employee',
     permissionComponent: 'UserManagement',
     permissionCode: 'HMSW_PERM_2',
