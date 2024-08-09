@@ -32,6 +32,7 @@ import AccessPortal from './pages/AccessPortal/AccessPortal';
 import ClientLogin from './pages/Auth/ClientLogin/ClientLogin';
 import EmployeeLogin from './pages/Auth/EmployeeLogin/EmployeeLogin';
 import { companyActions } from './store/companySlice';
+import { permissionActions } from './util/permissions.services';
 
 // Utility function to check if token is expired
 const isTokenExpired = (token) => {
@@ -114,11 +115,11 @@ function App() {
                 {/* USER MANAGEMENT ROUTES */}
                 <Route
                   path='user-management/new-employee'
-                  element={<CreateEmployee />}
+                  element={<EditEmployee action={permissionActions.create}/>}
                 />
                 <Route
                   path='user-management/edit-employee/:employeeId'
-                  element={<EditEmployee />}
+                  element={<EditEmployee action={permissionActions.edit}/>}
                 />
 
                 <Route index element={<Navigate to='dashboard' />}></Route>
@@ -130,7 +131,6 @@ function App() {
                 <Route path='access-portal' element={<AccessPortal />} />
                 <Route path='employee-login' element={<EmployeeLogin />} />
                 <Route path='client-login' element={<ClientLogin />} />
-                {/* <Route path='signup' element={<SignUp />} /> */}
                 <Route index element={<Navigate to='access-portal' />}></Route>
               </>
             </Route>

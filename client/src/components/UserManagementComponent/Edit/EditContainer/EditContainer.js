@@ -11,17 +11,31 @@ import EditPermission from '../EditPermission/EditPermission';
 import EditDashboard from '../EditDashboard/EditDashboard';
 import EditProfile from '../EditProfile/EditProfile';
 import RequestFeedback from '../../../RequestFeedback/RequestFeedback';
+import services from '../../../../util/employee.services';
 import actionServices from '../../../../util/actions.services';
 import CustomizedButton from '../../../CustomizedButton/CustomizedButton';
+import {
+  permissionActions,
+  permissionNames,
+} from '../../../../util/permissions.services';
+import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router';
+
 
 const EditContainer = ({ employeeInfo }) => {
-  const [value, setValue] = React.useState('3');
-  const [{ profile, permissions, portals }, setData] = useState({
+  const location = useLocation();
+  const permissionTypeCode = location.state?.permissionTypeCode
+
+  const [value, setValue] = React.useState('1');
+  const user = useSelector((state) => state.userLog.user);
+  const company = useSelector((state) => state.company.companyProfile);
+  const [{ profile, permissions, portals, dashboards }, setData] = useState({
     profile: null,
     permissions: [],
     portals: [],
+    dashboards: null,
   });
-  const [dashboards, setDashboards] = useState();
+  const [allDashboards, setAllDashboards] = useState();
   const [permissionOptions, setPermissionOptions] = useState([]);
 
   // Feedback States
@@ -43,18 +57,21 @@ const EditContainer = ({ employeeInfo }) => {
         employeeConfigs: { permissions, dashboards, portals },
       } = employeeInfo;
 
-      setDashboards(dashboards);
+      console.log(permissions);
+
+      setAllDashboards(dashboards);
       setData({
         profile: employee,
         permissions,
         portals,
+        dashboards,
       });
     }
   }, [employeeInfo]);
 
   const getData = (newData, type) => {
     if (type === 'dashboard') {
-      setDashboards(newData);
+      setAllDashboards(newData);
     } else {
       setData((prev) => ({
         ...prev,
@@ -98,8 +115,59 @@ const EditContainer = ({ employeeInfo }) => {
     }
   }, [portals]);
 
-  const handleSave = () => {
-    console.log({ profile, permissions, portals });
+
+  const handleSave = async () => {
+    try {
+      console.log({ profile, permissions, portals, dashboards });
+      setIsError(false);
+      setSaved(false);
+      setReqLoading(true);
+      setOpen(true);
+      setMessage('');
+      setShowCancel(false);
+
+      const newUserInfo = {
+        ...profile,
+        permissions,
+        dashboards,
+        portals,
+        active: true,
+      };
+      
+      // logged in user profile
+      const profiles = {
+        employeeId: user.employeeId,
+        companyId: company.companyId,
+        permission: permissionNames.user,
+        action: profile.employeeId
+        ? permissionActions.edit
+        : permissionActions.create,
+        permissionTypeCode: permissionTypeCode
+      };
+
+      // console.log(selectedComponents);
+      console.log(newUserInfo);
+      const result = await services.postEmployee({ newUserInfo, profiles });
+      console.log(result);
+      setReqLoading(false);
+      setSaved(true);
+      setMessage(
+        profile.employeeId
+          ? 'Updated Successfully'
+          : 'User Created Successfully'
+      );
+      setOpen(!open);
+    } catch (error) {
+      console.log(error);
+      const errMsg = error.response?.data;
+      setMessage(errMsg);
+      setReqLoading(false);
+      setShowCancel(false);
+      setSaved(false);
+      setIsError(true);
+      setOpen(!open);
+    } finally {
+    }
   };
 
   return (
@@ -152,7 +220,7 @@ const EditContainer = ({ employeeInfo }) => {
             </TabPanel>
             <TabPanel value='3'>
               <EditDashboard
-                dashboards={dashboards}
+                dashboards={allDashboards}
                 getSelectedDashboards={getData}
               />
             </TabPanel>

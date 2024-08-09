@@ -7,6 +7,7 @@ const PermissionWrapper = ({ children, userPermissions, requiredPermissions, act
   );
 
 
+
   if (!hasPermission) {
     return null; 
   }

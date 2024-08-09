@@ -12,7 +12,8 @@ const EditPermission = ({
   useEffect(() => {
     const allCols = [];
     for (const permissionType in permissionOptions) {
-      const permissionTypeCode = permissionOptions[permissionType][0]?.permissionTypeCode
+      const permissionTypeCode =
+        permissionOptions[permissionType][0]?.permissionTypeCode;
       const colData = {
         permissionType: permissionType,
         permissionTypeCode,

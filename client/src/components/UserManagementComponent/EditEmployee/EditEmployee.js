@@ -16,7 +16,7 @@ import BackNavigation from '../../BackNavigation/BackNavigation';
 import RequestFeedback from '../../RequestFeedback/RequestFeedback';
 import services from '../../../util/employee.services';
 
-const EditEmployee = () => {
+const EditEmployee = ({action}) => {
   const location = useLocation();
   const employeeId = location.state?.employeeId;
   const navigate = useNavigate();
@@ -44,7 +44,9 @@ const EditEmployee = () => {
       const profiles = {
         employeeId: user.employeeId,
         companyId: company.companyId,
-        permission: permissionNames.edit_employee_details,
+        permission: permissionNames.user,
+        permissionTypeCode,
+        action: permissionActions.edit
       };
       const result = await services.findEmployeeById(id, { profiles });
       setEmployeeInfo(result.data);
@@ -60,6 +62,7 @@ const EditEmployee = () => {
     } 
   };
 
+
   useEffect(() => {
     if (employeeId) {
       fetchUserData(employeeId);
@@ -74,24 +77,24 @@ const EditEmployee = () => {
     <div className={styles.EditEmployee}>
       <Container maxWidth='lg' sx={{ mt: 4, mb: 4 }}>
         <Box sx={{ my: 2 }}>
+        </Box>
+        <PermissionWrapper
+          userPermissions={permissions}
+          requiredPermissions={permissionNames.user}
+          action={action}
+        >
           <BackNavigation
             variant='text'
             label={'Back'}
             onClick={handleBackClick}
           />
-        </Box>
-        <PermissionWrapper
-          userPermissions={permissions}
-          requiredPermissions={permissionNames.user}
-          action={permissionActions.edit}
-        >
           <EditContainer employeeInfo={employeeInfo} />
         </PermissionWrapper>
 
         <UnAuthorizedAccess
           userPermissions={permissions}
           requiredPermissions={permissionNames.user}
-          action={permissionActions.create}
+          action={action}
         />
       </Container>
 

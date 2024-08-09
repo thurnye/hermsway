@@ -134,7 +134,9 @@ const EmployeeLists = ({ permissions, permissionTypeCode }) => {
         fetchEmployees(filter, {
           employeeId: user.employeeId,
           companyId: company.companyId,
-          permission: permissionNames.view_all_employees,
+          permission: permissionNames.user,
+          action: permissionActions.viewAll,
+          permissionTypeCode,
         });
     }
   }, [user, paginationModel.page, paginationModel.pageSize, company]);

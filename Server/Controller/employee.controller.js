@@ -11,6 +11,15 @@ const WidgetModel = require('../Model/widget.model');
 const CompanyModel = require('../Model/company.model');
 const EmployeeConfig = require('../Model/employee.config.model');
 
+const str =
+  'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890@#$%&';
+const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+
+const randomLetters = Array.from({ length: 2 }, () =>
+  letters.charAt(Math.floor(Math.random() * letters.length))
+).join('');
+const randomNumber = String(Math.floor(Math.random() * 1000)).padStart(3, '0');
+
 //Creating A User
 const postEmployee = async (req, res, next) => {
   try {
@@ -18,45 +27,51 @@ const postEmployee = async (req, res, next) => {
       newUserInfo,
       profiles: { companyId },
     } = req.body;
-    const id = newUserInfo.id;
-    let savedUser = null;
 
-    let password = '';
-    const str =
-      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890@#$%&';
-    const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    // console.log(newUserInfo);
+    const { permissions, dashboards, portals, roleRefCode } = newUserInfo;
 
-    for (let i = 0; i < 6; i++) {
-      var char = Math.floor(Math.random() * str.length + 1);
-      password += str.charAt(char);
+    const employeeId = newUserInfo.employeeId;
+
+
+    if (employeeId) {
+      // console.log(newUserInfo);
+      const employee = await Employee.findOne({ employeeId, companyId });
+      const employeeConfigs = await EmployeeConfig.findOne({ employeeId });
+      
+      if (!employee) {
+        res.status(400).json('Employee Not Found!!');
+        return;
+      }
+      (employee.firstName = newUserInfo.firstName),
+        (employee.lastName = newUserInfo.lastName),
+        (employee.email = newUserInfo.email),
+        (employee.roleRefCode = newUserInfo.roleRefCode);
+        (employee.active = newUserInfo.active);
+      await employee.save();
+
+      employeeConfigs.permissions = permissions;
+      employeeConfigs.dashboards = dashboards;
+      employeeConfigs.portals = portals;
+      await employeeConfigs.save();
     }
 
-    const randomLetters = Array.from({ length: 2 }, () =>
-      letters.charAt(Math.floor(Math.random() * letters.length))
-    ).join('');
-    const randomNumber = String(Math.floor(Math.random() * 1000)).padStart(
-      3,
-      '0'
-    );
+    if (!employeeId) {
+      let password = '';
 
-    if (!newUserInfo.email) {
-      res.status(400).json('Missing Field Needed!');
-      return;
-    }
+      for (let i = 0; i < 6; i++) {
+        var char = Math.floor(Math.random() * str.length + 1);
+        password += str.charAt(char);
+      }
 
-    console.log('BODY:::', newUserInfo);
-    console.log('PASSWORD:::', password);
+      if (!newUserInfo.email) {
+        res.status(400).json('Missing Field Needed!');
+        return;
+      }
 
-    if (!id) {
-      const {
-        permissions,
-        dashboards,
-        portals,
-        roles: { rolesCode },
-      } = newUserInfo;
+      console.log('BODY:::', newUserInfo);
+      console.log('PASSWORD:::', password);
 
-      // const role = await Role.findOne({ refCode: rolesCode });
-      // Create New User
       const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
       const employeeId = `${randomLetters}-${randomNumber}`;
       const newUser = new Employee({
@@ -64,13 +79,12 @@ const postEmployee = async (req, res, next) => {
         lastName: newUserInfo.lastName,
         email: newUserInfo.email,
         password: hashedPassword,
-        roleRefCode: rolesCode,
+        roleRefCode: roleRefCode,
         companyId: companyId,
         employeeId,
       });
       savedUser = await newUser.save();
 
-      const newUserId = savedUser._id;
       // set the user permissions and Configs
       const newConfig = new EmployeeConfig({
         permissions,
@@ -82,61 +96,7 @@ const postEmployee = async (req, res, next) => {
       await newConfig.save();
     }
 
-    if (id) {
-      console.log(id);
-    }
-
-    // if (id) {
-    //   // Update User
-    //   const updateUser = await Employee.findById(id);
-
-    //   if (!updateUser) {
-    //     res.status(400).json('No User Found!!');
-    //     return;
-    //   }
-
-    //   updateUser.firstName = req.body.firstName;
-    //   updateUser.lastName = req.body.lastName;
-    //   updateUser.email = req.body.email;
-
-    //   savedUser = await updateUser.save();
-    // }
-
-    // const user = await Employee.findById(savedUser._id)
-    //   .select('firstName lastName _id, role roleRefCode')
-    //   .lean();
-
-    // //get the portals
-    // const userPortals = await Portal.find({ roleRefCode: role.refCode }).sort({
-    //   ordinal: 1,
-    // });
-
-    // // get the dashboard widgets and sections
-    // const sections = await SectionModel.find({
-    //   roleRefCode: user.roleRefCode,
-    // })
-    // .select('sectionName sectionCode roleRefCode ordinal')
-    // .sort({ ordinal: 1 });
-
-    // find the widgets with each sections using their sectionCode
-    // const dashboardWidgets = await Promise.all(sections.map(async (section) => {
-    //   const { sectionCode } = section;
-    //   const widgets = await WidgetModel.find({ sectionCode })
-    //   .select('widgetName sectionWidgetName sectionCode widgetDimension ordinal widgetComponentName')
-    //   .sort({ ordinal: 1 });
-    //   return {
-    //     section,
-    //     widgets,
-    //   };
-    // }));
-
-    // console.log(dashboardWidgets)
-
-    // const token = jwt.sign({ user, userPortals, dashboardWidgets }, process.env.SECRET, {
-    //   expiresIn: '24h',
-    // });
-
-    res.status(200);
+    res.status(200).json('Saved Successfully');
   } catch (err) {
     console.log(err);
     res.status(400).json('Something went Wrong!');
@@ -348,7 +308,7 @@ const PostForgottenPassword = async (req, res) => {
 const getAnEmployeeByID = async (req, res, next) => {
   try {
     const employeeId = req.params.employeeId;
-    const companyId = req.body.profiles.companyId
+    const companyId = req.body.profiles.companyId;
     console.log('employeeId::', employeeId);
     const employee = await Employee.findOne({ employeeId, companyId })
       .select('firstName lastName email roleRefCode employeeId active')
@@ -360,9 +320,9 @@ const getAnEmployeeByID = async (req, res, next) => {
     }
 
     const employeeConfigs = await EmployeeConfig.findOne({ employeeId })
-    .select('permissions dashboards portals employee')
-    .lean();
-    res.status(200).json({employee, employeeConfigs});
+      .select('permissions dashboards portals employee')
+      .lean();
+    res.status(200).json({ employee, employeeConfigs });
   } catch (error) {
     console.log(error);
     res.status(400).json('Something Went Wrong!.');
