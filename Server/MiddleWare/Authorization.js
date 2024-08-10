@@ -12,15 +12,19 @@ function hasPermission(userPermissions, requiredPermissions, action ) {
 
 //get permissions for portals
 const getPermissionsByType = (data, typeCode) => {
-  console.log(typeCode)
+  
+  const {subRows} = data;
   let result = [];
   data.forEach(item => {
+    console.log("items::", item)
     if (item.permissionTypeCode === typeCode) {
       result.push(item);
     } else if (item.subRows && item.subRows.length > 0) {
       const filteredSubRows = item.subRows.filter(
         subItem => subItem.permissionTypeCode === typeCode
       );
+
+      console.log("filteredSubRows::", filteredSubRows)
       if (filteredSubRows.length > 0) {
         result.push(...filteredSubRows);
       }
@@ -59,7 +63,7 @@ const IsAuthorizedPostRequest = async (req, res, next) => {
     const userPermission = await EmployeeConfig.findOne({ employeeId })
       .select('permissions')
       .lean();
-    // console.log(userPermission);
+    // console.log("userPermission", userPermission.permissions);
 
     if (!userPermission) {
       res.status(401).json('Restricted Access');
@@ -67,6 +71,7 @@ const IsAuthorizedPostRequest = async (req, res, next) => {
     }
 
     const permissionsByType = getPermissionsByType(userPermission.permissions, permissionTypeCode)
+    console.log('PermissionsByType', permissionsByType)
 
     const result = hasPermission(
       permissionsByType,

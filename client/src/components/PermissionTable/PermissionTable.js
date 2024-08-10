@@ -30,7 +30,6 @@ const headers = [
   { header: 'Delete', accessor: 'del' },
   { header: 'View All', accessor: 'viewAll' },
   { header: 'Modify All', accessor: 'modifyAll' },
-  { header: '', accessor: 'permissionTypeCode' },
 ];
 
 const convertToTableData = (data) => {

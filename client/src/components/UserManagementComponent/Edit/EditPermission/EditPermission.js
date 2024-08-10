@@ -16,7 +16,6 @@ const EditPermission = ({
         permissionOptions[permissionType][0]?.permissionTypeCode;
       const colData = {
         permissionType: permissionType,
-        permissionTypeCode,
         read: '',
         create: '',
         edit: '',
@@ -25,7 +24,7 @@ const EditPermission = ({
         modifyAll: '',
         subRows: permissionOptions[permissionType].map((permission) => ({
           permissionType: permission.permissionName,
-          permissionTypeCode: permission.permissionTypeCode,
+          permissionTypeCode,
           read: '',
           create: '',
           edit: '',
