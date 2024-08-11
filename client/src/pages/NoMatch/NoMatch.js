@@ -1,16 +1,13 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styles from './NoMatch.module.css';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
-import Button from '@mui/material/Button';
 import CustomizedButton from '../../components/CustomizedButton/CustomizedButton';
-import { useSelector } from 'react-redux';
 
 const NoMatch = () => {
   const navigate = useNavigate();
-  const user = useSelector((state) => state.userLog.user);
 
   return (
     <Box
@@ -52,7 +49,7 @@ const NoMatch = () => {
             sx={{
               width: 250,
               display: 'flex',
-              justifyContent: user ? 'center' : 'space-between',
+              justifyContent: 'center',
               alignItems: 'center'
             }}
           >
@@ -60,28 +57,16 @@ const NoMatch = () => {
               variant='contained'
               label={'Home'}
               id='demo-customized-button'
+              backgroundColor={'#FED65A'}
               disableElevation
               onClick={() => navigate('/')}
               sx={{
                 borderRadius: 0,
                 fontWeight: 700,
-                background: '#FED65A',
                 color: '#E5640D',
               }}
             />
-            {!user && 
-            <CustomizedButton
-              variant='contained'
-              label={'Login'}
-              id='demo-customized-button'
-              disableElevation
-              onClick={() => navigate('/login')}
-              sx={{
-                borderRadius: 0,
-                fontWeight: 700,
-                background: '#E5640D',
-              }}
-            />}
+            
           </Box>
         </Box>
       </Card>

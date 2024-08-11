@@ -6,7 +6,7 @@ import { decodeJWToken } from './util/helperFunc';
 import { userActions } from './store/userSlice';
 import NavBar from './components/NavBar/NavBar';
 import Home from './pages/Home/Home';
-import Login from './pages/Auth/Login/Login';
+import LandingPage from './pages/LandingPage/LandingPage';
 import SignUp from './pages/Auth/SignUp/SignUp';
 import Single from './pages/Single/Single';
 import NoMatch from './pages/NoMatch/NoMatch';
@@ -26,6 +26,13 @@ import Settings from './pages/Portals/Settings/Settings';
 import CaseStatus from './pages/Portals/CaseStatus/CaseStatus';
 import Documents from './pages/Portals/Documents/Documents';
 import BillingAndFinance from './pages/Portals/BillingAndFinance/BillingAndFinance';
+import CreateEmployee from './components/UserManagementComponent/CreateEmployee/CreateEmployee';
+import EditEmployee from './components/UserManagementComponent/EditEmployee/EditEmployee';
+import AccessPortal from './pages/AccessPortal/AccessPortal';
+import ClientLogin from './pages/Auth/ClientLogin/ClientLogin';
+import EmployeeLogin from './pages/Auth/EmployeeLogin/EmployeeLogin';
+import { companyActions } from './store/companySlice';
+import { permissionActions } from './util/permissions.services';
 
 // Utility function to check if token is expired
 const isTokenExpired = (token) => {
@@ -37,24 +44,22 @@ function App() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.userLog.user);
   const portals = useSelector((state) => state.userLog.portals);
+  const token = localStorage.getItem('token');
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
     if (token && !isTokenExpired(token)) {
       const userDoc = decodeJWToken(token);
-      dispatch(
-        userActions.login({
-          user: userDoc.user,
-        })
-      );
+      dispatch(userActions.login({ user: userDoc.user }));
       dispatch(userActions.getRoles(userDoc.userPortals));
       dispatch(userActions.getDashboardWidget(userDoc.dashboardWidgets));
+      dispatch(userActions.getPermissions(userDoc.permissions));
+      dispatch(companyActions.getCompany(userDoc.company));
     } else {
       localStorage.removeItem('token');
     }
-  }, [dispatch]);
+  }, [dispatch, token]);
 
-  const getPages = (pageName) => {
+  const getPages = (pageName, permissionTypeCode) => {
     switch (pageName) {
       case 'Dashboard':
         return <DashboardContents />;
@@ -73,7 +78,7 @@ function App() {
       case 'Reports and Analytics':
         return <ReportsAndAnalytics />;
       case 'User Management':
-        return <UserManagement />;
+        return <UserManagement permissionTypeCode={permissionTypeCode} />;
       case 'Settings':
         return <Settings />;
       case 'Case Status':
@@ -91,35 +96,44 @@ function App() {
         <NavBar />
         {/* <Container sx={{ mt: 5 }}> */}
         <Routes>
-          <Route path='/welcome' exact element={<Home />} />
-
+          {/* Dashboard */}
           {user ? (
-            <>
-              {/* <Route path='/all' element={<ViewAll />} />
-                
-
-              {/* Dashboard */}
-              <Route path='/' element={<Dashboard />}>
+            <Route path='/' element={<Dashboard />}>
+              <>
                 <Route path='dashboard' element={<Home />} />
                 {portals.map((page, index) => (
                   <Route
                     key={index}
                     path={page.route}
-                    element={getPages(page.portalName)}
+                    element={getPages(page.portalName, page.permissionTypeCode)}
                   />
                 ))}
 
                 <Route path='single/:id' element={<Single />} />
                 <Route path='edit/:id' element={<SignUp />} />
 
+                {/* USER MANAGEMENT ROUTES */}
+                <Route
+                  path='user-management/new-employee'
+                  element={<EditEmployee action={permissionActions.create}/>}
+                />
+                <Route
+                  path='user-management/edit-employee/:employeeId'
+                  element={<EditEmployee action={permissionActions.edit}/>}
+                />
+
                 <Route index element={<Navigate to='dashboard' />}></Route>
-              </Route>
-            </>
+              </>
+            </Route>
           ) : (
-            <>
-              <Route path='/login' element={<Login />} />
-              <Route path='/signup' element={<SignUp />} />
-            </>
+            <Route path='/' element={<LandingPage />}>
+              <>
+                <Route path='access-portal' element={<AccessPortal />} />
+                <Route path='employee-login' element={<EmployeeLogin />} />
+                <Route path='client-login' element={<ClientLogin />} />
+                <Route index element={<Navigate to='access-portal' />}></Route>
+              </>
+            </Route>
           )}
           <Route path='/forgotPassword' element={<ForgotPassword />} />
           <Route path='*' element={<NoMatch />} />

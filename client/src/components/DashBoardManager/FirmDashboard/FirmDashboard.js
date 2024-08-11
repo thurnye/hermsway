@@ -22,11 +22,13 @@ import SomethingCases from '../../Widgets/SomethingCases/SomethingCases';
 import RecentCommunication from '../../Widgets/RecentCommunication/RecentCommunication';
 import ActiveCases from '../../Widgets/ActiveCases/ActiveCases';
 
+
+
 const FirmDashboard = () => {
   const dashboardWidgets = useSelector(
     (state) => state.userLog.dashboardWidgets
   );
-  console.log(dashboardWidgets);
+  // console.log(dashboardWidgets);
 
   const getWidget = (widgetComponentName) => {
     switch (widgetComponentName) {
@@ -73,27 +75,28 @@ const FirmDashboard = () => {
 
   return (
     <div className={styles.FirmDashboard}>
-      {/* section 1 */}
-      {dashboardWidgets.map((dashboardSection) => (
-        <Paper
-          key={dashboardSection.section._id}
-          sx={{
-            p: 2,
-            my: 2,
-            flexGrow: 1,
-            backgroundColor: (theme) =>
-              theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-          }}
-        >
+      {Object.keys(dashboardWidgets).map((key) => (
+          <Paper
+            key={key}
+            sx={{
+              p: 2,
+              my: 2,
+              flexGrow: 1,
+              backgroundColor: (theme) =>
+                theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+            }}
+          >
           <Grid
             container
             spacing={{ xs: 2, md: 3 }}
             columns={{ xs: 12, sm: 12, md: 12 }}
           >
-            {dashboardSection.widgets.map((widget) => {
+            {dashboardWidgets[key].map((widget) => {
               const widgetDimension = parseWidgetDimension(
                 widget.widgetDimension
               );
+
+              console.log(`${widget.widgetName}_ ${widgetDimension}`, widgetDimension)
 
               return (
                 <Grid item key={widget._id} {...widgetDimension} sx={{}}>
@@ -116,7 +119,8 @@ const FirmDashboard = () => {
               );
             })}
           </Grid>
-        </Paper>
+
+          </Paper>
       ))}
     </div>
   );

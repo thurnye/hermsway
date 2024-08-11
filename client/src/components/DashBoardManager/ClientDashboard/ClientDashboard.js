@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styles from './ClientDashboard.module.css';
 
 const ClientDashboard = () => (
@@ -8,8 +7,6 @@ const ClientDashboard = () => (
   </div>
 );
 
-ClientDashboard.propTypes = {};
 
-ClientDashboard.defaultProps = {};
 
 export default ClientDashboard;

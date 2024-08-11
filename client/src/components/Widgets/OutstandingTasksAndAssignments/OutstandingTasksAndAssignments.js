@@ -4,7 +4,7 @@ import styles from './OutstandingTasksAndAssignments.module.css';
 
 const OutstandingTasksAndAssignments = () => (
   <div className={styles.OutstandingTasksAndAssignments}>
-    OutstandingTasksAndAssignments Component
+    Outstanding Tasks And Assignments Component
   </div>
 );
 

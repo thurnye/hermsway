@@ -7,11 +7,9 @@ const employeeSchema = new Schema({
   lastName: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String},
-  role: {
-    type: Schema.Types.ObjectId,
-    required: true,
-    ref: 'Role',
-  },
+  roleRefCode: { type: String, required: true },
+  companyId: { type: String, required: true, unique: true},
+  employeeId: { type: String, required: true },
 },
    
 {

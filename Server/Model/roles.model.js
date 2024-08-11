@@ -4,9 +4,9 @@ const {Schema} = mongoose
 
 const roleSchema = new Schema({
   roleName: { type: String, required: true },
+  role: { type: String, required: true },
   refCode: { type: String, required: true },
 },
-   
 {
   timestamps: true
 });

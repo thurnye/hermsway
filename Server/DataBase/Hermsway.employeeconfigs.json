@@ -1,0 +1,729 @@
+[
+  {
+    "_id": {
+      "$oid": "66b0746d61b093530c32b4e1"
+    },
+    "permissions": [
+      {
+        "permissionType": "Dashboard",
+        "read": "true",
+        "create": "true",
+        "edit": "true",
+        "del": "true",
+        "viewAll": "true",
+        "modifyAll": "",
+        "subRows": [
+          {
+            "permissionType": "full_access",
+            "permissionTypeCode": "HMSW_PERM_TYPE_DASH",
+            "read": "true",
+            "create": "true",
+            "edit": "true",
+            "del": "true",
+            "viewAll": "true",
+            "modifyAll": ""
+          },
+          {
+            "permissionType": "user_management",
+            "permissionTypeCode": "HMSW_PERM_TYPE_DASH",
+            "read": "true",
+            "create": "true",
+            "edit": "true",
+            "del": "true",
+            "viewAll": "true",
+            "modifyAll": ""
+          },
+          {
+            "permissionType": "access_all_case_files",
+            "permissionTypeCode": "HMSW_PERM_TYPE_DASH",
+            "read": "true",
+            "create": "true",
+            "edit": "true",
+            "del": "true",
+            "viewAll": "true",
+            "modifyAll": ""
+          },
+          {
+            "permissionType": "generate_view_all_reports",
+            "permissionTypeCode": "HMSW_PERM_TYPE_DASH",
+            "read": "true",
+            "create": "true",
+            "edit": "true",
+            "del": "true",
+            "viewAll": "true",
+            "modifyAll": ""
+          },
+          {
+            "permissionType": "system_configuration",
+            "permissionTypeCode": "HMSW_PERM_TYPE_DASH",
+            "read": "true",
+            "create": "true",
+            "edit": "true",
+            "del": "true",
+            "viewAll": "true",
+            "modifyAll": ""
+          },
+          {
+            "permissionType": "create_record",
+            "permissionTypeCode": "HMSW_PERM_TYPE_DASH",
+            "read": "true",
+            "create": "true",
+            "edit": "true",
+            "del": "true",
+            "viewAll": "true",
+            "modifyAll": ""
+          },
+          {
+            "permissionType": "read_record",
+            "permissionTypeCode": "HMSW_PERM_TYPE_DASH",
+            "read": "true",
+            "create": "true",
+            "edit": "true",
+            "del": "true",
+            "viewAll": "true",
+            "modifyAll": ""
+          },
+          {
+            "permissionType": "update_record",
+            "permissionTypeCode": "HMSW_PERM_TYPE_DASH",
+            "read": "true",
+            "create": "true",
+            "edit": "true",
+            "del": "true",
+            "viewAll": "true",
+            "modifyAll": ""
+          },
+          {
+            "permissionType": "delete_record",
+            "permissionTypeCode": "HMSW_PERM_TYPE_DASH",
+            "read": "true",
+            "create": "true",
+            "edit": "true",
+            "del": "true",
+            "viewAll": "true",
+            "modifyAll": ""
+          }
+        ]
+      },
+      {
+        "permissionType": "Case Management",
+        "read": "true",
+        "create": "",
+        "edit": "",
+        "del": "",
+        "viewAll": "true",
+        "modifyAll": "",
+        "subRows": [
+          {
+            "permissionType": "full_access",
+            "permissionTypeCode": "HMSW_PERM_TYPE_CASE_MGNT",
+            "read": "true",
+            "create": "",
+            "edit": "",
+            "del": "",
+            "viewAll": "true",
+            "modifyAll": ""
+          },
+          {
+            "permissionType": "user_management",
+            "permissionTypeCode": "HMSW_PERM_TYPE_CASE_MGNT",
+            "read": "true",
+            "create": "",
+            "edit": "",
+            "del": "",
+            "viewAll": "true",
+            "modifyAll": ""
+          },
+          {
+            "permissionType": "access_all_case_files",
+            "permissionTypeCode": "HMSW_PERM_TYPE_CASE_MGNT",
+            "read": "true",
+            "create": "",
+            "edit": "",
+            "del": "",
+            "viewAll": "true",
+            "modifyAll": ""
+          },
+          {
+            "permissionType": "generate_view_all_reports",
+            "permissionTypeCode": "HMSW_PERM_TYPE_CASE_MGNT",
+            "read": "true",
+            "create": "",
+            "edit": "",
+            "del": "",
+            "viewAll": "true",
+            "modifyAll": ""
+          },
+          {
+            "permissionType": "system_configuration",
+            "permissionTypeCode": "HMSW_PERM_TYPE_CASE_MGNT",
+            "read": "true",
+            "create": "",
+            "edit": "",
+            "del": "",
+            "viewAll": "true",
+            "modifyAll": ""
+          },
+          {
+            "permissionType": "create_record",
+            "permissionTypeCode": "HMSW_PERM_TYPE_CASE_MGNT",
+            "read": "true",
+            "create": "",
+            "edit": "",
+            "del": "",
+            "viewAll": "true",
+            "modifyAll": ""
+          },
+          {
+            "permissionType": "read_record",
+            "permissionTypeCode": "HMSW_PERM_TYPE_CASE_MGNT",
+            "read": "true",
+            "create": "",
+            "edit": "",
+            "del": "",
+            "viewAll": "true",
+            "modifyAll": ""
+          },
+          {
+            "permissionType": "update_record",
+            "permissionTypeCode": "HMSW_PERM_TYPE_CASE_MGNT",
+            "read": "true",
+            "create": "",
+            "edit": "",
+            "del": "",
+            "viewAll": "true",
+            "modifyAll": ""
+          },
+          {
+            "permissionType": "delete_record",
+            "permissionTypeCode": "HMSW_PERM_TYPE_CASE_MGNT",
+            "read": "true",
+            "create": "",
+            "edit": "",
+            "del": "",
+            "viewAll": "true",
+            "modifyAll": ""
+          }
+        ]
+      },
+      {
+        "permissionType": "User Management",
+        "read": "true",
+        "create": "true",
+        "edit": "true",
+        "del": "true",
+        "viewAll": "true",
+        "modifyAll": "true",
+        "subRows": [
+          {
+            "permissionType": "create_employee",
+            "permissionTypeCode": "HMSW_PERM_TYPE_USER_MGNT",
+            "read": "true",
+            "create": "true",
+            "edit": "true",
+            "del": "true",
+            "viewAll": "true",
+            "modifyAll": "true"
+          },
+          {
+            "permissionType": "view_all_employees",
+            "permissionTypeCode": "HMSW_PERM_TYPE_USER_MGNT",
+            "read": "true",
+            "create": "true",
+            "edit": "true",
+            "del": "true",
+            "viewAll": "true",
+            "modifyAll": "true"
+          },
+          {
+            "permissionType": "view_employee_details",
+            "permissionTypeCode": "HMSW_PERM_TYPE_USER_MGNT",
+            "read": "true",
+            "create": "true",
+            "edit": "true",
+            "del": "true",
+            "viewAll": "true",
+            "modifyAll": "true"
+          },
+          {
+            "permissionType": "edit_employee_details",
+            "permissionTypeCode": "HMSW_PERM_TYPE_USER_MGNT",
+            "read": "true",
+            "create": "true",
+            "edit": "true",
+            "del": "true",
+            "viewAll": "true",
+            "modifyAll": "true"
+          },
+          {
+            "permissionType": "deactivate_employee",
+            "permissionTypeCode": "HMSW_PERM_TYPE_USER_MGNT",
+            "read": "true",
+            "create": "true",
+            "edit": "true",
+            "del": "true",
+            "viewAll": "true",
+            "modifyAll": "true"
+          },
+          {
+            "permissionType": "user",
+            "permissionTypeCode": "HMSW_PERM_TYPE_USER_MGNT",
+            "read": "true",
+            "create": "true",
+            "edit": "true",
+            "del": "true",
+            "viewAll": "true",
+            "modifyAll": "true"
+          }
+        ]
+      }
+    ],
+    "dashboards": {
+      "generalMetrics": [
+        {
+          "widgetName": "Spending Summary",
+          "sectionCode": "HMSW-Met-Gen"
+        },
+        {
+          "widgetName": "New Case",
+          "sectionCode": "HMSW-Met-Gen"
+        },
+        {
+          "widgetName": "Active Cases",
+          "sectionCode": "HMSW-Met-Gen"
+        }
+      ],
+      "activitiesMetrics": [
+        {
+          "widgetName": "Outstanding Tasks and Assignments",
+          "sectionCode": "HMSW-Met-Avt"
+        },
+        {
+          "widgetName": "Recent Activities",
+          "sectionCode": "HMSW-Met-Avt"
+        },
+        {
+          "widgetName": "Appointments",
+          "sectionCode": "HMSW-Met-Avt"
+        }
+      ],
+      "employeeMetrics": [
+        {
+          "widgetName": "Employees Reports",
+          "sectionCode": "HMSW-Met-Emp"
+        },
+        {
+          "widgetName": "Something Here",
+          "sectionCode": "HMSW-Met-Emp"
+        }
+      ],
+      "teamMetrics": [
+        {
+          "widgetName": "Team Reports",
+          "sectionCode": "HMSW-Met-Team"
+        },
+        {
+          "widgetName": "Something Here",
+          "sectionCode": "HMSW-Met-Team"
+        }
+      ],
+      "clientMetrics": [
+        {
+          "widgetName": "Client Reports",
+          "sectionCode": "HMSW-Met-Clt"
+        },
+        {
+          "widgetName": "Pending Client Payment",
+          "sectionCode": "HMSW-Met-Clt"
+        }
+      ]
+    },
+    "portals": [
+      {
+        "permissionType": "Dashboard",
+        "permissionTypeName": "Dashboard",
+        "permissionTypeCode": "HMSW_PERM_TYPE_DASH"
+      },
+      {
+        "permissionType": "CaseManagement",
+        "permissionTypeName": "Case Management",
+        "permissionTypeCode": "HMSW_PERM_TYPE_CASE_MGNT"
+      },
+      {
+        "permissionType": "ClientManagement",
+        "permissionTypeName": "Client Management",
+        "permissionTypeCode": "HMSW_PERM_TYPE_CLT_MGNT"
+      },
+      {
+        "permissionType": "DocumentManagement",
+        "permissionTypeName": "Document Management",
+        "permissionTypeCode": "HMSW_PERM_TYPE_DOC_MGNT"
+      },
+      {
+        "permissionType": "BillingAndFinance",
+        "permissionTypeName": "Billing And Finance",
+        "permissionTypeCode": "HMSW_PERM_TYPE_BILL_FIN"
+      },
+      {
+        "permissionType": "Communication",
+        "permissionTypeName": "Communication",
+        "permissionTypeCode": "HMSW_PERM_TYPE_COMM"
+      },
+      {
+        "permissionType": "TasksAndReminders",
+        "permissionTypeName": "Tasks And Reminders",
+        "permissionTypeCode": "HMSW_PERM_TYPE_TASK_REM"
+      },
+      {
+        "permissionType": "ReportsAndAnalytics",
+        "permissionTypeName": "Reports And Analytics",
+        "permissionTypeCode": "HMSW_PERM_TYPE_RPT_ANL"
+      },
+      {
+        "permissionType": "UserManagement",
+        "permissionTypeName": "User Management",
+        "permissionTypeCode": "HMSW_PERM_TYPE_USER_MGNT"
+      },
+      {
+        "permissionType": "Settings",
+        "permissionTypeName": "Settings",
+        "permissionTypeCode": "HMSW_PERM_TYPE_SETT"
+      },
+      {
+        "permissionType": "CaseStatus",
+        "permissionTypeName": "CaseStatus",
+        "permissionTypeCode": "HMSW_PERM_TYPE_CASE_STAT"
+      },
+      {
+        "permissionType": "Documents",
+        "permissionTypeName": "Documents",
+        "permissionTypeCode": "HMSW_PERM_TYPE_DOC"
+      }
+    ],
+    "employeeId": "GT-230",
+    "createdAt": {
+      "$date": "2024-08-05T06:42:53.316Z"
+    },
+    "updatedAt": {
+      "$date": "2024-08-05T06:42:53.316Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "66b08a73f624a633a975a630"
+    },
+    "dashboards": {
+      "generalMetrics": [
+        {
+          "widgetName": "New Case",
+          "sectionCode": "HMSW-Met-Gen"
+        },
+        {
+          "widgetName": "Active Cases",
+          "sectionCode": "HMSW-Met-Gen"
+        }
+      ],
+      "activitiesMetrics": [
+        {
+          "widgetName": "Outstanding Tasks and Assignments",
+          "sectionCode": "HMSW-Met-Avt"
+        },
+        {
+          "widgetName": "Recent Activities",
+          "sectionCode": "HMSW-Met-Avt"
+        },
+        {
+          "widgetName": "Appointments",
+          "sectionCode": "HMSW-Met-Avt"
+        }
+      ],
+      "employeeMetrics": [],
+      "teamMetrics": [
+        {
+          "widgetName": "Team Reports",
+          "sectionCode": "HMSW-Met-Team"
+        },
+        {
+          "widgetName": "Something Here",
+          "sectionCode": "HMSW-Met-Team"
+        }
+      ],
+      "clientMetrics": [
+        {
+          "widgetName": "Client Reports",
+          "sectionCode": "HMSW-Met-Clt"
+        },
+        {
+          "widgetName": "Pending Client Payment",
+          "sectionCode": "HMSW-Met-Clt"
+        },
+        {
+          "widgetName": "something",
+          "sectionCode": "HMSW-Met-Clt"
+        }
+      ]
+    },
+    "portals": [
+      {
+        "permissionType": "Dashboard",
+        "permissionTypeName": "Dashboard",
+        "permissionTypeCode": "HMSW_PERM_TYPE_DASH"
+      },
+      {
+        "permissionType": "CaseManagement",
+        "permissionTypeName": "Case Management",
+        "permissionTypeCode": "HMSW_PERM_TYPE_CASE_MGNT"
+      },
+      {
+        "permissionType": "ClientManagement",
+        "permissionTypeName": "Client Management",
+        "permissionTypeCode": "HMSW_PERM_TYPE_CLT_MGNT"
+      },
+      {
+        "permissionType": "DocumentManagement",
+        "permissionTypeName": "Document Management",
+        "permissionTypeCode": "HMSW_PERM_TYPE_DOC_MGNT"
+      },
+      {
+        "permissionType": "Communication",
+        "permissionTypeName": "Communication",
+        "permissionTypeCode": "HMSW_PERM_TYPE_COMM"
+      },
+      {
+        "permissionType": "TasksAndReminders",
+        "permissionTypeName": "Tasks And Reminders",
+        "permissionTypeCode": "HMSW_PERM_TYPE_TASK_REM"
+      },
+      {
+        "permissionType": "ReportsAndAnalytics",
+        "permissionTypeName": "Reports And Analytics",
+        "permissionTypeCode": "HMSW_PERM_TYPE_RPT_ANL"
+      },
+      {
+        "permissionType": "Settings",
+        "permissionTypeName": "Settings",
+        "permissionTypeCode": "HMSW_PERM_TYPE_SETT"
+      },
+      {
+        "permissionType": "CaseStatus",
+        "permissionTypeName": "CaseStatus",
+        "permissionTypeCode": "HMSW_PERM_TYPE_CASE_STAT"
+      }
+    ],
+    "permissions": [
+      {
+        "permissionType": "Dashboard",
+        "read": "true",
+        "create": "true",
+        "edit": "true",
+        "del": "true",
+        "viewAll": "true",
+        "modifyAll": "",
+        "subRows": [
+          {
+            "permissionType": "full_access",
+            "permissionTypeCode": "HMSW_PERM_TYPE_DASH",
+            "read": "true",
+            "create": "true",
+            "edit": "true",
+            "del": "true",
+            "viewAll": "true",
+            "modifyAll": ""
+          },
+          {
+            "permissionType": "user_management",
+            "permissionTypeCode": "HMSW_PERM_TYPE_DASH",
+            "read": "true",
+            "create": "true",
+            "edit": "true",
+            "del": "true",
+            "viewAll": "true",
+            "modifyAll": ""
+          },
+          {
+            "permissionType": "access_all_case_files",
+            "permissionTypeCode": "HMSW_PERM_TYPE_DASH",
+            "read": "true",
+            "create": "true",
+            "edit": "true",
+            "del": "true",
+            "viewAll": "true",
+            "modifyAll": ""
+          },
+          {
+            "permissionType": "generate_view_all_reports",
+            "permissionTypeCode": "HMSW_PERM_TYPE_DASH",
+            "read": "true",
+            "create": "true",
+            "edit": "true",
+            "del": "true",
+            "viewAll": "true",
+            "modifyAll": ""
+          },
+          {
+            "permissionType": "system_configuration",
+            "permissionTypeCode": "HMSW_PERM_TYPE_DASH",
+            "read": "true",
+            "create": "true",
+            "edit": "true",
+            "del": "true",
+            "viewAll": "true",
+            "modifyAll": ""
+          },
+          {
+            "permissionType": "create_record",
+            "permissionTypeCode": "HMSW_PERM_TYPE_DASH",
+            "read": "true",
+            "create": "true",
+            "edit": "true",
+            "del": "true",
+            "viewAll": "true",
+            "modifyAll": ""
+          },
+          {
+            "permissionType": "read_record",
+            "permissionTypeCode": "HMSW_PERM_TYPE_DASH",
+            "read": "true",
+            "create": "true",
+            "edit": "true",
+            "del": "true",
+            "viewAll": "true",
+            "modifyAll": ""
+          },
+          {
+            "permissionType": "update_record",
+            "permissionTypeCode": "HMSW_PERM_TYPE_DASH",
+            "read": "true",
+            "create": "true",
+            "edit": "true",
+            "del": "true",
+            "viewAll": "true",
+            "modifyAll": ""
+          },
+          {
+            "permissionType": "delete_record",
+            "permissionTypeCode": "HMSW_PERM_TYPE_DASH",
+            "read": "true",
+            "create": "true",
+            "edit": "true",
+            "del": "true",
+            "viewAll": "true",
+            "modifyAll": ""
+          }
+        ]
+      },
+      {
+        "permissionType": "Case Management",
+        "read": "true",
+        "create": "",
+        "edit": "",
+        "del": "",
+        "viewAll": "true",
+        "modifyAll": "",
+        "subRows": [
+          {
+            "permissionType": "full_access",
+            "permissionTypeCode": "HMSW_PERM_TYPE_CASE_MGNT",
+            "read": "true",
+            "create": "",
+            "edit": "",
+            "del": "",
+            "viewAll": "true",
+            "modifyAll": ""
+          },
+          {
+            "permissionType": "user_management",
+            "permissionTypeCode": "HMSW_PERM_TYPE_CASE_MGNT",
+            "read": "true",
+            "create": "",
+            "edit": "",
+            "del": "",
+            "viewAll": "true",
+            "modifyAll": ""
+          },
+          {
+            "permissionType": "access_all_case_files",
+            "permissionTypeCode": "HMSW_PERM_TYPE_CASE_MGNT",
+            "read": "true",
+            "create": "",
+            "edit": "",
+            "del": "",
+            "viewAll": "true",
+            "modifyAll": ""
+          },
+          {
+            "permissionType": "generate_view_all_reports",
+            "permissionTypeCode": "HMSW_PERM_TYPE_CASE_MGNT",
+            "read": "true",
+            "create": "",
+            "edit": "",
+            "del": "",
+            "viewAll": "true",
+            "modifyAll": ""
+          },
+          {
+            "permissionType": "system_configuration",
+            "permissionTypeCode": "HMSW_PERM_TYPE_CASE_MGNT",
+            "read": "true",
+            "create": "",
+            "edit": "",
+            "del": "",
+            "viewAll": "true",
+            "modifyAll": ""
+          },
+          {
+            "permissionType": "create_record",
+            "permissionTypeCode": "HMSW_PERM_TYPE_CASE_MGNT",
+            "read": "true",
+            "create": "",
+            "edit": "",
+            "del": "",
+            "viewAll": "true",
+            "modifyAll": ""
+          },
+          {
+            "permissionType": "read_record",
+            "permissionTypeCode": "HMSW_PERM_TYPE_CASE_MGNT",
+            "read": "true",
+            "create": "",
+            "edit": "",
+            "del": "",
+            "viewAll": "true",
+            "modifyAll": ""
+          },
+          {
+            "permissionType": "update_record",
+            "permissionTypeCode": "HMSW_PERM_TYPE_CASE_MGNT",
+            "read": "true",
+            "create": "",
+            "edit": "",
+            "del": "",
+            "viewAll": "true",
+            "modifyAll": ""
+          },
+          {
+            "permissionType": "delete_record",
+            "permissionTypeCode": "HMSW_PERM_TYPE_CASE_MGNT",
+            "read": "true",
+            "create": "",
+            "edit": "",
+            "del": "",
+            "viewAll": "true",
+            "modifyAll": ""
+          }
+        ]
+      }
+      
+    ],
+
+    "employeeId": "A-021",
+    "createdAt": {
+      "$date": "2024-08-05T08:16:51.106Z"
+    },
+    "updatedAt": {
+      "$date": "2024-08-05T08:16:51.106Z"
+    },
+    "__v": 0
+  }
+]

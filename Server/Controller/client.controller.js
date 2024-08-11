@@ -3,6 +3,9 @@ const Client = require('../Model/client.model');
 const Role = require('../Model/roles.model');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const SectionModel = require('../Model/sections.model');
+const WidgetModel = require('../Model/widget.model');
+const Portal = require('../Model/portals.model');
 const SALT_ROUNDS = 6;
 const {mailService} = require('../Services/email.services')
 
@@ -17,7 +20,7 @@ const postClient = async (req, res, next) => {
     }
     if (!id) {
       // Create New User
-      const role = await Role.find({roleName: 'Client'})
+      const role = await Role.find({roleName: 'client'})
       const hashedPassword = await bcrypt.hash(req.body.password, SALT_ROUNDS);
 
       const newUser = new Client({
@@ -25,7 +28,7 @@ const postClient = async (req, res, next) => {
         lastName: req.body.lastName,
         email: req.body.email,
         password: hashedPassword,
-        role: role._id
+        role: role.refCode
       });
       savedUser = await newUser.save();
     }
@@ -71,7 +74,7 @@ const getLogIn = async (req, res) => {
 
     // Find the user and select necessary fields
     const user = await Client.findOne({ email })
-      .select('firstName lastName email password')
+      .select('firstName lastName email password roleRefCode')
       .lean();
 
     if (!user) {
@@ -91,11 +94,41 @@ const getLogIn = async (req, res) => {
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
+      role: user.roleRefCode,
     };
 
-    const token = jwt.sign({ user: loggedUser }, process.env.SECRET, {
-      expiresIn: '24h',
-    });
+    const userPortals = await Portal.find({
+      roleRefCode: user.roleRefCode,
+    }).sort({ ordinal: 1 });
+
+    // get the dashboard widgets and sections
+    const sections = await SectionModel.find({
+      roleRefCode: user.roleRefCode,
+    })
+    .select('sectionName sectionCode roleRefCode ordinal')
+    .sort({ ordinal: 1 });
+
+    
+    // find the widgets with each sections using their sectionCode
+    const dashboardWidgets = await Promise.all(sections.map(async (section) => {
+      const { sectionCode } = section;
+      const widgets = await WidgetModel.find({ sectionCode })
+      .select('widgetName sectionWidgetName sectionCode widgetDimension ordinal widgetComponentName')
+      .sort({ ordinal: 1 });
+      return {
+        section,
+        widgets,
+      };
+    }));
+
+
+    const token = jwt.sign(
+      { user: loggedUser, userPortals, dashboardWidgets },
+      process.env.SECRET,
+      {
+        expiresIn: '24h',
+      }
+    );
     // send a response to the front end
     res.status(200).json(token);
   } catch (error) {
@@ -103,6 +136,7 @@ const getLogIn = async (req, res) => {
     res.status(400).json('Something went Wrong!!');
   }
 };
+
 
 
 

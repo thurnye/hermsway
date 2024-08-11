@@ -1,5 +1,6 @@
 import  { configureStore} from '@reduxjs/toolkit'
 import userReducer from './userSlice'
+import companyReducer from './companySlice'
 
 
 
@@ -7,6 +8,7 @@ import userReducer from './userSlice'
 const store = configureStore({
     reducer: {
         userLog: userReducer,
+        company: companyReducer
     }
 })
 

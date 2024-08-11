@@ -29,7 +29,7 @@ const postAdmin = async (req, res, next) => {
         lastName: req.body.lastName,
         email: req.body.email,
         password: hashedPassword,
-        role: role._id,
+        roleRefCode: role.refCode,
       });
       savedUser = await newUser.save();
     }
@@ -50,11 +50,7 @@ const postAdmin = async (req, res, next) => {
     }
 
     const user = await Admin.findById(savedUser._id)
-      .select('firstName lastName _id, role')
-      .populate({
-        path: 'role',
-        select: '_id roleName refCode',
-      })
+      .select('firstName lastName _id, roleRefCode')
       .lean();
 
     //get the portals
@@ -64,7 +60,7 @@ const postAdmin = async (req, res, next) => {
 
     // get the dashboard widgets and sections
     const sections = await SectionModel.find({
-      roleRefCode: user.role.refCode,
+      roleRefCode: user.roleRefCode,
     })
     .select('sectionName sectionCode roleRefCode ordinal')
     .sort({ ordinal: 1 });
@@ -106,11 +102,7 @@ const getLogIn = async (req, res) => {
 
     // Find the user and select necessary fields
     const user = await Admin.findOne({ email })
-      .select('firstName lastName email password role')
-      .populate({
-        path: 'role',
-        select: '_id roleName refCode',
-      })
+      .select('firstName lastName email password roleRefCode')
       .lean();
 
     if (!user) {
@@ -130,16 +122,16 @@ const getLogIn = async (req, res) => {
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
-      role: user.role,
+      role: user.roleRefCode,
     };
 
     const userPortals = await Portal.find({
-      roleRefCode: user.role.refCode,
+      roleRefCode: user.roleRefCode,
     }).sort({ ordinal: 1 });
 
     // get the dashboard widgets and sections
     const sections = await SectionModel.find({
-      roleRefCode: user.role.refCode,
+      roleRefCode: user.roleRefCode,
     })
     .select('sectionName sectionCode roleRefCode ordinal')
     .sort({ ordinal: 1 });
