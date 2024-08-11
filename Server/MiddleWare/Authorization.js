@@ -12,11 +12,8 @@ function hasPermission(userPermissions, requiredPermissions, action ) {
 
 //get permissions for portals
 const getPermissionsByType = (data, typeCode) => {
-  
-  const {subRows} = data;
   let result = [];
   data.forEach(item => {
-    console.log("items::", item)
     if (item.permissionTypeCode === typeCode) {
       result.push(item);
     } else if (item.subRows && item.subRows.length > 0) {
@@ -24,7 +21,6 @@ const getPermissionsByType = (data, typeCode) => {
         subItem => subItem.permissionTypeCode === typeCode
       );
 
-      console.log("filteredSubRows::", filteredSubRows)
       if (filteredSubRows.length > 0) {
         result.push(...filteredSubRows);
       }

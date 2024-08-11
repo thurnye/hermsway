@@ -1,8 +1,12 @@
 // https://mui.com/material-ui/getting-started/templates/
 import React, { useEffect } from 'react';
-// import styles from './Dashboard.module.css';
-import { Outlet, Link, useNavigate } from 'react-router-dom';
-import { styled, createTheme, ThemeProvider, useTheme } from '@mui/material/styles';
+import { Outlet, useNavigate } from 'react-router-dom';
+import {
+  styled,
+  createTheme,
+  ThemeProvider,
+  useTheme,
+} from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
@@ -12,16 +16,22 @@ import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import Badge from '@mui/material/Badge';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import NotificationsIcon from '@mui/icons-material/Notifications';
 import MainListItems from './listItems';
-// import SearchEvent from './SearchEvent/SearchEvent';
-import { Avatar, Container, useMediaQuery } from '@mui/material';
-import { useSelector } from 'react-redux';
+import {
+  Avatar,
+  Container,
+  Menu,
+  MenuItem,
+  Tooltip,
+  useMediaQuery,
+} from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
+import { userActions } from '../../store/userSlice';
 
 const drawerWidth = 270;
+const settings = ['Profile', 'Account', 'Dashboard'];
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
@@ -45,8 +55,7 @@ const AppBar = styled(MuiAppBar, {
 
 const Drawer = styled(MuiDrawer, {
   shouldForwardProp: (prop) => prop !== 'open',
-})
-(({ theme, open }) => ({
+})(({ theme, open }) => ({
   '& .MuiDrawer-paper': {
     position: 'relative',
     whiteSpace: 'nowrap',
@@ -74,8 +83,9 @@ const Drawer = styled(MuiDrawer, {
 const defaultTheme = createTheme();
 
 const Dashboard = () => {
-  const user = useSelector((state) => state.userLog?.user?.user);
+  const user = useSelector((state) => state.userLog.user);
   const theme = useTheme();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const isXs = useMediaQuery(theme.breakpoints.down('md'));
   const [open, setOpen] = React.useState(false);
@@ -85,12 +95,36 @@ const Dashboard = () => {
     setOpen(!open);
   };
 
+  const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+
+  const handleLogout = () => {
+    dispatch(userActions.logout());
+    let token = localStorage.getItem('token');
+    if (token) {
+      localStorage.removeItem('token');
+      handleCloseNavMenu();
+      navigate('/');
+    }
+  };
 
   useEffect(() => {
     if (!isXs) {
       // large screen
       setOpen(false);
-      setOpenMobile(false)
+      setOpenMobile(false);
     } else {
       // small screen
       setOpen(false);
@@ -98,6 +132,47 @@ const Dashboard = () => {
   }, [isXs]);
 
 
+  const userNavigation = () => (
+    <Box sx={{ flexGrow: 0 }}>
+      <Tooltip title='Open settings'>
+        {user && (
+          <IconButton
+            onClick={handleOpenUserMenu}
+            sx={{ p: 0, background: 'red' }}
+          >
+            <Avatar alt={user?.firstName} src='/static/images/avatar/2.jpg' />
+          </IconButton>
+        )}
+      </Tooltip>
+      {user && (
+        <Menu
+          sx={{ mt: '45px' }}
+          id='menu-appbar'
+          anchorEl={anchorElUser}
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+          keepMounted
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+          open={Boolean(anchorElUser)}
+          onClose={handleCloseUserMenu}
+        >
+          {settings.map((setting) => (
+            <MenuItem key={setting} onClick={handleCloseUserMenu}>
+              <Typography textAlign='center'>{setting}</Typography>
+            </MenuItem>
+          ))}
+          <MenuItem onClick={handleLogout}>
+            <Typography textAlign='center'>Logout</Typography>
+          </MenuItem>
+        </Menu>
+      )}
+    </Box>
+  );
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -129,14 +204,8 @@ const Dashboard = () => {
             >
               {header}
             </Typography>
-            {/* <SearchEvent /> */}
-            <Link to={'/'}>
-              <IconButton sx={{ color: '#616264ee' }} onClick={() => setHeader('Notifications')}>
-                <Badge badgeContent={4} color='secondary'>
-                  <NotificationsIcon />
-                </Badge>
-              </IconButton>
-            </Link>
+            
+            {userNavigation()}
           </Toolbar>
         </AppBar>
 
@@ -159,9 +228,12 @@ const Dashboard = () => {
             </IconButton>
           </Toolbar>
           <Divider />
-          <List component='nav' sx={{
+          <List
+            component='nav'
+            sx={{
               flexGrow: 1,
-            }}>
+            }}
+          >
             {/* {mainListItems} */}
             <MainListItems header={header} setHeader={setHeader} />
             {/* <Divider sx={{ my: 1 }} /> */}
@@ -173,10 +245,10 @@ const Dashboard = () => {
         <Drawer
           variant='permanent'
           open={open}
-          sx={{ 
+          sx={{
             display: { xs: 'none', sm: 'block' },
-            overflow:'hidden' 
-        }}
+            overflow: 'hidden',
+          }}
         >
           <Toolbar
             sx={{
@@ -195,7 +267,7 @@ const Dashboard = () => {
             component='nav'
             sx={{
               flexGrow: 1,
-              overflow:'hidden'
+              overflow: 'hidden',
             }}
           >
             {/* {mainListItems} */}
@@ -214,12 +286,12 @@ const Dashboard = () => {
                 : theme.palette.grey[900],
             flexGrow: 1,
             overflow: 'auto',
-            height: { xs: 'initial', md: `calc(100vh - 100px)` }
+            height: { xs: 'initial', md: `calc(100vh - 100px)` },
           }}
         >
           <Toolbar />
           <CssBaseline />
-          <Container sx={{my: 3}}>
+          <Container sx={{ my: 3 }}>
             <Outlet />
           </Container>
         </Box>
