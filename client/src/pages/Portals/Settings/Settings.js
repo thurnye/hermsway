@@ -1,15 +1,21 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styles from './Settings.module.css';
+import { getPermissionsByType } from '../../../util/helperFunc';
+import { useSelector } from 'react-redux';
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import SettingContainer from '../../../components/SettingsComponent/SettingContainer/SettingContainer'
 
-const Settings = () => (
-  <div className={styles.Settings}>
-    Settings Component
-  </div>
-);
+const Settings = ({ permissionTypeCode }) => {
 
-Settings.propTypes = {};
 
-Settings.defaultProps = {};
+  return (
+      <Box  className={styles.Settings}>
+        <Container maxWidth='lg'>
+          <SettingContainer permissionTypeCode={permissionTypeCode}/>
+        </Container>
+      </Box>
+  );
+};
 
 export default Settings;

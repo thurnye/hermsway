@@ -96,8 +96,6 @@ const FirmDashboard = () => {
                 widget.widgetDimension
               );
 
-              console.log(`${widget.widgetName}_ ${widgetDimension}`, widgetDimension)
-
               return (
                 <Grid item key={widget._id} {...widgetDimension} sx={{}}>
                   {getWidget(widget.widgetComponentName)}

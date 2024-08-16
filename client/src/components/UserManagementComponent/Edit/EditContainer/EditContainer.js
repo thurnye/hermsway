@@ -12,7 +12,7 @@ import EditDashboard from '../EditDashboard/EditDashboard';
 import EditProfile from '../EditProfile/EditProfile';
 import RequestFeedback from '../../../RequestFeedback/RequestFeedback';
 import services from '../../../../util/employee.services';
-import actionServices from '../../../../util/actions.services';
+import appServices from '../../../../util/app.services';
 import CustomizedButton from '../../../CustomizedButton/CustomizedButton';
 import {
   permissionActions,
@@ -93,7 +93,7 @@ const EditContainer = ({ employeeInfo }) => {
       setSaved(false);
       setMessage('');
       setShowCancel(false);
-      const allPermissions = await actionServices.getPortalPermissions(portals);
+      const allPermissions = await appServices.getPortalPermissions(portals);
       setPermissionOptions(allPermissions.data);
     } catch (error) {
       console.log('ERROR:::', error);

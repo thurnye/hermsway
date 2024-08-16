@@ -5,6 +5,7 @@ const permissionSchema = new Schema(
   {
     permissionName: { type: String, required: true },
     permissionComponent: { type: String, required: true },
+    subCategory: { type: String},
     permissionCode: { type: String, required: true },
     permissionTypeCode: { type: String, required: true },
   },

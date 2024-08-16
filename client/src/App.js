@@ -26,13 +26,14 @@ import Settings from './pages/Portals/Settings/Settings';
 import CaseStatus from './pages/Portals/CaseStatus/CaseStatus';
 import Documents from './pages/Portals/Documents/Documents';
 import BillingAndFinance from './pages/Portals/BillingAndFinance/BillingAndFinance';
-import CreateEmployee from './components/UserManagementComponent/CreateEmployee/CreateEmployee';
 import EditEmployee from './components/UserManagementComponent/EditEmployee/EditEmployee';
 import AccessPortal from './pages/AccessPortal/AccessPortal';
 import ClientLogin from './pages/Auth/ClientLogin/ClientLogin';
 import EmployeeLogin from './pages/Auth/EmployeeLogin/EmployeeLogin';
 import { companyActions } from './store/companySlice';
 import { permissionActions } from './util/permissions.services';
+import { ThemeProvider } from '@mui/material';
+import useDynamicTheme from './assets/theme/theme';
 
 // Utility function to check if token is expired
 const isTokenExpired = (token) => {
@@ -42,6 +43,7 @@ const isTokenExpired = (token) => {
 
 function App() {
   const dispatch = useDispatch();
+  const theme = useDynamicTheme();
   const user = useSelector((state) => state.userLog.user);
   const portals = useSelector((state) => state.userLog.portals);
   const token = localStorage.getItem('token');
@@ -80,7 +82,7 @@ function App() {
       case 'User Management':
         return <UserManagement permissionTypeCode={permissionTypeCode} />;
       case 'Settings':
-        return <Settings />;
+        return <Settings permissionTypeCode={permissionTypeCode}/>;
       case 'Case Status':
         return <CaseStatus />;
       case 'Documents':
@@ -92,54 +94,62 @@ function App() {
 
   return (
     <React.Fragment>
-      <BrowserRouter>
-        <NavBar />
-        {/* <Container sx={{ mt: 5 }}> */}
-        <Routes>
-          {/* Dashboard */}
-          {user ? (
-            <Route path='/' element={<Dashboard />}>
-              <>
-                <Route path='dashboard' element={<Home />} />
-                {portals.map((page, index) => (
+      <ThemeProvider theme={theme}>
+        <BrowserRouter>
+          <NavBar />
+          {/* <Container sx={{ mt: 5 }}> */}
+          <Routes>
+            {/* Dashboard */}
+            {user ? (
+              <Route path='/' element={<Dashboard />}>
+                <>
+                  <Route path='dashboard' element={<Home />} />
+                  {portals.map((page, index) => (
+                    <Route
+                      key={index}
+                      path={page.route}
+                      element={getPages(
+                        page.portalName,
+                        page.permissionTypeCode
+                      )}
+                    />
+                  ))}
+
+                  <Route path='single/:id' element={<Single />} />
+                  <Route path='edit/:id' element={<SignUp />} />
+
+                  {/* USER MANAGEMENT ROUTES */}
                   <Route
-                    key={index}
-                    path={page.route}
-                    element={getPages(page.portalName, page.permissionTypeCode)}
+                    path='user-management/new-employee'
+                    element={<EditEmployee action={permissionActions.create} />}
                   />
-                ))}
+                  <Route
+                    path='user-management/edit-employee/:employeeId'
+                    element={<EditEmployee action={permissionActions.edit} />}
+                  />
 
-                <Route path='single/:id' element={<Single />} />
-                <Route path='edit/:id' element={<SignUp />} />
-
-                {/* USER MANAGEMENT ROUTES */}
-                <Route
-                  path='user-management/new-employee'
-                  element={<EditEmployee action={permissionActions.create}/>}
-                />
-                <Route
-                  path='user-management/edit-employee/:employeeId'
-                  element={<EditEmployee action={permissionActions.edit}/>}
-                />
-
-                <Route index element={<Navigate to='dashboard' />}></Route>
-              </>
-            </Route>
-          ) : (
-            <Route path='/' element={<LandingPage />}>
-              <>
-                <Route path='access-portal' element={<AccessPortal />} />
-                <Route path='employee-login' element={<EmployeeLogin />} />
-                <Route path='client-login' element={<ClientLogin />} />
-                <Route index element={<Navigate to='access-portal' />}></Route>
-              </>
-            </Route>
-          )}
-          <Route path='/forgotPassword' element={<ForgotPassword />} />
-          <Route path='*' element={<NoMatch />} />
-        </Routes>
-        {/* </Container> */}
-      </BrowserRouter>
+                  <Route index element={<Navigate to='dashboard' />}></Route>
+                </>
+              </Route>
+            ) : (
+              <Route path='/' element={<LandingPage />}>
+                <>
+                  <Route path='access-portal' element={<AccessPortal />} />
+                  <Route path='employee-login' element={<EmployeeLogin />} />
+                  <Route path='client-login' element={<ClientLogin />} />
+                  <Route
+                    index
+                    element={<Navigate to='access-portal' />}
+                  ></Route>
+                </>
+              </Route>
+            )}
+            <Route path='/forgotPassword' element={<ForgotPassword />} />
+            <Route path='*' element={<NoMatch />} />
+          </Routes>
+          {/* </Container> */}
+        </BrowserRouter>
+      </ThemeProvider>
     </React.Fragment>
   );
 }

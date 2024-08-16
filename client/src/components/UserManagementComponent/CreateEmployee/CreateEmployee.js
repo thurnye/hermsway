@@ -24,7 +24,7 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import services from '../../../util/employee.services';
-import actionServices from '../../../util/actions.services';
+import appServices from '../../../util/app.services';
 import { decodeJWToken } from '../../../util/helperFunc';
 import { userActions } from '../../../store/userSlice';
 import Spinner from '../../Spinner/Spinner';
@@ -118,7 +118,7 @@ const CreateEmployee = () => {
       setSaved(false);
       setMessage('');
       setShowCancel(false);
-      const allPermissions = await actionServices.getPortalPermissions(portals);
+      const allPermissions = await appServices.getPortalPermissions(portals);
       setPermissionOptions(allPermissions.data);
     } catch (error) {
       console.log('ERROR:::', error);

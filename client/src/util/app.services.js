@@ -6,6 +6,10 @@ class StuffDataService {
     return http.post("/portal/permission", data);
   }
 
+  postColorTheme(data) {
+    return http.post("/colorTheme", data);
+  }
+
 }
 
 

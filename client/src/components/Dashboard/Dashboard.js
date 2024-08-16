@@ -29,6 +29,7 @@ import {
 } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { userActions } from '../../store/userSlice';
+import { companyActions } from '../../store/companySlice';
 
 const drawerWidth = 270;
 const settings = ['Profile', 'Account', 'Dashboard'];
@@ -111,7 +112,9 @@ const Dashboard = () => {
   };
 
   const handleLogout = () => {
+    console.log('logging out')
     dispatch(userActions.logout());
+    dispatch(companyActions.restCompanyData());
     let token = localStorage.getItem('token');
     if (token) {
       localStorage.removeItem('token');

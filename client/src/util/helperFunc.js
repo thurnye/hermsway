@@ -28,12 +28,14 @@ export const getPermissionsByType = (data, typeCode) => {
   return result;
 };
 
-export const hasPermission = (userPermissions, requiredPermissions) => {
-  const isAuthorized = userPermissions.some(
-    (permission) => permission.permissionName === requiredPermissions
+export const  hasPermission = (userPermissions, requiredPermissions, action ) => {
+  console.log(userPermissions, requiredPermissions, action)
+  const hasPermission = userPermissions.some(permission => 
+    permission.permissionType === requiredPermissions && permission[action] === "true"
   );
-  return isAuthorized;
-};
+  return hasPermission;
+}
+;
 
 // Output example: "Thu, Sep 8, 2023"
 export const getDateShort = (dt) => {
