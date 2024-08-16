@@ -28,6 +28,10 @@ const settings = [
     ],
   },
   {
+    name: 'Account Settings',
+    subSettings: [],
+  },
+  {
     name: 'Colors/Themes',
     subSettings: [
       {
