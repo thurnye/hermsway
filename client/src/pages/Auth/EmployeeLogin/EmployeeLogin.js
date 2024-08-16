@@ -62,11 +62,14 @@ const EmployeeLogin = () => {
       localStorage.setItem('token', token);
       const userDoc = decodeJWToken(token);
 
-      // console.log(userDoc)
+      console.log({userDoc})
       dispatch(
         userActions.login({
           user: userDoc,
         })
+      );
+      dispatch(
+        companyActions.getCompany(userDoc.company)
       );
       dispatch(
         companyActions.getCompany(userDoc.company)
