@@ -6,14 +6,18 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import AdbIcon from '@mui/icons-material/Adb';
 import { useSelector } from 'react-redux';
+import { useTheme } from '@mui/material/styles'; 
 
 
 
 const NavBar = () => {
   const company = useSelector((state) => state.company.companyProfile);
+  const theme = useTheme();
+
+
   return (
     <div className={styles.NavBar}>
-      <AppBar position='static'>
+      <AppBar position='static' sx={{background: theme.palette.primary.main}}>
         <Container maxWidth='xl'>
           <Toolbar disableGutters>
             <AdbIcon sx={{ mr: 1 }} />

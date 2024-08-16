@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import {
   styled,
-  createTheme,
+  // createTheme,
   ThemeProvider,
   useTheme,
 } from '@mui/material/styles';
@@ -81,7 +81,7 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 // TODO remove, this demo shouldn't need to reset the theme.
-const defaultTheme = createTheme();
+// const defaultTheme = createTheme();
 
 const Dashboard = () => {
   const user = useSelector((state) => state.userLog.user);
@@ -141,7 +141,7 @@ const Dashboard = () => {
         {user && (
           <IconButton
             onClick={handleOpenUserMenu}
-            sx={{ p: 0, background: 'red' }}
+            sx={{ p: 0, background: theme.palette.background.default }}
           >
             <Avatar alt={user?.firstName} src='/static/images/avatar/2.jpg' />
           </IconButton>
@@ -178,7 +178,7 @@ const Dashboard = () => {
   );
 
   return (
-    <ThemeProvider theme={defaultTheme}>
+    // <ThemeProvider theme={defaultTheme}>
       <Box sx={{ display: 'flex', position: 'relative' }}>
         <CssBaseline />
         <AppBar position='absolute' open={open}>
@@ -299,7 +299,7 @@ const Dashboard = () => {
           </Container>
         </Box>
       </Box>
-    </ThemeProvider>
+    // </ThemeProvider>
   );
 };
 

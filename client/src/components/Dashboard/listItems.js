@@ -16,7 +16,7 @@ import GroupIcon from '@mui/icons-material/Group';
 import SettingsIcon from '@mui/icons-material/Settings';
 import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
-
+import { useTheme } from '@mui/material/styles'; 
 
 
 const getIcons = (pageName) => {
@@ -67,8 +67,8 @@ const getIcons = (pageName) => {
 
 
 const MainListItems = ({ header, setHeader }) => {
+  const theme = useTheme()
   const portals = useSelector((state) => state.userLog.portals);
-
 
   return (
     <React.Fragment>
@@ -77,13 +77,13 @@ const MainListItems = ({ header, setHeader }) => {
           key={page.portalName}
           to={page.route}
           style={{
-            color: header === page.portalName ? 'black' : '#0000008a',
+            color: header === page.portalName ? '#115293' : '#0000008a',
             textDecoration: 'none',
           }}
         >
           <ListItemButton onClick={() => setHeader(page.portalName)}>
             <ListItemIcon
-              sx={{ color: header === page.portalName ? 'black' : '#0000008a' }}
+              sx={{ color: header === page.portalName ? '#115293' : '#0000008a' }}
             >
               {getIcons(page.portalName)}
             </ListItemIcon>

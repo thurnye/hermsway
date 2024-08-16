@@ -94,7 +94,7 @@ function App() {
 
   return (
     <React.Fragment>
-      <ThemeProvider theme={theme}>
+      {/* <ThemeProvider theme={theme}> */}
         <BrowserRouter>
           <NavBar />
           {/* <Container sx={{ mt: 5 }}> */}
@@ -149,7 +149,7 @@ function App() {
           </Routes>
           {/* </Container> */}
         </BrowserRouter>
-      </ThemeProvider>
+      {/* </ThemeProvider> */}
     </React.Fragment>
   );
 }
