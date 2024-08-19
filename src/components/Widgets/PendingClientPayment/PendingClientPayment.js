@@ -1,15 +1,21 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styles from './PendingClientPayment.module.css';
+import WidgetWrapper from '../../HOC/WidgetWrapper/WidgetWrapper';
+import Box from '@mui/material/Box';
+import CardContent from '@mui/material/CardContent';
 
-const PendingClientPayment = () => (
+
+const PendingClientPayment = ({widget}) => (
   <div className={styles.PendingClientPayment}>
-    PendingClientPayment Component
+     <WidgetWrapper widgetName={widget.widgetName}>
+        <Box>
+          <CardContent>
+            
+          </CardContent>
+        </Box>
+      </WidgetWrapper>
   </div>
 );
 
-PendingClientPayment.propTypes = {};
-
-PendingClientPayment.defaultProps = {};
 
 export default PendingClientPayment;

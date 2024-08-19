@@ -1,15 +1,20 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styles from './Appointments.module.css';
+import WidgetWrapper from '../../HOC/WidgetWrapper/WidgetWrapper';
+import Box from '@mui/material/Box';
+import CardContent from '@mui/material/CardContent';
 
-const Appointments = () => (
+const Appointments = ({widget}) => (
   <div className={styles.Appointments}>
-    Appointments Component
+    <WidgetWrapper widgetName={widget.widgetName}>
+        <Box>
+          <CardContent>
+            
+          </CardContent>
+        </Box>
+      </WidgetWrapper>
   </div>
 );
 
-Appointments.propTypes = {};
-
-Appointments.defaultProps = {};
 
 export default Appointments;

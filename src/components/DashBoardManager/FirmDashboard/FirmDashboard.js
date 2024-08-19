@@ -1,11 +1,6 @@
 import React from 'react';
 import styles from './FirmDashboard.module.css';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import Paper from '@mui/material/Paper';
+import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { useSelector } from 'react-redux';
 import NewCase from '../../Widgets/NewCase/NewCase';
@@ -30,34 +25,34 @@ const FirmDashboard = () => {
   );
   // console.log(dashboardWidgets);
 
-  const getWidget = (widgetComponentName) => {
-    switch (widgetComponentName) {
+  const getWidget = (widget) => {
+    switch (widget.widgetComponentName) {
       case 'activeCases':
-        return <ActiveCases />;
+        return <ActiveCases widget={widget}/>;
       case 'appointments':
-        return <Appointments />;
+        return <Appointments widget={widget}/>;
       case 'clientReports':
-        return <ClientReports />;
+        return <ClientReports widget={widget}/>;
       case 'employeesReports':
-        return <EmployeesReports />;
+        return <EmployeesReports widget={widget}/>;
       case 'newCase':
-        return <NewCase />;
+        return <NewCase widget={widget}/>;
       case 'outstandingTasksAndAssignments':
-        return <OutstandingTasksAndAssignments />;
+        return <OutstandingTasksAndAssignments widget={widget}/>;
       case 'pendingClientPayment':
-        return <PendingClientPayment />;
+        return <PendingClientPayment widget={widget}/>;
       case 'recentActivities':
-        return <RecentActivities />;
+        return <RecentActivities widget={widget}/>;
       case 'recentCommunication':
-        return <RecentCommunication />;
+        return <RecentCommunication widget={widget}/>;
       case 'something':
-        return <Something />;
+        return <Something widget={widget}/>;
       case 'somethingCases':
-        return <SomethingCases />;
+        return <SomethingCases widget={widget}/>;
       case 'somethingHere':
-        return <SomethingHere />;
+        return <SomethingHere widget={widget}/>;
       case 'spendingSummary':
-        return <SpendingSummary />;
+        return <SpendingSummary widget={widget}/>;
       default:
         return <></>;
     }
@@ -76,14 +71,14 @@ const FirmDashboard = () => {
   return (
     <div className={styles.FirmDashboard}>
       {Object.keys(dashboardWidgets).map((key) => (
-          <Paper
+          <Box
             key={key}
             sx={{
               p: 2,
               my: 2,
               flexGrow: 1,
-              backgroundColor: (theme) =>
-                theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+              // backgroundColor: (theme) =>
+              //   theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
             }}
           >
           <Grid
@@ -98,27 +93,13 @@ const FirmDashboard = () => {
 
               return (
                 <Grid item key={widget._id} {...widgetDimension} sx={{}}>
-                  {getWidget(widget.widgetComponentName)}
-                  <Card>
-                    <CardContent>
-                      <Typography
-                        sx={{ fontSize: 14 }}
-                        color='text.secondary'
-                        gutterBottom
-                      >
-                        {widget.widgetName}
-                      </Typography>
-                    </CardContent>
-                    <CardActions>
-                      <Button size='small'>Learn More</Button>
-                    </CardActions>
-                  </Card>
+                  {getWidget(widget)}
                 </Grid>
               );
             })}
           </Grid>
 
-          </Paper>
+          </Box>
       ))}
     </div>
   );

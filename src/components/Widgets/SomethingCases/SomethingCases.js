@@ -1,15 +1,21 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styles from './SomethingCases.module.css';
+import WidgetWrapper from '../../HOC/WidgetWrapper/WidgetWrapper';
+import Box from '@mui/material/Box';
+import CardContent from '@mui/material/CardContent';
 
-const SomethingCases = () => (
+
+const SomethingCases = ({widget}) => (
   <div className={styles.SomethingCases}>
-    SomethingCases Component
+    <WidgetWrapper widgetName={widget.widgetName}>
+        <Box>
+          <CardContent>
+            
+          </CardContent>
+        </Box>
+      </WidgetWrapper>
   </div>
 );
 
-SomethingCases.propTypes = {};
-
-SomethingCases.defaultProps = {};
 
 export default SomethingCases;

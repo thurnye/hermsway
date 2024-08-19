@@ -1,15 +1,21 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styles from './EmployeesReports.module.css';
+import WidgetWrapper from '../../HOC/WidgetWrapper/WidgetWrapper';
+import Box from '@mui/material/Box';
+import CardContent from '@mui/material/CardContent';
 
-const EmployeesReports = () => (
+
+const EmployeesReports = ({widget}) => (
   <div className={styles.EmployeesReports}>
-    EmployeesReports Component
+    <WidgetWrapper widgetName={widget.widgetName}>
+        <Box>
+          <CardContent>
+            
+          </CardContent>
+        </Box>
+      </WidgetWrapper>
   </div>
 );
 
-EmployeesReports.propTypes = {};
-
-EmployeesReports.defaultProps = {};
 
 export default EmployeesReports;

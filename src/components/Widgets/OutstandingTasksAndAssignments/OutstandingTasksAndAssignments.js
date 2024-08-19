@@ -1,15 +1,21 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styles from './OutstandingTasksAndAssignments.module.css';
+import WidgetWrapper from '../../HOC/WidgetWrapper/WidgetWrapper';
+import Box from '@mui/material/Box';
+import CardContent from '@mui/material/CardContent';
 
-const OutstandingTasksAndAssignments = () => (
+
+const OutstandingTasksAndAssignments = ({widget}) => (
   <div className={styles.OutstandingTasksAndAssignments}>
-    Outstanding Tasks And Assignments Component
+     <WidgetWrapper widgetName={widget.widgetName}>
+        <Box>
+          <CardContent>
+            
+          </CardContent>
+        </Box>
+      </WidgetWrapper>
   </div>
 );
 
-OutstandingTasksAndAssignments.propTypes = {};
-
-OutstandingTasksAndAssignments.defaultProps = {};
 
 export default OutstandingTasksAndAssignments;

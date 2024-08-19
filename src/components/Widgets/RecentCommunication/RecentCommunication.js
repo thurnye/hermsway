@@ -1,15 +1,22 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styles from './RecentCommunication.module.css';
+import WidgetWrapper from '../../HOC/WidgetWrapper/WidgetWrapper';
+import Box from '@mui/material/Box';
+import CardContent from '@mui/material/CardContent';
 
-const RecentCommunication = () => (
+
+const RecentCommunication = ({widget}) => (
   <div className={styles.RecentCommunication}>
-    RecentCommunication Component
+     <WidgetWrapper widgetName={widget.widgetName}>
+        <Box>
+          <CardContent>
+            
+          </CardContent>
+        </Box>
+      </WidgetWrapper>
   </div>
 );
 
-RecentCommunication.propTypes = {};
 
-RecentCommunication.defaultProps = {};
 
 export default RecentCommunication;

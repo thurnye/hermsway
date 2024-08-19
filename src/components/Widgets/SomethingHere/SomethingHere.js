@@ -1,15 +1,22 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styles from './SomethingHere.module.css';
+import WidgetWrapper from '../../HOC/WidgetWrapper/WidgetWrapper';
+import Box from '@mui/material/Box';
+import CardContent from '@mui/material/CardContent';
 
-const SomethingHere = () => (
+
+const SomethingHere = ({widget}) => (
   <div className={styles.SomethingHere}>
-    SomethingHere Component
+    <WidgetWrapper widgetName={widget.widgetName}>
+        <Box>
+          <CardContent>
+            
+          </CardContent>
+        </Box>
+      </WidgetWrapper>
   </div>
 );
 
-SomethingHere.propTypes = {};
 
-SomethingHere.defaultProps = {};
 
 export default SomethingHere;
