@@ -1,3 +1,7 @@
+export const getRandomInt = () => {
+  return Math.floor(Math.random() * 500000000000);
+};
+
 export const roleCodes = {
   admin: 'hmsw-ADM-001',
   managingPartner: 'hmsw-MGNPTNR-002',

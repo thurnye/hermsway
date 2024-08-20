@@ -38,7 +38,7 @@ const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
 })(({ theme, open }) => ({
   background: '#f3f3f3',
-  zIndex: 10,
+  zIndex: 10000,
   color: 'black',
   transition: theme.transitions.create(['width', 'margin'], {
     easing: theme.transitions.easing.sharp,

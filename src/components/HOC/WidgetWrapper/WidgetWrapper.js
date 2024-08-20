@@ -17,7 +17,7 @@ const WidgetWrapper = ({
   control,
   setControl,
   portalLink,
-  actionLabel,
+  portalLinkLabel,
   grouping,
   controlOptions,
 }) => {
@@ -59,9 +59,7 @@ const WidgetWrapper = ({
                     },
                   }}
                 >
-                  <MenuItem value={10}>Ten</MenuItem>
-                  <MenuItem value={20}>Twenty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem>
+                  {controlOptions?.map((option) => <MenuItem value={option.value} key={`${option.label}_${option.value}`}>{option.label}</MenuItem>)}
                 </Select>
               </FormControl>
             </Box>
@@ -107,11 +105,12 @@ const WidgetWrapper = ({
           <Box sx={{ textAlign: 'end' }}>
             <CustomizedButton
               variant={'text'}
-              label={actionLabel ?? 'View'}
+              label={portalLinkLabel ?? 'View'}
               id='join-group-button'
               disableElevation
               onClick={() => ''}
               sx={{
+                fontSize: {xs: 10, sm: 13},
                 borderRadius: 0,
                 textTransform: 'none',
               }}
