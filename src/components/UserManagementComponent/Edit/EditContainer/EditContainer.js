@@ -113,12 +113,14 @@ const EditContainer = ({ employeeInfo }) => {
     } else {
       setPermissionOptions([]);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [portals]);
 
 
   const handleSave = async () => {
     try {
       console.log({ profile, permissions, portals, dashboards });
+
       setIsError(false);
       setSaved(false);
       setReqLoading(true);

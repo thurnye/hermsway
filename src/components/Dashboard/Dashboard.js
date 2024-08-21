@@ -4,7 +4,7 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import {
   styled,
   // createTheme,
-  ThemeProvider,
+  // ThemeProvider,
   useTheme,
 } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -96,16 +96,12 @@ const Dashboard = () => {
     setOpen(!open);
   };
 
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
@@ -118,7 +114,6 @@ const Dashboard = () => {
     let token = localStorage.getItem('token');
     if (token) {
       localStorage.removeItem('token');
-      handleCloseNavMenu();
       navigate('/');
     }
   };

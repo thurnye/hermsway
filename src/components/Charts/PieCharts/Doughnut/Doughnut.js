@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './Doughnut.module.css';
 import { PieChart } from '@mui/x-charts/PieChart';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+import {colors } from '../../../../assets/theme/colors';
 
 const Doughnut = () => (
   <Box className={styles.Doughnut} sx={{
@@ -11,12 +11,15 @@ const Doughnut = () => (
     justifyContent: 'center',
     alignItems: 'center',
     width: 'inherit',
-    maxWidth: '400px',
+    // maxWidth: '400px',
     height: 'auto',
     margin: '0 auto',
   }}>
+
     
     <PieChart
+    colors={colors}
+    
       series={[
         {
           data: [
@@ -38,11 +41,11 @@ const Doughnut = () => (
         zIndex: 20
       }}
     />
-    <Box
+    {/* <Box
         sx={{
-          width: '76%',
-          top: 0,
-          left: 0,
+          width: '100%',
+          top: '-2rem',
+          left:'0.3rem',
           bottom: 0,
           right: 0,
           position: 'absolute',
@@ -50,16 +53,16 @@ const Doughnut = () => (
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          zIndex: 1
+          zIndex: 1,
         }}
       >
-        <Typography variant='h6' component='div' color='text.secondary' sx={{fontSize: {xs: 12, sm: 'initial'}}}>
+        <Typography variant='h6' component='div' color='text.secondary' sx={{fontSize: {xs: '0.8rem', sm: 'initial'}}}>
           40%
         </Typography>
-        <Typography variant='caption' color='text.secondary' sx={{mt: -1, fontSize: {xs: 9, sm: 'initial'}}}>
+        <Typography variant='caption' color='text.secondary' sx={{mt: -1, fontSize: {xs: '0.8rem', sm: 'initial'}}}>
           32
         </Typography>
-      </Box>
+      </Box> */}
   </Box>
 );
 

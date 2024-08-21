@@ -111,16 +111,20 @@ export const dashboardSections = {
       widgetName: 'Active Cases',
       sectionCode: 'HMSW-Met-Gen',
     },
+    {
+      widgetName: 'UnAssigned Cases',
+      sectionCode: 'HMSW-Met-Gen',
+    },
   ],
   activitiesMetrics: [
     {
       widgetName: 'Outstanding Tasks and Assignments',
       sectionCode: 'HMSW-Met-Avt',
     },
-    {
-      widgetName: 'Recent Activities',
-      sectionCode: 'HMSW-Met-Avt',
-    },
+    // {
+    //   widgetName: 'Recent Activities',
+    //   sectionCode: 'HMSW-Met-Avt',
+    // },
     {
       widgetName: 'Appointments',
       sectionCode: 'HMSW-Met-Avt',

@@ -2,15 +2,14 @@ import React, { useState } from 'react';
 import styles from './OutstandingTasksAndAssignments.module.css';
 import WidgetWrapper from '../../HOC/WidgetWrapper/WidgetWrapper';
 import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import Typography from '@mui/material/Typography';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import SortableList from '../../HOC/SortableContainer/SortableList';
 import { getRandomInt } from '../../../util/globalVar';
+import { status } from '../../../util/commons';
 
 const widgetConfig = {
   defaultFilter: 5,
@@ -21,26 +20,12 @@ const widgetConfig = {
   ],
 };
 
-const status = [
-  { label: 'To Do', value: 'toDo' },
-  { label: 'In Progress', value: 'inProgress' },
-  { label: 'Pending', value: 'pending' },
-  { label: 'Completed', value: 'completed' },
-  { label: 'On Hold', value: 'onHold' },
-  { label: 'Cancelled', value: 'cancelled' },
-  { label: 'Under Review', value: 'underReview' },
-  { label: 'Blocked', value: 'blocked' },
-  { label: 'Deferred', value: 'deferred' },
-  { label: 'Not Started', value: 'notStarted' },
-];
+
 
 const OutstandingTasksAndAssignments = ({ widget }) => {
   const [control, setControl] = useState(widgetConfig.defaultFilter);
-  const [expanded, setExpanded] = React.useState(false);
-
-  const handleChange = (panel) => (event, isExpanded) => {
-    setExpanded(isExpanded ? panel : false);
-  };
+  const [secondaryControl, setSecondaryControl] = useState('all');
+ 
 
   return (
     <div className={styles.OutstandingTasksAndAssignments}>
@@ -49,6 +34,9 @@ const OutstandingTasksAndAssignments = ({ widget }) => {
         control={control}
         setControl={setControl}
         controlOptions={widgetConfig.controlOptions}
+        setSecondaryControl={setSecondaryControl}
+        secondaryControl={secondaryControl}
+        secondaryControlOptions={[{label: 'All', value: 'all'},...status]}
       >
         <Box
           sx={{
@@ -82,8 +70,19 @@ const OutstandingTasksAndAssignments = ({ widget }) => {
                           alignItems: 'center',
                         }}
                       >
-                        <Typography sx={{ flexGrow: 1 }}>Title</Typography>
-                        <Typography sx={{}}>{status[index].label}</Typography>
+                        <Typography sx={{ flexGrow: 1, fontSize: 12, mr: {xs: 1, md: 1.2} }}>
+                        Lorem ipsum dolor sit amet
+                        </Typography>
+                        <Typography
+                          variant='caption'
+                          sx={{
+                            width: { xs: 150, md: 'initial' },
+                            textAlign: { xs: 'center', md: 'initial' },
+                            color: status[index].color,
+                          }}
+                        >
+                          {status[index].label}
+                        </Typography>
                       </Box>
                     </AccordionSummary>
                     <AccordionDetails>

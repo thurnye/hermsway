@@ -9,7 +9,7 @@ import {
 } from '@dnd-kit/core';
 import { SortableContext, useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { Paper, IconButton, Divider, Box } from '@mui/material';
+import { Paper, IconButton, Box } from '@mui/material';
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 
 const SortableItem = ({ id, content }) => {
@@ -31,13 +31,11 @@ const SortableItem = ({ id, content }) => {
       {...listeners}
       sx={{ p: 0.2, width: '100%', height: '100%' }}
     >
-      <Paper>
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+      <Paper sx={{minWidth: 300, display: 'flex', alignItems: 'center'}}>
           {content}
           <IconButton sx={{ float: 'inline-end' }}>
             <DragIndicatorIcon sx={{ color: 'text.secondary' }} />
           </IconButton>
-        </Box>
       </Paper>
     </Box>
   );

@@ -84,8 +84,18 @@ const EditDashboard = ({ dashboards, getSelectedDashboards }) => {
   };
 
   useEffect(() => {
-    getSelectedDashboards(selectedDashboards, 'dashboards');
-  }, [selectedDashboards]);
+    console.log('selectedDashboards:::', selectedDashboards)
+    const result = {};
+
+    for (const [key, selectedWidgets] of Object.entries(selectedDashboards)) {
+        if (dashboardSections[key]) {
+            result[key] = dashboardSections[key].filter(widget => 
+                selectedWidgets.includes(widget.widgetName)
+            );
+        }
+    }
+    getSelectedDashboards(result, 'dashboards');
+  }, [getSelectedDashboards, selectedDashboards]);
 
   useEffect(() => {
     const dt = {};

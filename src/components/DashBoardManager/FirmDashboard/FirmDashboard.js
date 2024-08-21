@@ -16,8 +16,7 @@ import Something from '../../Widgets/Something/Something';
 import SomethingCases from '../../Widgets/SomethingCases/SomethingCases';
 import RecentCommunication from '../../Widgets/RecentCommunication/RecentCommunication';
 import ActiveCases from '../../Widgets/ActiveCases/ActiveCases';
-
-
+import UnAssignedCases from '../../Widgets/UnAssignedCases/UnAssignedCases';
 
 const FirmDashboard = () => {
   const dashboardWidgets = useSelector(
@@ -28,31 +27,33 @@ const FirmDashboard = () => {
   const getWidget = (widget) => {
     switch (widget.widgetComponentName) {
       case 'activeCases':
-        return <ActiveCases widget={widget}/>;
+        return <ActiveCases widget={widget} />;
+      case 'unassignedCases':
+        return <UnAssignedCases widget={widget} />;
       case 'appointments':
-        return <Appointments widget={widget}/>;
+        return <Appointments widget={widget} />;
       case 'clientReports':
-        return <ClientReports widget={widget}/>;
+        return <ClientReports widget={widget} />;
       case 'employeesReports':
-        return <EmployeesReports widget={widget}/>;
+        return <EmployeesReports widget={widget} />;
       case 'newCase':
-        return <NewCase widget={widget}/>;
+        return <NewCase widget={widget} />;
       case 'outstandingTasksAndAssignments':
-        return <OutstandingTasksAndAssignments widget={widget}/>;
+        return <OutstandingTasksAndAssignments widget={widget} />;
       case 'pendingClientPayment':
-        return <PendingClientPayment widget={widget}/>;
+        return <PendingClientPayment widget={widget} />;
       case 'recentActivities':
-        return <RecentActivities widget={widget}/>;
+        return <RecentActivities widget={widget} />;
       case 'recentCommunication':
-        return <RecentCommunication widget={widget}/>;
+        return <RecentCommunication widget={widget} />;
       case 'something':
-        return <Something widget={widget}/>;
+        return <Something widget={widget} />;
       case 'somethingCases':
-        return <SomethingCases widget={widget}/>;
+        return <SomethingCases widget={widget} />;
       case 'somethingHere':
-        return <SomethingHere widget={widget}/>;
+        return <SomethingHere widget={widget} />;
       case 'spendingSummary':
-        return <SpendingSummary widget={widget}/>;
+        return <SpendingSummary widget={widget} />;
       default:
         return <></>;
     }
@@ -71,19 +72,19 @@ const FirmDashboard = () => {
   return (
     <div className={styles.FirmDashboard}>
       {Object.keys(dashboardWidgets).map((key) => (
-          <Box
-            key={key}
-            sx={{
-              p: 2,
-              my: 2,
-              flexGrow: 1,
-              // backgroundColor: (theme) =>
-              //   theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-            }}
-          >
+        <Box
+          key={key}
+          sx={{
+            p: 2,
+            my: 2,
+            flexGrow: 1,
+            // backgroundColor: (theme) =>
+            //   theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+          }}
+        >
           <Grid
             container
-            spacing={{ xs: 2, md: 3 }}
+            spacing={2}
             columns={{ xs: 12, sm: 12, md: 12 }}
           >
             {dashboardWidgets[key].map((widget) => {
@@ -92,14 +93,16 @@ const FirmDashboard = () => {
               );
 
               return (
-                <Grid item key={widget._id} {...widgetDimension} sx={{}}>
+                <>
+                  <Grid item key={widget._id} {...widgetDimension} sx={{}}>
                   {getWidget(widget)}
+                  
                 </Grid>
+                </>
               );
             })}
           </Grid>
-
-          </Box>
+        </Box>
       ))}
     </div>
   );

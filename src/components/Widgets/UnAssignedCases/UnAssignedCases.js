@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from './ActiveCases.module.css';
+import styles from './UnAssignedCases.module.css';
 import WidgetWrapper from '../../HOC/WidgetWrapper/WidgetWrapper';
 import Box from '@mui/material/Box';
 import ProgressChart from '../../Charts/PieCharts/ProgressChart/ProgressChart';
@@ -14,10 +14,10 @@ const widgetConfig = {
   ],
 };
 
-const ActiveCases = ({ widget }) => {
+const UnAssignedCases = ({ widget }) => {
   const [control, setControl] = useState(widgetConfig.defaultFilter);
   return (
-    <div className={styles.ActiveCases}>
+    <div className={styles.UnAssignedCases}>
       <WidgetWrapper
         widgetName={widget.widgetName}
         control={control}
@@ -28,11 +28,11 @@ const ActiveCases = ({ widget }) => {
       >
         <Box
         >
-          <ProgressChart colors={['#808000', '#f6f6f6']}/>
+          <ProgressChart colors={['#E77105', '#f6f6f6']}/>
         </Box>
       </WidgetWrapper>
     </div>
   );
 };
 
-export default ActiveCases;
+export default UnAssignedCases;
