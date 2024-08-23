@@ -100,26 +100,36 @@ export const allPortals = [
 export const dashboardSections = {
   generalMetrics: [
     {
+      widgetName: 'Total Client',
+      sectionCode: 'HMSW-Met-Gen',
+      widgetComponentName: 'totalClients',
+    },
+    {
       widgetName: 'Spending Summary',
       sectionCode: 'HMSW-Met-Gen',
+      widgetComponentName: 'spendingSummary',
     },
     {
       widgetName: 'New Case',
       sectionCode: 'HMSW-Met-Gen',
+      widgetComponentName: 'newCase',
     },
     {
       widgetName: 'Active Cases',
       sectionCode: 'HMSW-Met-Gen',
+      widgetComponentName: 'activeCases',
     },
     {
       widgetName: 'UnAssigned Cases',
       sectionCode: 'HMSW-Met-Gen',
+      widgetComponentName: 'unassignedCases',
     },
   ],
   activitiesMetrics: [
     {
-      widgetName: 'Outstanding Tasks and Assignments',
+      widgetName: 'Outstanding Tasks',
       sectionCode: 'HMSW-Met-Avt',
+      widgetComponentName: 'outstandingTasks',
     },
     // {
     //   widgetName: 'Recent Activities',
@@ -128,40 +138,56 @@ export const dashboardSections = {
     {
       widgetName: 'Appointments',
       sectionCode: 'HMSW-Met-Avt',
+      widgetComponentName: 'appointments',
     },
   ],
   employeeMetrics: [
     {
-      widgetName: 'Employees Reports',
+      widgetName: 'Case Load Distribution',
       sectionCode: 'HMSW-Met-Emp',
+      widgetComponentName: 'caseLoadDistribution',
     },
     {
-      widgetName: 'Something Here',
+      widgetName: 'Cases Wins and Losses',
       sectionCode: 'HMSW-Met-Emp',
+      widgetComponentName: 'casesWinAndLoss',
     },
   ],
-  teamMetrics: [
-    {
-      widgetName: 'Team Reports',
-      sectionCode: 'HMSW-Met-Team',
-    },
-    {
-      widgetName: 'Something Here',
-      sectionCode: 'HMSW-Met-Team',
-    },
-  ],
+  // teamMetrics: [
+  //   {
+  //     widgetName: 'Team Reports',
+  //     sectionCode: 'HMSW-Met-Team',
+  //   },
+  //   {
+  //     widgetName: 'Something Here',
+  //     sectionCode: 'HMSW-Met-Team',
+  //   },
+  // ],
   clientMetrics: [
     {
-      widgetName: 'Client Reports',
+      widgetName: 'OutCome Trends',
       sectionCode: 'HMSW-Met-Clt',
+      widgetComponentName: 'outcomeTrends',
     },
     {
-      widgetName: 'Pending Client Payment',
+      widgetName: 'Client Satisfaction',
       sectionCode: 'HMSW-Met-Clt',
+      widgetComponentName: 'clientSatisfaction',
     },
     {
-      widgetName: 'something',
+      widgetName: 'Client Filing',
       sectionCode: 'HMSW-Met-Clt',
+      widgetComponentName: 'clientFiling',
+    },
+    {
+      widgetName: 'Client Demographics',
+      sectionCode: 'HMSW-Met-Clt',
+      widgetComponentName: 'clientDemographics',
+    },
+    {
+      widgetName: 'Client and Cases',
+      sectionCode: 'HMSW-Met-Clt',
+      widgetComponentName: 'clientAndCases',
     },
   ],
 };

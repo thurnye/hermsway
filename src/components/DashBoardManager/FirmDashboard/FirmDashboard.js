@@ -3,20 +3,26 @@ import styles from './FirmDashboard.module.css';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { useSelector } from 'react-redux';
-import NewCase from '../../Widgets/NewCase/NewCase';
-import SpendingSummary from '../../Widgets/SpendingSummary/SpendingSummary';
-import OutstandingTasksAndAssignments from '../../Widgets/OutstandingTasksAndAssignments/OutstandingTasksAndAssignments';
-import RecentActivities from '../../Widgets/RecentActivities/RecentActivities';
-import Appointments from '../../Widgets/Appointments/Appointments';
-import EmployeesReports from '../../Widgets/EmployeesReports/EmployeesReports';
-import SomethingHere from '../../Widgets/SomethingHere/SomethingHere';
-import ClientReports from '../../Widgets/ClientReports/ClientReports';
-import PendingClientPayment from '../../Widgets/PendingClientPayment/PendingClientPayment';
-import Something from '../../Widgets/Something/Something';
-import SomethingCases from '../../Widgets/SomethingCases/SomethingCases';
-import RecentCommunication from '../../Widgets/RecentCommunication/RecentCommunication';
-import ActiveCases from '../../Widgets/ActiveCases/ActiveCases';
-import UnAssignedCases from '../../Widgets/UnAssignedCases/UnAssignedCases';
+
+import TotalClients from '../../Widgets/GeneralMetrics/TotalClients/TotalClients';
+import SpendingSummary from '../../Widgets/GeneralMetrics/SpendingSummary/SpendingSummary';
+import ActiveCases from '../../Widgets/GeneralMetrics/ActiveCases/ActiveCases';
+import UnAssignedCases from '../../Widgets/GeneralMetrics/UnAssignedCases/UnAssignedCases';
+import NewCase from '../../Widgets/GeneralMetrics/NewCase/NewCase';
+
+import Appointments from '../../Widgets/ActivitiesMetrics/Appointments/Appointments';
+import OutstandingTasksAndAssignments from '../../Widgets/ActivitiesMetrics/OutstandingTasksAndAssignments/OutstandingTasksAndAssignments';
+import RecentCommunication from '../../Widgets/ActivitiesMetrics/RecentCommunication/RecentCommunication';
+import RecentActivities from '../../Widgets/ActivitiesMetrics/RecentActivities/RecentActivities';
+
+import CaseLoadDistribution from '../../Widgets/EmployeeMetrics/CaseLoadDistribution/CaseLoadDistribution';
+import CasesWinAndLoss from '../../Widgets/EmployeeMetrics/CasesWinAndLoss/CasesWinAndLoss';
+
+import OutcomeTrends from '../../Widgets/ClientMetrics/OutcomeTrends/OutcomeTrends';
+import ClientSatisfaction from '../../Widgets/ClientMetrics/ClientSatisfaction/ClientSatisfaction';
+import ClientFiling from '../../Widgets/ClientMetrics/ClientFiling/ClientFiling';
+import ClientDemographics from '../../Widgets/ClientMetrics/ClientDemographics/ClientDemographics';
+import ClientAndCases from '../../Widgets/ClientMetrics/ClientAndCases/ClientAndCases';
 
 const FirmDashboard = () => {
   const dashboardWidgets = useSelector(
@@ -26,34 +32,46 @@ const FirmDashboard = () => {
 
   const getWidget = (widget) => {
     switch (widget.widgetComponentName) {
+      // General
+      case 'totalClients':
+        return <TotalClients widget={widget} />;
+      case 'spendingSummary':
+        return <SpendingSummary widget={widget} />;
       case 'activeCases':
         return <ActiveCases widget={widget} />;
       case 'unassignedCases':
         return <UnAssignedCases widget={widget} />;
-      case 'appointments':
-        return <Appointments widget={widget} />;
-      case 'clientReports':
-        return <ClientReports widget={widget} />;
-      case 'employeesReports':
-        return <EmployeesReports widget={widget} />;
       case 'newCase':
         return <NewCase widget={widget} />;
-      case 'outstandingTasksAndAssignments':
+
+      //Activities
+      case 'appointments':
+        return <Appointments widget={widget} />;
+      case 'outstandingTasks':
         return <OutstandingTasksAndAssignments widget={widget} />;
-      case 'pendingClientPayment':
-        return <PendingClientPayment widget={widget} />;
-      case 'recentActivities':
-        return <RecentActivities widget={widget} />;
       case 'recentCommunication':
         return <RecentCommunication widget={widget} />;
-      case 'something':
-        return <Something widget={widget} />;
-      case 'somethingCases':
-        return <SomethingCases widget={widget} />;
-      case 'somethingHere':
-        return <SomethingHere widget={widget} />;
-      case 'spendingSummary':
-        return <SpendingSummary widget={widget} />;
+      case 'recentActivities':
+        return <RecentActivities widget={widget} />;
+
+      // Employee
+      case 'caseLoadDistribution':
+        return <CaseLoadDistribution widget={widget} />;
+      case 'casesWinAndLoss':
+        return <CasesWinAndLoss widget={widget} />;
+
+      // Client
+      case 'outcomeTrends':
+        return <OutcomeTrends widget={widget} />;
+      case 'clientSatisfaction':
+        return <ClientSatisfaction widget={widget} />;
+      case 'clientFiling':
+        return <ClientFiling widget={widget} />;
+      case 'clientDemographics':
+        return <ClientDemographics widget={widget} />;
+      case 'clientAndCases':
+        return <ClientAndCases widget={widget} />;
+
       default:
         return <></>;
     }
@@ -82,23 +100,20 @@ const FirmDashboard = () => {
             //   theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
           }}
         >
-          <Grid
-            container
-            spacing={2}
-            columns={{ xs: 12, sm: 12, md: 12 }}
-          >
+          <Grid container spacing={2} columns={{ xs: 12, sm: 12, md: 12 }} sx={{}}>
             {dashboardWidgets[key].map((widget) => {
               const widgetDimension = parseWidgetDimension(
                 widget.widgetDimension
               );
 
               return (
-                <>
-                  <Grid item key={widget._id} {...widgetDimension} sx={{}}>
+                <Grid item key={widget._id} {...widgetDimension} sx={{
+                  display:'flex',
+                  flexDirection: 'column',
+                  flexGrow: 1,
+                  }}>
                   {getWidget(widget)}
-                  
                 </Grid>
-                </>
               );
             })}
           </Grid>

@@ -1,0 +1,30 @@
+1. Case Status/ Outcome Trend: A pie chart or bar graph showing the distribution of cases by status (e.g., Open, Closed, In Progress, Settled).
+
+2. Monthly Case Filings: A line graph displaying the number of cases filed each month over a period of time.
+
+3. Client Demographics: A bar or pie chart showing the breakdown of clients by industry, geography, or type of legal issue.
+
+4. Case Duration: A histogram or bar chart representing the average duration of cases for each client.
+
+5. Client Satisfaction:Narrative reports or pie chart based on client feedback or survey results, highlighting areas of improvement and strengths.
+
+6. Total Clients: summary of active total clients based on types
+
+7. Case Win/Loss Ratio:
+Donut Chart: Visualize the ratio of cases won versus lost per employee or team.
+
+8. Task Assignments List: Display the tasks currently assigned to each employee with due dates and priority levels.
+
+9. Case Loads Distribution: A Stacked Bar Chart Visualizing the assigned cases for an employeee
+
+10. client and cases:  a table showing client and their cases
+
+11. spending summary: summary of billed and unbilled and total of income for a period of time
+
+12. New cases:  pie chart showing new cases by types
+
+13. Active Cases: doughnut chart showing active cases by types
+
+14. UnAssigned Cases: doughnut chart showing unassigned cases by types
+
+15. Appointment: shows list of clients appointments, upcoming

@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styles from './SingleLineChart.module.css';
 
 const SingleLineChart = () => (
@@ -8,8 +7,5 @@ const SingleLineChart = () => (
   </div>
 );
 
-SingleLineChart.propTypes = {};
-
-SingleLineChart.defaultProps = {};
 
 export default SingleLineChart;
