@@ -7,6 +7,12 @@ import Typography from '@mui/material/Typography';
 import womenSign from '../../../../assets/images/women_sign.png';
 import menSign from '../../../../assets/images/men_sign.png';
 import { colors } from '../../../../assets/theme/colors';
+import StackedBarChart from '../../../Charts/BarCharts/StackedBarChart/StackedBarChart';
+
+const horizontalSeries = [
+  { dataKey: 'men', label: 'Male', valueFormatter: (value) => `${value}` },
+  { dataKey: 'women', label: 'Female', valueFormatter: (value) => `${value}` },
+];
 
 const calculateTotalsAndClients = (data) => {
   const totals = {
@@ -73,7 +79,19 @@ const ClientDemographics = ({ widget }) => {
           display: 'flex',
           flexDirection: {xs: 'column', md: 'row'} 
           }}>
-          <HorizontalBarChart />
+          {/* <HorizontalBarChart /> */}
+          <Box sx={{
+            pl: 3
+          }}>
+            <StackedBarChart
+                chartType="horizontal"
+                series={horizontalSeries}
+                dataset={dataset}
+                label={ 'Client Density By Country'}
+                dataKey={'country'}
+            />
+
+          </Box>
           <Box sx={{ 
             display: 'flex', 
             flexDirection: 'column', 

@@ -94,13 +94,13 @@ const widgetConfig = {
   tableHeaders: [
     {
       label: 'Appointment',
-      align:'left'
-    }, 
+      align: 'left',
+    },
     {
       label: 'Upcoming',
-      align:'right'
-    }, 
-],
+      align: 'right',
+    },
+  ],
 };
 
 const Appointments = ({ widget }) => {
@@ -108,19 +108,29 @@ const Appointments = ({ widget }) => {
     <div className={styles.Appointments}>
       <WidgetWrapper widgetName={widget.widgetName}>
         <Box
-        sx={{
-          height: '100%',
-         }}
+          sx={{
+            height: '100%',
+          }}
         >
-          <TableContainer component={Paper} sx={{
-          maxHeight: 280,
-          overflow: 'auto',
-        }}>
-            <Table aria-label='simple table' size='small' stickyHeader sx={{boxShadow: 'none'}}>
+          <TableContainer
+            component={Paper}
+            sx={{
+              maxHeight: 280,
+              overflow: 'auto',
+            }}
+          >
+            <Table
+              aria-label='simple table'
+              size='small'
+              stickyHeader
+              sx={{ boxShadow: 'none' }}
+            >
               <TableHead>
                 <TableRow>
                   {widgetConfig.tableHeaders.map((el) => (
-                    <TableCell key={el.label} align={el.align}>{el.label}</TableCell>
+                    <TableCell key={el.label} align={el.align}>
+                      {el.label}
+                    </TableCell>
                   ))}
                 </TableRow>
               </TableHead>

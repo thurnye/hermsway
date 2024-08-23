@@ -10,3 +10,5 @@ export const status = [
     { label: 'Deferred', value: 'deferred', color: '#CA6F1E' },
     { label: 'Not Started', value: 'notStarted', color: '#FF0000' },
   ];
+
+export const taskStatus = (stat) => status.find(s => s.value === stat);
