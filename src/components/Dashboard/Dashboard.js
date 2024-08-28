@@ -4,7 +4,7 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import {
   styled,
   // createTheme,
-  // ThemeProvider,
+  ThemeProvider,
   useTheme,
 } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -38,7 +38,7 @@ const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
 })(({ theme, open }) => ({
   background: '#f3f3f3',
-  zIndex: 10000,
+  zIndex: 1000,
   color: 'black',
   transition: theme.transitions.create(['width', 'margin'], {
     easing: theme.transitions.easing.sharp,
@@ -96,12 +96,16 @@ const Dashboard = () => {
     setOpen(!open);
   };
 
+  const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
 
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+  };
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
@@ -114,6 +118,7 @@ const Dashboard = () => {
     let token = localStorage.getItem('token');
     if (token) {
       localStorage.removeItem('token');
+      handleCloseNavMenu();
       navigate('/');
     }
   };
