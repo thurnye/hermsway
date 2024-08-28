@@ -7,7 +7,10 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Chip from '@mui/material/Chip';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
-import { filterData, getPreviousQuarters } from '../../../../util/luxonDateFilter';
+import {
+  filterData,
+  getPreviousQuarters,
+} from '../../../../util/luxonDateFilter';
 
 const widgetConfig = {
   controlOptions: [
@@ -20,41 +23,47 @@ const widgetConfig = {
         { label: 'Month to Date', value: 'monthToDate' },
       ],
     },
-        {
-          label: 'Years',
-          options: [
+    {
+      label: 'Years',
+      options: [
         { label: 'Year to Date', value: 'yearToDate' },
         { label: 'Last Year', value: 'lastYear' },
       ],
     },
     {
       label: 'Custom Date',
-      options: [
-        { label: 'Custom date', value: 'custom' },
-      ],
+      options: [{ label: 'Custom date', value: 'custom' }],
     },
   ],
 };
 
 const SpendingSummary = ({ widget }) => {
   const [control, setControl] = useState('last30Days');
-  const [controlOptions, setControlOptions] = useState([])
+  const [controlOptions, setControlOptions] = useState([]);
 
   // add the quarters dynamically
   useEffect(() => {
-    const options = widgetConfig.controlOptions;
-    if(getPreviousQuarters().length > 0){
+    const options = [...widgetConfig.controlOptions]; // Clone the original options
+  
+    if (getPreviousQuarters().length > 0) {
       const quarters = {
         label: 'Quarters',
         options: getPreviousQuarters(),
       };
-      options.splice(1, 0, quarters);
+  
+      // Check if 'Quarters' already exists to avoid duplicates
+      const quarterIndex = options.findIndex(option => option.label === 'Quarters');
+      if (quarterIndex === -1) {
+        options.splice(1, 0, quarters); // Insert quarters if not already added
+      }
     }
-    setControlOptions(options)
-  },[])
+  
+    setControlOptions(options); // Set state with modified options
+  }, []);
+  
 
   useEffect(() => {
-    console.log('CONTROL::', control, filterData(control))
+    console.log('CONTROL::', control, filterData(control));
   }, [control]);
 
   return (
@@ -64,7 +73,7 @@ const SpendingSummary = ({ widget }) => {
         control={control}
         grouping={true}
         setControl={setControl}
-        controlOptions = {controlOptions}
+        controlOptions={controlOptions}
       >
         <Box>
           <CardContent>

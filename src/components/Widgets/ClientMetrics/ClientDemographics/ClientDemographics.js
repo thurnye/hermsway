@@ -81,7 +81,11 @@ const ClientDemographics = ({ widget }) => {
           }}>
           {/* <HorizontalBarChart /> */}
           <Box sx={{
-            pl: 3
+            pl: 3,
+            flexGrow: 1,
+            // display: 'flex',
+            // justifyContent: 'center',
+            // alignItems: 'center'
           }}>
             <StackedBarChart
                 chartType="horizontal"

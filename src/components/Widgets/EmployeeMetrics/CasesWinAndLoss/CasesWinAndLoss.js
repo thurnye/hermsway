@@ -1,35 +1,62 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './CasesWinAndLoss.module.css';
 import WidgetWrapper from '../../../HOC/WidgetWrapper/WidgetWrapper';
 import Box from '@mui/material/Box';
-import PieComponent from '../../../Charts/PieCharts/PieComponent/PieComponent';
+import DoublePie from '../../../Charts/PieCharts/DoublePie/DoublePie';
+import { filterData, getPreviousQuarters } from '../../../../util/luxonDateFilter';
+
+
+const widgetConfig = {
+  defaultFilter: 'caseType1',
+  controlOptions: [ {
+    label: 'Years',
+    options: [
+  { label: 'Year to Date', value: 'yearToDate' },
+  { label: 'Last Year', value: 'lastYear' },
+],
+}]
+};
 
 const CasesWinAndLoss = ({ widget }) => {
+  const [control, setControl] = useState('yearToDate');
+  const [controlOptions, setControlOptions] = useState([])
+
+  // add the quarters dynamically
+  useEffect(() => {
+    const options = [...widgetConfig.controlOptions]; // Clone the original options
+  
+    if (getPreviousQuarters().length > 0) {
+      const quarters = {
+        label: 'Quarters',
+        options: getPreviousQuarters(),
+      };
+  
+      // Check if 'Quarters' already exists to avoid duplicates
+      const quarterIndex = options.findIndex(option => option.label === 'Quarters');
+      if (quarterIndex === -1) {
+        options.splice(1, 0, quarters); // Insert quarters if not already added
+      }
+    }
+  
+    setControlOptions(options); // Set state with modified options
+  }, []);
+
+  useEffect(() => {
+    console.log('CONTROL::', control, filterData(control))
+  }, [control]);
+
+
   return (
     <div className={styles.CasesWinAndLoss}>
-      <WidgetWrapper widgetName={widget.widgetName}>
+      <WidgetWrapper 
+       widgetName={widget.widgetName}
+       control={control}
+       grouping={true}
+       setControl={setControl}
+       controlOptions = {controlOptions}
+      >
         <Box sx={{ height: '100%' }}>
-          {/* <DoublePie/> */}
-          <PieComponent
-            type='doublePie'
-            // colors={['#FF0000', '#00FF00']}
-            data1={[
-              { label: 'Vashi', value: 400 },
-              { label: 'Ahmed', value: 180 },
-              { label: 'Rehan', value: 300 },
-              { label: 'Mykytenko', value: 200 },
-            ]}
-            data2={[
-              { label: 'loss', value: 100 },
-              { label: 'win', value: 300 },
-              { label: 'loss', value: 100 },
-              { label: 'win', value: 80 },
-              { label: 'loss', value: 100 },
-              { label: 'win', value: 200 },
-              { label: 'loss', value: 150 },
-              { label: 'win', value: 50 },
-            ]}
-          />
+          <DoublePie/>
         </Box>
       </WidgetWrapper>
     </div>
