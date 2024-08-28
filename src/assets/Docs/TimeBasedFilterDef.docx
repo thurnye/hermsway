@@ -1,0 +1,73 @@
+### **Time-Based Filters:** 
+
+1. **Last 7 Days:** 
+
+   - Shows billing information from the last 7 days, including today. 
+
+2. **Last 14 Days:** 
+
+   - Shows billing information from the last 14 days, including today. 
+
+3. **Last 30 Days:** 
+
+   - Shows billing information from the last 30 days, including today. 
+
+4. **Last 60 Days:** 
+
+   - Shows billing information from the last 60 days, including today. 
+
+5. **Last 90 Days:** 
+
+   - Shows billing information from the last 90 days, including today. 
+
+ 
+
+### **Quarter-Based Filters:** 
+
+1. **Last Quarter (Q1):** 
+
+   - Filters billing information from January 1st to March 31st of the current or most recent year. 
+
+2. **Last Quarter (Q2):** 
+
+   - Filters billing information from April 1st to June 30th of the current or most recent year. 
+
+3. **Last Quarter (Q3):** 
+
+   - Filters billing information from July 1st to September 30th of the current or most recent year. 
+
+4. **Last Quarter (Q4):** 
+
+   - Filters billing information from October 1st to December 31st of the current or most recent year. 
+
+ 
+
+### **Year-Based Filters:** 
+
+1. **Year-to-Date (YTD):** 
+
+   - Shows billing information from January 1st to the current date of the current year. 
+
+2. **Last Year:**   - Filters billing information for the entire previous year (e.g., January 1st to December 31st of the last year). 
+
+### **Month-Based Filters:** 
+
+1. **Last Month:** 
+
+   - Filters billing information from the 1st to the last day of the previous month. 
+
+2. **Specific Month (e.g., January, February, etc.):** 
+
+   - Filters billing information for a specific month in the current or specified year. 
+
+ 
+
+### **Custom Date Range:** 
+
+- **Custom Date Range:** 
+
+  - Allows users to select a specific start and end date to filter billing information within that range. 
+
+  
+
+These time-based filters can be particularly useful for generating reports, analyzing trends, and comparing billing data across different time periods. 

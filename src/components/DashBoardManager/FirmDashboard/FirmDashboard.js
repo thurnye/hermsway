@@ -1,28 +1,28 @@
 import React from 'react';
 import styles from './FirmDashboard.module.css';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import Paper from '@mui/material/Paper';
+import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { useSelector } from 'react-redux';
-import NewCase from '../../Widgets/NewCase/NewCase';
-import SpendingSummary from '../../Widgets/SpendingSummary/SpendingSummary';
-import OutstandingTasksAndAssignments from '../../Widgets/OutstandingTasksAndAssignments/OutstandingTasksAndAssignments';
-import RecentActivities from '../../Widgets/RecentActivities/RecentActivities';
-import Appointments from '../../Widgets/Appointments/Appointments';
-import EmployeesReports from '../../Widgets/EmployeesReports/EmployeesReports';
-import SomethingHere from '../../Widgets/SomethingHere/SomethingHere';
-import ClientReports from '../../Widgets/ClientReports/ClientReports';
-import PendingClientPayment from '../../Widgets/PendingClientPayment/PendingClientPayment';
-import Something from '../../Widgets/Something/Something';
-import SomethingCases from '../../Widgets/SomethingCases/SomethingCases';
-import RecentCommunication from '../../Widgets/RecentCommunication/RecentCommunication';
-import ActiveCases from '../../Widgets/ActiveCases/ActiveCases';
 
+import TotalClients from '../../Widgets/GeneralMetrics/TotalClients/TotalClients';
+import SpendingSummary from '../../Widgets/GeneralMetrics/SpendingSummary/SpendingSummary';
+import ActiveCases from '../../Widgets/GeneralMetrics/ActiveCases/ActiveCases';
+import UnAssignedCases from '../../Widgets/GeneralMetrics/UnAssignedCases/UnAssignedCases';
+import NewCase from '../../Widgets/GeneralMetrics/NewCase/NewCase';
 
+import Appointments from '../../Widgets/ActivitiesMetrics/Appointments/Appointments';
+import OutstandingTasksAndAssignments from '../../Widgets/ActivitiesMetrics/OutstandingTasksAndAssignments/OutstandingTasksAndAssignments';
+import RecentCommunication from '../../Widgets/ActivitiesMetrics/RecentCommunication/RecentCommunication';
+import RecentActivities from '../../Widgets/ActivitiesMetrics/RecentActivities/RecentActivities';
+
+import CaseLoadDistribution from '../../Widgets/EmployeeMetrics/CaseLoadDistribution/CaseLoadDistribution';
+import CasesWinAndLoss from '../../Widgets/EmployeeMetrics/CasesWinAndLoss/CasesWinAndLoss';
+
+import OutcomeTrends from '../../Widgets/ClientMetrics/OutcomeTrends/OutcomeTrends';
+import ClientSatisfaction from '../../Widgets/ClientMetrics/ClientSatisfaction/ClientSatisfaction';
+import ClientFiling from '../../Widgets/ClientMetrics/ClientFiling/ClientFiling';
+import ClientDemographics from '../../Widgets/ClientMetrics/ClientDemographics/ClientDemographics';
+import ClientAndCases from '../../Widgets/ClientMetrics/ClientAndCases/ClientAndCases';
 
 const FirmDashboard = () => {
   const dashboardWidgets = useSelector(
@@ -30,34 +30,48 @@ const FirmDashboard = () => {
   );
   // console.log(dashboardWidgets);
 
-  const getWidget = (widgetComponentName) => {
-    switch (widgetComponentName) {
-      case 'activeCases':
-        return <ActiveCases />;
-      case 'appointments':
-        return <Appointments />;
-      case 'clientReports':
-        return <ClientReports />;
-      case 'employeesReports':
-        return <EmployeesReports />;
-      case 'newCase':
-        return <NewCase />;
-      case 'outstandingTasksAndAssignments':
-        return <OutstandingTasksAndAssignments />;
-      case 'pendingClientPayment':
-        return <PendingClientPayment />;
-      case 'recentActivities':
-        return <RecentActivities />;
-      case 'recentCommunication':
-        return <RecentCommunication />;
-      case 'something':
-        return <Something />;
-      case 'somethingCases':
-        return <SomethingCases />;
-      case 'somethingHere':
-        return <SomethingHere />;
+  const getWidget = (widget) => {
+    switch (widget.widgetComponentName) {
+      // General
+      case 'totalClients':
+        return <TotalClients widget={widget} />;
       case 'spendingSummary':
-        return <SpendingSummary />;
+        return <SpendingSummary widget={widget} />;
+      case 'activeCases':
+        return <ActiveCases widget={widget} />;
+      case 'unassignedCases':
+        return <UnAssignedCases widget={widget} />;
+      case 'newCase':
+        return <NewCase widget={widget} />;
+
+      //Activities
+      case 'appointments':
+        return <Appointments widget={widget} />;
+      case 'outstandingTasks':
+        return <OutstandingTasksAndAssignments widget={widget} />;
+      case 'recentCommunication':
+        return <RecentCommunication widget={widget} />;
+      case 'recentActivities':
+        return <RecentActivities widget={widget} />;
+
+      // Employee
+      case 'caseLoadDistribution':
+        return <CaseLoadDistribution widget={widget} />;
+      case 'casesWinAndLoss':
+        return <CasesWinAndLoss widget={widget} />;
+
+      // Client
+      case 'outcomeTrends':
+        return <OutcomeTrends widget={widget} />;
+      case 'clientSatisfaction':
+        return <ClientSatisfaction widget={widget} />;
+      case 'clientFiling':
+        return <ClientFiling widget={widget} />;
+      case 'clientDemographics':
+        return <ClientDemographics widget={widget} />;
+      case 'clientAndCases':
+        return <ClientAndCases widget={widget} />;
+
       default:
         return <></>;
     }
@@ -76,49 +90,34 @@ const FirmDashboard = () => {
   return (
     <div className={styles.FirmDashboard}>
       {Object.keys(dashboardWidgets).map((key) => (
-          <Paper
-            key={key}
-            sx={{
-              p: 2,
-              my: 2,
-              flexGrow: 1,
-              backgroundColor: (theme) =>
-                theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-            }}
-          >
-          <Grid
-            container
-            spacing={{ xs: 2, md: 3 }}
-            columns={{ xs: 12, sm: 12, md: 12 }}
-          >
+        <Box
+          key={key}
+          sx={{
+            p: 2,
+            my: 2,
+            flexGrow: 1,
+            // backgroundColor: (theme) =>
+            //   theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+          }}
+        >
+          <Grid container spacing={2} columns={{ xs: 12, sm: 12, md: 12 }} sx={{}}>
             {dashboardWidgets[key].map((widget) => {
               const widgetDimension = parseWidgetDimension(
                 widget.widgetDimension
               );
 
               return (
-                <Grid item key={widget._id} {...widgetDimension} sx={{}}>
-                  {getWidget(widget.widgetComponentName)}
-                  <Card>
-                    <CardContent>
-                      <Typography
-                        sx={{ fontSize: 14 }}
-                        color='text.secondary'
-                        gutterBottom
-                      >
-                        {widget.widgetName}
-                      </Typography>
-                    </CardContent>
-                    <CardActions>
-                      <Button size='small'>Learn More</Button>
-                    </CardActions>
-                  </Card>
+                <Grid item key={widget._id} {...widgetDimension} sx={{
+                  display:'flex',
+                  flexDirection: 'column',
+                  flexGrow: 1,
+                  }}>
+                  {getWidget(widget)}
                 </Grid>
               );
             })}
           </Grid>
-
-          </Paper>
+        </Box>
       ))}
     </div>
   );
